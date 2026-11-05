@@ -1,0 +1,11 @@
+/*E4.3*/
+#include<iostream>
+using namespace std;
+int main(void)
+{
+	int a=9,b=15,c=16,d=12,e,f;
+	e = !(a<b || b<c);
+	f = (a>b) ? a-b: b-a;
+	cout<<" e = "<<e <<" f = "<< f;
+	return 0;
+}
