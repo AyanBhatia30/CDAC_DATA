@@ -1,0 +1,21 @@
+1) use static and transient variable inside class and check persistence of object on file 
+
+2) Try Vector and LinkedList classes with String Data
+
+3) Create Person -> Employee 
+
+	Employee ->SalariedEmployee & ContractEmployee
+hirarchy as discuseed in class 
+
+using Layer architecture write Menu Driven Program for Employee Mgmt System 
+
+to perform following operations 
+1. add new employee
+2. delete by id
+ 3. update salary
+4. find by id
+5. display all
+6. sort by id
+7. sort by name
+8. sort by sal
+9 exit

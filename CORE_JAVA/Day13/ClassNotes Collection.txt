@@ -1,0 +1,181 @@
+FileHandling        Object     Class
+		1) Serialized   ------- implements Serializable 
+	Class      
+
+		instance      int i    structure 
+
+	global	static    public static int c = 100 ;    Class  
+
+		static variables can not serialized   
+	
+		business logic ---   instance    purpose 
+	class Employee {
+		int id ; 
+		float sal ;
+		transient int calc  = 100;   /// business logic
+	}
+
+	instance variable can be transient  which is also not a part
+	of Serilized Object  
+
+		Employee e =  new Employee()
+
+
+------------------
+	avoid classcast Exception   Run time 
+
+		Generics    java 1.5
+
+	1) while creation of an Object  we need to Specify DataType
+-------------
+Collection   Java 1.2
+
+----------   Collection Framework  --- Generics      1.5
+
+	Array  ----    fixed size  -----   conti
+
+		shift   remove 
+
+	Resizable Array    --- ArrayList 
+
+			add() /// size   2
+
+
+---------Collection    order   , unique 
+
+interface - method declaration 
+
+		Collection   interfaces 
+
+		add()
+		remove()
+		print()
+		search()  /// contains 
+		get() 
+
+	List 			Set 
+
+
+	ArrayList  -------------------   Vector Legacy class Java 1
+				capacity  /// 10  eleme
+				11 th 
+
+	No Thread Safe 		Thread Safe - Synchronized 
+
+	Resizable Array  --- index 
+
+	add()  ///  at last 	
+	add(index , data);
+
+	get(index)
+
+	remove(Object)
+	remove(index)
+
+
+	LinkedList   ---  Java 
+
+ArrayList    ----------------------------------------------- LinkedList 
+Array   Shifting Logic   time  5000 
+conti
+
+LinkedList      Node    [ data ] [Add of Next Element]
+
+SinglyLinked       data next 
+DublyLinkedList     prev data  next 
+
+
+	Employee
+
+	Student  
+
+	Product 
+
+	Employee Mgmt System 
+
+	Employee ----- is-a 
+
+		Business Logic 
+
+	List --- Database 
+
+	Layered Arch 
+
+	Presentation Layer  ------  View   Console      HTML 
+
+	Business Logic Layer   --- validation as well as calculation 
+
+		Service Layer 
+
+			interface   
+			class 
+
+	Database Layer --- ArrayList    DAO 
+
+		interface      - method decla
+
+		class imple interface  //   buisness logic 
+
+	Entity 
+
+
+	Project   -  model   Entity 
+
+		DAO   Layer   interface  -    Logic in impl class 
+
+		Service Layer  interface  -    Logic in impl class
+
+		Test Class --  Presentation Logic  
+
+
+	Test  -> Service -> DAO 
+
+remove  ---  search --   Remove
+
+	int  -  id  Employee 
+
+		Object 
+
+
+	update salary  ----- id   sal 
+		search --- employee 
+		e.setSal()
+		id ---  update sal
+
+
+sort  ----- compare   Objects 
+
+
+	findMin   compare    int 
+	findMax
+
+
+	Employee List 
+
+Sorting -  
+	Comparable  ---  Default Order id    
+
+		compareTo()     variable 
+
+
+	Salary   Account 
+
+	Comparator  ----- other than Default order  - 
+
+		compare(Object  , Object)
+
+  
+List  Employee    for()   for each  iterator 
+
+	Sort  
+
+
+
+
+
+
+
+
+
+
+

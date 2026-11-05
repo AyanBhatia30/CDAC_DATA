@@ -1,0 +1,104 @@
+
+	Pattern Matcher 
+	switch (Object)  21 
+
+		case Integer i -> i.doubleValue()
+	Integer i = (Integer) o
+
+------------------------------------  Exception Handling
+
+	Runtime Error  ---  Logical Data Error    
+
+		TERMINATE   Display User message 
+database  .    File   close 
+	try   catch   finally 
+	throws      throw 
+
+	try    catch    catch 
+
+
+		main(){
+			String s  = null;  // local 
+
+			s.o.p(s.length());
+
+		}
+
+
+------------------   try with resource 
+	
+		close () //no need  finally  block 
+
+
+-------------------------------------------
+		Input 
+		Buinsess Logic 
+		output   console  
+
+///  Store the Data  - Persist state of my object 
+
+
+//  Console based application --- BL // 
+
+		Scanner    System.in  ---- Keyboard 
+
+			System.out.print()  ---- Console --- 
+
+///  Store the Data  - Persist state of my object 
+	   
+	File      Operating System -  application 
+
+	C:\Users\Admin\Desktop\CoreJava2408\data2408.txt
+
+	Java ----- Object 
+	
+	java.io ---  predefined classes 
+
+File f = new File("C:\Users\Admin\Desktop\CoreJava2408\data2408.txt");
+
+
+		Java      File f    ----- properties of file 
+
+
+		Java   output   File 
+
+		System.out.println()
+
+			File 
+			FileOutputStream 
+
+			outputStream  ---  Stream flow of bytes 
+
+		File 
+
+	FileOutputStream            FileInputStream     // single   File   
+
+	BufferedOutPutStream   BufferedInputStream   /// Buffer 
+		
+		Stream ---  binary    char   --  type cast 
+
+		flush ()
+
+
+	Employee   
+
+		int id   // 4 bytes
+		float salary 
+		String name   getBytes()
+
+		int  String   getBytes()
+
+	DataInputStream     DataOutPutStream == specific data type format
+
+		// primitive data type 
+
+//   read write with single Object 
+	RandomAccessFile --- DataInput DataOutput 
+
+		pointer --- location of cursor 
+
+
+
+
+
+

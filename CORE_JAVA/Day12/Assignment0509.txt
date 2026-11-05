@@ -1,0 +1,22 @@
+1) Create Array of Employee Objects created in Previous Lab Session 
+and store data of an Employee in File 
+
+use Serialization concept 
+
+2) use RandomAccessFile  class from java and write data on File 
+  and Read the Data From starting of File and display Data 
+
+3) Write a program to copyFile and at the end of Program make sure you are call close() method to close the resource 
+
+     a) Close in finally
+     b) Close with try with Resource 
+
+4) Understand Collection Concept using List type 
+   a) create object of ArrayList and call add , remove , get methods from array  , and display data of array using for loop and for each loop 
+
+5) Create An Employee class with 
+	id , name , sal 
+    a) create list of an Employee  which contains 5 Employee Objects 
+    b) display all Employee 
+    c) accept id of Employee and search the Employee from List 
+    d) delete particular employee based on Id 

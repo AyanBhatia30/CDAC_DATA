@@ -1,0 +1,80 @@
+
+	Write a program ---- FileCopy 
+
+	Function --- FileInputStream   FileOutputStream 
+
+		Read Data   from data.txt and 
+			Write Data on datacopy.txt 
+
+
+	java.io   basic java       
+		FileInputStream  fis =  new FIS("data.txt");
+
+		FileOutputStream fos = new FOS(datacopy.txt");
+
+		int data  = fis.read();
+
+		while(data != -1){
+
+				fos.write(data);
+			data = fis.read()
+		}
+
+	 java.nio  ===== write   read  File   
+
+		buffer  ----- chunks    faster 
+
+		chanels  -----  MultiThread
+
+
+	c:\\pro      / / / /  Dev 
+
+	Path 
+
+-------------------------File Handling -------------------
+
+	Download Report   ------    Excel   ---- Sheets rows   colm
+
+	java + external lib  ---- rows colms ExcelSheet 
+
+----------------------
+
+		class ---  deal any type of data 
+
+		variable     int i 
+
+			Object o  --- Super class 
+
+
+---------------------------	Same Logic ---- Data type change 
+
+	Generics 
+
+	class A <T>{
+	
+		//object  type case  
+
+		T  a; 
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

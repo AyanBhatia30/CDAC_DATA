@@ -1,0 +1,150 @@
+
+
+	try   catch  finally 
+	throws   - Method   throw 
+	Exception   ---- message   Object 
+
+		try MultiCatch   Java7
+
+	UserDefinedException extends  Exception 
+
+	try 
+
+	catch (Exception e)  JVM  Runtime  
+
+
+--------------------------------------------------------
+	java.io       Checked Exceptions  --- throws 
+
+	Input                         Output   console 
+
+		File  f =  new File("Data.doc");
+
+		f.exists()    f.createNewFile()
+
+			FileOutputStream - write Data
+
+			FileInputStream - Read Data  
+
+		try catch
+Performance 
+		BufferedInput   Output  
+
+		1 byte 
+
+int    float   4 bytes 
+
+	DataOutputStream   InputStream 
+
+	writeInt()		readInt()
+			readFloat()
+	writeFloat()
+
+----	RandomAccessFile  --- read write Single Object read write 
+
+-----       Employee   int id   
+		String name 
+		float  sal 
+				Object 
+
+		DataOutputStream  dos 
+
+		dos.writeInt(e.id)                 read
+		dos.writeBytes(e.name)
+		dos.writeFloat(e.sal);
+		dos.writeBytes("$");
+
+101A25362.36$102B125846
+
+
+	Object of Employee class on File 
+	Object  serialized 
+	Employee e = new Employee(1 , "a" , 1212);    heap 
+	fos  = f
+	ObjectOutputStream  oos = fos  
+	oos.writeObject(e);
+
+		implements Serializable
+	
+	write  -- serialized ----   object ->  Stream   byte
+
+	read   deseriazlied  --- internally 
+
+	ObjectInputStream
+
+
+	try with resource   --- close()   finally 
+
+	Stream  byte    InputStream  OutputStream  binary 
+----	char  doc      Reader      Writer    1 char  2 byte 
+
+		FileWriter  fw = new FileWrite("data.txt");
+		fw.write ()  ///   character 
+
+		FileReader
+
+
+------------------
+
+
+	Create class Employee 
+
+		id  , name , sal 
+
+		String [ ]  skills   ///  Array 
+
+
+---	Array   ---- Same Data Type  ///  conti
+
+		index     0  
+
+		size 
+// without size --- 
+	String[ ]  skills = new String[25];// array    5  20
+
+
+------ lim array  fixed size
+
+
+	Employee e [ ]    =  new Employee [50];
+
+Array  ---  Collection 
+
+		addData
+		addData particular index 
+		Print 
+		search 
+		delete 
+
+
+	Collection ---   Multiple items   JAVA 
+
+	Collection Framework   TEMPLATES   
+
+	Skills  ---  C  , JAVA , .NET 
+
+	Skills --- JAVA  , SQL , C  
+	Collection ---     Object 
+		1) unique 
+		2) order        	unordered 
+
+	2 Types 
+		Collection ---     Object type 
+		1) List   -  ordered , duplicate data 
+		2) Set   -  unordered  , unique 
+
+		Map kind of Collection  <Key -  Value >
+
+
+		
+
+		
+
+
+
+
+
+
+
+
+
