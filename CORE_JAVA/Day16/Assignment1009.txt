@@ -1,0 +1,27 @@
+understand concept of Stream API and Thread 
+
+1) Create City class with name and temprature variables in that 
+
+  in Test class create list of City which contains 10 cities 
+
+use stream api methods discussed in class 
+
+	1) display list using forEach Method
+	2) filter the City with temprature greater than 10
+	3) City with temparature > 10 store in different List 
+	4) City with temparature > 10 store in different Set
+	5) create map which contains <cityName  , temp>	
+
+2) Create List of String variables which contains String with different length 
+
+display result with groupingBy with length of String 
+
+3) Create 2 thread class which printing 0 - 9 
+  from main function execute thread parallely 
+
+4) in above class use setPriority() , setName() , getName() methods 
+
+5) as discussed in class create account class with deposit and withdraw method 
+and call that methods with 2 threads 
+(understand Synchronized Method Concept)
+		

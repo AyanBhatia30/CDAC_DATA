@@ -1,0 +1,60 @@
+Group of  data --- operations 
+
+Application  -- correct output ----- performace 
+
+			Logic -- time 
+
+
+	How we store Data   ->  search 
+
+	DataStructre   -- stack  queue  LinkedList   Tree
+
+
+
+Collection FrameWork 
+	Array
+	List 
+	Set     --------------   Map 
+	SortedSet --- Comparable 
+
+
+	equals()     hashCode()
+
+
+java 	Stack s = new Stack()     push()    pop()  LIFO 
+	queue  q = new PriorityQueue()     FIFO 
+
+
+ 	Original List  - (5, 10, 20, 10, 30, 40);
+	
+
+	Stream API 
+	write a code to check number is > 10   iterate 
+	then multiply that number with 2 
+	Remove the Duplicates and display data in ascending order 
+
+	iterate -  Condition 
+	newList .add(n*2);
+	distinct
+	TreeSet -  List 
+
+
+
+
+
+
+
+
+
+
+   .filter(n -> n > 10)   // keep > 10
+               .map(n -> n * 2)       // double them
+               .distinct()            // remove duplicates
+               .sorted()              // sort ascending
+
+
+
+
+
+
+

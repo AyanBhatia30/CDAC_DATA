@@ -1,0 +1,170 @@
+
+Input     Logic   Output 
+
+	variable ---- Object 
+
+	File     -  Persist  // store 
+
+	<>.txt  .doc .xml  .csv 
+
+
+java.io        File f = new File("data.txt");
+
+	FileOutputStream  fos   // write 
+	FileInputStream   fis 
+
+Object 
+	RandomAccessFile 
+
+-----------------------------------------
+
+Devloped --- Data --- structured  , unique 
+
+	File   ---- server    read () // time consum
+			write() // duplicate data 
+
+	100 Employees  -------- searchData(id)
+List   search 
+
+adhajhja$afasfd$asfdasfasdf  ----  essay 
+
+	Employee e = new Employee(101);
+
+// read  distinct 
+	oos.writeObject(e);
+	oos.writeObject(e);
+	oos.writeObject(e);
+	oos.writeObject(e);
+
+
+----------------------SQL  - Structured Query Lan
+
+	Table   rows cols 
+
+		Primary Key 
+
+		search --- Where clause 
+
+File  ---  Database   ---- SQL 
+----- MSACCESS --- table 
+	MYSQL    , Oracle ,   CRUD --- joins  groupBy 
+-----------------------------------------
+	web  browser ------ internet --- webserver === database 
+	2 tier application 
+
+	Insert   Delete 
+
+	JAVA  ----------------------------------<SQL> Database
+
+		 Intermediate  Entity --- Driver 
+
+-----------------------------------
+
+	java  user 1 --------              ms access  --- File -- database 
+
+JAVA  -- [JDBC API ] -----	         ODBC Layer -- DATABASE
+
+	Type I -- 	[JDBC ODBC bridge Driver]
+
+---------------------------------------------------------
+
+	JAVA                                                MySQL installl 
+
+	jdbc api 			  MySQL api   ORACLE 
+
+		Driver -  jdbc native driver --- .class 
+					C
+
+------------------------------------
+Type 3   native   server ------ 
+		java ->	server  -> database 
+
+		client 
+
+-------
+Type 4      --  thin / whole  java driver 
+
+
+	Desktop /  WebBased 
+
+
+---  Vendor -----.java ------  .class 
+
+	java                  java 
+
+-------------------------------------------
+
+	------- 
+
+	Java -----   Jdbc ------------------------------ Database 
+
+
+					MySQL 
+	Java  ------------------------------------ MySQL 
+
+	   1) Connection  ---- url username  password 
+	  2) load the Driver   TYPE IV  ---  mysql class
+
+		Class.forName("Driver");// load the 
+	Connection con  = DriverManager.getConnection(url , un , pd)
+	
+	C R U D ----- 
+
+	//query ----- 
+	String sql = "Select * from Product";
+	Statement  st = con.createStatement(sql);
+	ResultSet rs  = st.execute()// database 
+
+	MySQL  server      -  Client 
+	url  === server 
+
+	Network   protocol 
+	M1       M2 
+
+	database 
+	JAVA    jdbc 
+<main protocol>:<sub protocol>:<host>:<port number>/<database_name>
+	
+
+	"jdbc:mysql://192.168.10.144:3306/dac120"
+
+	"jdbc:oracle:thin:<localhost>:1512"
+
+jdbc:mysql://localhost:3306/test
+
+
+(new com.mysql.cj.jdbc.Driver()
+
+
+			String url="jdbc:mysql://localhost:3306/test?useSSL=false";
+			String username="root";
+			String password="root123";
+	
+
+
+	Load the Driver 
+	Connection 
+	Statement 
+	execute --- resultset executeQuery  --- Select 
+		int executeUpdate  -- DML 
+
+	Enter a query ---- Select  /  DML 
+
+ boolean  -  execute
+
+	true  ---  ResultSet 
+	false --- count of rows 
+
+
+execute   ex
+
+	1) compile 
+	2) execute 
+
+
+
+
+
+
+
+

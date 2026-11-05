@@ -1,0 +1,83 @@
+
+OOP ---- Object ---- Class ->  methods 
+
+	Object.method()
+
+	Concepts 
+
+----------        Single Line   JAVA8
+
+	() -> {   } 
+
+	(i)  -> s.o.p(i)  //// FunctionalInterface single abstarct me
+
+				default   static 
+
+		comparable   comprator runnable clonable 
+
+	Predicate  --- condition    test()
+	Function          <datatype1 , datatype2>
+	Consumer  --- input  void 
+	Supplier  ---  Factory Method 
+
+		public String void(){
+			new String();
+		}
+
+	Supplier<String> s = ()-> new String();
+
+	String s1 = new String();
+	String s2 = new String();
+	String s3 = s.get();
+
+-------------------------------------------------------
+
+	stream API ---  code compact  1   logic  50 
+
+	List     Set    --- visit print 
+	System.out.println("sdsds".toUpperCase())
+
+
+		:: --- refering method
+	forEach(System.out::println)  /// 
+
+	List lName = ------ "Asd" , "aswe" , "sderer"
+
+	// Upper Case  ///  ASD ASWE  SDERER
+	
+	lName.stream()
+		.map((String)->String::toUpperCase)
+	           .forEach(System.out::println)
+
+	List<String> newList =  lName.stream()
+		.map((String)->String::toUpperCase)
+		.toList()
+
+	Set<String> newSet =  lName.stream()
+		.map((String)->String::toUpperCase)
+		.toSet()
+	           
+
+
+	filter --- prdicate 
+	map 
+
+
+
+	CDAC   ---- 
+
+--IET  StudentList
+sunBeam  StudentList
+
+	MultipleList  ---	flatMap() --- List Stream 
+
+
+---------------Thread
+
+
+
+
+
+
+
+

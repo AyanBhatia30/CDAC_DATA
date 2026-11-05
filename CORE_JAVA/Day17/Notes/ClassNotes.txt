@@ -1,0 +1,93 @@
+
+Object   9 
+	 synchronized block
+		wait 
+		notify 
+		notifyAll   
+
+OS  
+
+class  Thread    ------ start()
+
+	Thread t = new Thread();
+	t.start();   Runnable ready to run 
+OS  ---  timeslot
+	run()   1 - 100
+
+		1
+
+sleep()		sleep(100)
+
+Account    u1  u2     ------ synchronized --- lock 
+
+depo  4
+with  4
+
+	synchronized   method   50
+
+	Read File 
+
+	logic --- modified 
+
+	write File 
+
+	lock 2 line   synchronized block 
+
+2 Threads
+	t1 i1   1 - 50   sleep(20)  ----   i1 == 15   wait  Object 
+	t2   i2  1- 50   sleep (100)	i2== 30 	notify 
+
+2 Threads      	class A extends Thread 
+		 class B extends Thread
+
+	run()
+
+--------- Multiple Inheritance  
+
+	Runnable        run()
+
+
+Exception in thread "t1" java.lang.IllegalMonitorStateException: current thread is not owner
+
+---------------------------------MetaData
+
+	Devloper   ---- Comments --- ignore Compiler 
+
+MetaData --- Compiler 
+
+MetaData   --- JVM   runtime --- adv java   servlet
+
+Annotations ---- @Override 
+
+	toUpperCase()
+
+
+--------------------------------------------------
+
+	new 
+
+//  Private methods ====== main()
+
+----------------------------------------
+     class   keyword 
+	Reflection    --- Class
+
+	1) Object without new Operator
+	2) access of private methods  outside class 
+
+
+	MyDate.java    -------  MyDate.class
+
+	Reflection    --- structure  methods 
+
+	Class c = Class.forName("p.classNAME");
+
+--------------------Annotations  Reflection
+
+
+
+
+
+
+
+	

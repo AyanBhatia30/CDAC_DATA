@@ -1,0 +1,91 @@
+
+	MultiThread  --- OS 
+		JAVA      - MultiThread Application 
+	main 
+	Thread -  execute some fun ---  parallel
+
+Class    Methods ---- Object   methods   
+Data pREPARE	o1.method1()    File Read // File Write   size 
+		o1.method2();  display instructions 
+
+Menu Driven --- Menu   choice    method call 
+
+Exam  -------- Timer  task
+
+	user input   select Ans   . MARK , next 
+
+
+class Thread
+
+OS ---- ThreadPool  --- runnable thread  
+
+Scheduler --- Which Thread can run --- Priority --- Normal Priority 5
+// 0 5 10
+Thread ------ OS ---- start()
+
+	start()  --------- ready to run ---- runnable
+
+	run()  -- override 
+
+
+----------------------  sleep(20)
+
+	setPriority()  getPriority()
+
+	setName()
+
+	Thread.currentThread().getName()
+
+
+join()
+
+-----  ThreadInput    start()
+-----ThreadAddition  ---    
+-----ThreadDisplay  
+
+yield()/// give chance to run other thread with same priority 
+normal 5
+t1     5 sec   priority 
+t2 
+t3 
+
+
+----------------------------  1   Account   -  2 Account Holder   2 Threads 
+			user1       user2 
+	balance  - 2000  --- not correct 
+
+	synchorized   ---  withdraw  ---  500
+			getBalance()
+			balance - amt > 1000
+				uBal = balance - amt 
+			setBalance(uBal)
+
+	synchorized		deposite 
+			getBalance()
+			  nBal = balance + amt 
+			setBalanace(nBal)
+
+
+	StringBuffer                StringBuilder 
+
+	Vector               ArrayList 
+
+	Set  ------ Java5    --  ConcurrentCollection API 
+
+	HashSet      ConcurrentHashSet   iterate    add 
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+

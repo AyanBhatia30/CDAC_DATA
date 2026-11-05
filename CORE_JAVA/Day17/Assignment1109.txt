@@ -1,0 +1,19 @@
+1) create 2 threads inside Class DemoMultiThread 
+
+	t1 -  print 1 - 30 with sleep(100)
+	t2 - print 1 - 30 with sleep (20)
+
+	when t2 reach to value 20 call wait method 
+	then when t1 reach to 20 then call notify method 
+
+
+2) Obtain connction with MySql DB 
+
+3) create product table on MySQL .  insert 5 records  in that table 
+display that records in java using executeQuery Method
+
+4) accept data from user and insert data inside table using Prepared Statement 
+
+5) accept id from user and display data of that id on console from table 
+
+6) write a menu driven program with Layered arch to perform CRUD opertaions 

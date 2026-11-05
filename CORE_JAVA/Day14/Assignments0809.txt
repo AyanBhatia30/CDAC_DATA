@@ -1,0 +1,27 @@
+1) Write a Menu Driven java program to store List of Commonly found trees  
+in each city. 
+The List should be sorted on city names 
+Accept name of city and list of tree names from user. And perform following: 
+1. Find list of trees for a city 
+2. Delete List of a particular city 
+3. Add new entry in treemap 
+Check whether city name already exists 
+4. Display all city names and List of trees (Use Iterator and foreach)
+
+
+2) . Use employee class to store id,name,sal,dept and designation.  
+a. Use HashSet to store multiple employee objects. Add required functions in the appropriate 
+class. 
+No duplicate employee entries are allowed. -2 Employee objects are same if their id is same  
+b.       
+b. Use Treemap to store multiple Employee objects. Add required functions in the 
+appropriate class. 
+
+
+3) Use Employee class defined in earlier assignment 
+and create map salInfo which contains Employee id as key and Empoyee Object  as  a value 
+
+and accept input from user to search employee based on salary 
+and display the employee data 
+
+iterate map using Entry Object 

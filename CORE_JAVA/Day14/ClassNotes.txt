@@ -1,0 +1,136 @@
+Collection   ----   List                Set    interfaces    
+
+	Framework --  Templates 
+
+	Class
+
+Collections.sort()
+
+List    Vector Thread Safe   capacity 
+
+        ArrayList  ---   Array   ---   String   Employee 
+       LinkedList 
+
+Layered Arch 
+
+Add  remove update print
+
+List   Ordered --- insertion ----- Duplicate Data 
+
+	Sort   ----- -Default Order  --  EmpId 
+	Person 
+	Employee -> comparable -->  compareTo(Object o )
+
+		Collections.sort(null)  //  Comparable 
+
+	Account     salary   
+
+		Comparator  --> compare(O1 , O2)
+
+	class SortBySalary impl   Comparator  
+
+		Collections.sort(new SortBySalary())
+
+
+List        indexed   ---- get(index)
+
+	for(int i  =0 )
+	for(Employee e : elist)
+	Iterator i   ------- hasNext()  , next()  ///    remove()
+----------------------------------------------------------
+
+	List ---- indexed   Order       remove(index)  // remove(Object)
+
+		get(index);
+-------------------------------------------------------------------------------
+	Set   ----  Unordered     unique 
+
+	hashcode 
+
+	HashSet   ---- add  print search  remove  
+
+	TreeSet --   unique ---- Sorted ----  Natural Order   Integer 
+
+		Comparable interface 
+===========================
+	Set of Students  ---  Student equals  ----  unique 
+		equals 	hashCode  --- HashSet      
+
+		add() /// unqiue     /// compare  -> equlas
+
+	TreeSet   ------   Comparable 
+
+	Student  --->   Comparable 
+
+	TreeSet ----  equals   hashcode    order compareTo   
+
+	Collection 
+
+	Set         HashSet      LinkedHashSet
+
+	SortedSet       TreeSet 
+
+
+------------------------------------------------------
+
+
+	Map    ---   kind of collection 
+	id name marks   bDate 
+	TreeSet  Students   ---   id 
+
+	Result of Student ---- id  -- marks 
+
+	Map   ---  <key -  value>
+
+	keySet()
+
+
+	Entry --- <Key-value> 
+
+	Map  ---- HashMap --- not sorted  Keys 
+		TreeMap ----- Sorted  Keys 
+
+	HashMap  --> LinkedHashMap 
+
+
+----------------------------------------
+
+
+	Collect  --- sort    1000 
+
+		search ---- contains()
+
+			containsKey()
+
+
+
+	HashSet  --- [12 , 23 , 34 ,45 , 11 , 24 , 45 ,56]
+
+	TreeSet -- 11 , 12 ,  23 , 24  ,    ---  500
+
+		ts.contains(13) /// false 
+
+	subSet ---  13 
+
+	NavigableSet  ----  search 
+
+
+-------------------------
+
+	Collections 
+
+	Java 8 Feature     Functional Interface  , Stream  
+
+
+
+
+
+
+
+
+
+
+
+
+
+

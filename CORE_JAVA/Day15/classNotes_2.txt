@@ -1,0 +1,117 @@
+
+create Employee class 
+
+	int empId
+	String empName
+	double empSal
+
+	empSkills  --- Muitiple   String 
+
+	Set<String> empSkills  == HashSet  === hashCode()
+
+	skillsExperiance      Map     Key Value 
+
+	Map<String , Integer> skillse; 
+
+----------------------------------------------------------------------
+
+	Product  -  quantity  cart   List/Set/Map 
+
+	equals   hashCode 
+
+	Map<Product  , Integer>   cart ; 
+
+-----------------------------------------------------
+
+	HashSet    ---  unique   unordered --- hashCode 
+		HashMap ---  <key value >
+		Array 
+		inititalCapacity ------  loadFactor 
+		16			0.75
+		initial capacity (16) and load factor (0.75).
+
+	hashing tech 
+	set<String> data = new HashSet<String>();
+		index = hashCode() % no of buckets 
+	
+	data.add("A");  // hashCode   65%16  1  position 
+	data.add("Abc"); // 65
+	data.add("E");   70%16      6
+
+----------------------------
+	sorting 
+		TreeSet 
+	Comparable  --- DefaultOrder   --- PRN 
+	size = 0
+	ts.add(new Student(101));
+
+	ts.add(new Student(102));  // compare --- hashCode  compareTo
+	ts.add(new Student(101));// hashCode same --- equals 
+
+Placement  ----- marks 
+	Comparator   --- another class //  
+
+	Class MarksComparator implements Comparator{
+
+		public void compare(Studnet s1 , Student s2){ } 
+		}
+
+	ArrayList<Student> sList ; 
+	sList.sort(new MarksComparator ())
+
+//	marksC.compare(sList.get(1)  , sList.get(2));
+
+
+
+------------------------------search 
+
+	conatains()
+
+	NavigableSet  ----- floor()  ceiling headSet  tailSet
+-------------------------------
+Interface --- abstract Method   ,  constants 
+	default Methods
+	static Methods
+
+	Tagging Interface /  Marker 
+
+	Functional Interface  -- only 1 abstract method 
+			and 	default Methods
+				static Methods
+
+	predined Function Interface   Java8
+
+	JAVA   Object Orie ---- class  Method --- Object 
+	
+	Functional Languge  ---- Functions    call that 
+
+	Lamda Function  -> Single Line // python 
+
+	code size reduce 
+
+-----------------------------------
+
+	StreamAPI    - Stream -  Data  seq 
+
+	List<Integer> l = new ArrayList();
+
+	sequence  + filter <Prdicate> + map(Function) .distinct .sort
+
+	l.forEach()
+
+	Tomorrow - > Thread 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
