@@ -1,0 +1,205 @@
+Array      Object 
+
+------------------------
+is-a 
+Override    Return type   is-a 
+
+-----------------------
+First Class Object 
+String  s = "Hello";  //  String pool   heap 
+String s1 = "Hello";
+
+String character array  ----  length 
+
+s1 = s1 + " user";  // memory reallocate 
+
+StringBuffer 
+
+Review -- 25 charcters
+
+userName    password 
+
+	String temp = "         asad  Hello ";
+	temp.length() // 
+	temp.trim() // white space remove 
+	temp.length() // 5
+	startsWith   endsWith 
+	temp.conatins("ell");
+
+----------------------------------
+
+to generate randomPassword with length of 8 
+
+	A-Za-z 
+	0-9
+	!@#$%^&*(
+
+
+	Math 
+
+
+----------------------
+access specifiers 
+	default     private    protected   public   ----  Encapsulation 
+
+access modifies 
+
+	static  
+
+	final  int c = 145;   // constants 
+
+	c = 123;
+
+	final      - variable constants
+		class        
+		method 
+
+
+-----------------------
+
+	public static final double pi = 3.14;
+
+
+-------------------------------------
+
+		Person 
+
+		Employee --- salary   abstract 
+
+		calcSal()    --- Declaration of Method // abstract 
+
+	Salaried			Contract 
+
+	provide impl of abstract methods 
+
+
+	abstract  ---  incomplete 
+	abstract  class  ---  we can not create an Object 
+
+
+	class    Object   welldefined 
+
+
+-------------------------------------------  Multiple Inheritance  of classes
+
+
+--------------------------
+	Multiple Inheritance  of Interface  possible in java 
+
+		interface  Printable
+			abstract print()  
+
+// interface 
+
+	Person 				Shape   color 
+					calcArea()// absrtact 
+
+	Employee			 Circle         Rectangle   Square	
+				print()		      print()	
+Salaried              Contract 
+
+print()		
+
+--------------------------------------------------------
+
+		public static void showData(<Datatype>    temp)
+		{
+
+			temp.print()
+
+		}
+
+		SalariedEmployee se = 
+		showData(se)  //  SalariedEmployee  print()
+
+		Circle c = new C
+		showData(c);  /// print() Circle 
+
+		Square s = 
+		showData(s); //  Square print()
+
+
+----------------------------------
+		public static void showData(Object    temp)
+		{
+
+			//temp.print()
+
+			if(temp instanceof SalariedEmployee)
+		{    SalariedEmployee se = (SalariedEmployee)temp
+				se.print();
+		}
+
+		if(temp instanceof Circle)
+		{    Circle c = (Circle)temp
+				c.print();
+		}
+
+
+		if(temp instanceof Square)
+		{    Square s = (Square)temp
+				s.print();
+		}
+
+		}
+
+
+	interface  -----   methods    abstract 
+
+	Dynamic Polymorphism     override 
+
+	interface1   extends interface2
+
+	class A implments interface1
+
+
+	Empty ---  JVM to differ  type of Objects 
+
+
+-----------------------------------------
+
+	Bank              class  Account   
+
+		Loan 
+
+		class Locker 
+
+	Object Creation 
+
+------	Inner Class  -- class inside class 
+
+	class Account {
+
+		class Locker {
+
+		}
+
+	}
+
+	ENUM , Regex Searching me
+	Exception Handling 
+
+----
+
+		
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

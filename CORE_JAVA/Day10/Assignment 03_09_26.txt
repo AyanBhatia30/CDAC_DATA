@@ -1,0 +1,31 @@
+Assignment 
+
+1) write a class to create single instance of that class 
+
+2) 
+
+Create an Employee class with variables 
+
+Emp id , basic salary , joining date ( String) 
+
+Display experience of an Employer use LocalDate class 
+
+3) Explore Methods of Local Date Class 
+
+4) write a switch statement with variable type Object and explore the concept Pattern Matcher from JAva 21
+
+5) create Calculator class which contains 4 methods to perform addition , subtraction , division and multiplication 
+
+Write a Service class which accept data from user and menu driven program to accept a choice from user for operation 
+
+While entering data if user enter other than number then handle the NumberFormatException
+
+Inside division method handle ArithmeticException 
+
+Explore Try , catch , finally and throws 
+
+6) create class Account with variables id , balance 
+
+Write Withdraw method with amount to be withdraw 
+
+If minimum balance is not maitain then throw the Exception from that method

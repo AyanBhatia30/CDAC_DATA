@@ -1,0 +1,38 @@
+
+
+
+	Write a Method to convert given data in double value 
+
+
+	input  float   , int  , String 
+
+	Double.parseDouble("12.23");
+
+	float f = 15.25f;
+
+	//Double d = f;
+
+	(Float)f.doubleValue()
+
+
+
+	Singleton Object /  Class 
+	1) Write a Program to Allow creation of single Instance/object of Class 
+------------------------  psudo code 
+
+------------------------ java
+		
+		MyDate d1 = new MyDate();
+		MyDate d2 = new MyDate();
+
+------------------------
+
+
+
+
+
+
+
+
+
+
