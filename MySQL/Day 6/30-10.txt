@@ -1,0 +1,1457 @@
+insert into student(id, name, marks) values 
+(1, 'saleel', 71),
+(2, 'sharmin', 70),
+(3, 'neel', 71),
+(4, 'deep', 69),
+(5, 'rajesh',75);
+
+
+
+
+select * from T1, T2;
+select * from T1 cross join T2;
+
+
+
+select  ename, emp.deptno, dept.deptno,  dname from emp, dept where emp.deptno = dept.deptno;
+
+
+select  ename, emp.deptno, dept.deptno,  dname from emp join  dept on emp.deptno = dept.deptno;
+
+
+
+
+select  ename, e.deptno, d.deptno,  dname from emp e left outer join  dept d on e.deptno = d.deptno;
+
+
+
+mysql>
+mysql> select * from student R where exists (select true from  student S where R.marks= S.marks);
++------+---------+-------+
+| id   | name    | marks |
++------+---------+-------+
+|    1 | saleel  |    71 |
+|    2 | sharmin |    70 |
+|    3 | neel    |    71 |
+|    4 | deep    |    69 |
+|    5 | rajesh  |    75 |
++------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student R where exists (select true from  student S whe e R.marks= S.marks and R.ID <> S.ID);
++------+--------+-------+
+| id   | name   | marks |
++------+--------+-------+
+|    1 | saleel |    71 |
+|    3 | neel   |    71 |
++------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select sal from emp;
+ERROR 1146 (42S02): Table 'x.emp' doesn't exist
+mysql> use db1
+Database changed
+mysql> select sal from emp;
++------+
+| sal  |
++------+
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+|  800 |
+| 3350 |
+| 1750 |
+| 1600 |
+| 1250 |
+| 2975 |
+| 1250 |
+| 2850 |
+| 2450 |
+| 3000 |
+| 5000 |
+| 5000 |
+| 1500 |
+| 1100 |
+| 2000 |
+| 1000 |
+|  950 |
+| 3000 |
+| 4150 |
+| 2575 |
+| 1300 |
+| 1350 |
+| 1250 |
+| 1750 |
+| 1750 |
+| 1750 |
++------+
+30 rows in set (0.00 sec)
+
+mysql> select sal rank() over() R1 from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rank() over() R1 from emp' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select sal, rank() over() R1 from emp;
++------+----+
+| sal  | R1 |
++------+----+
+| 1750 |  1 |
+| 1750 |  1 |
+| 1750 |  1 |
+| 1750 |  1 |
+|  800 |  1 |
+| 3350 |  1 |
+| 1750 |  1 |
+| 1600 |  1 |
+| 1250 |  1 |
+| 2975 |  1 |
+| 1250 |  1 |
+| 2850 |  1 |
+| 2450 |  1 |
+| 3000 |  1 |
+| 5000 |  1 |
+| 5000 |  1 |
+| 1500 |  1 |
+| 1100 |  1 |
+| 2000 |  1 |
+| 1000 |  1 |
+|  950 |  1 |
+| 3000 |  1 |
+| 4150 |  1 |
+| 2575 |  1 |
+| 1300 |  1 |
+| 1350 |  1 |
+| 1250 |  1 |
+| 1750 |  1 |
+| 1750 |  1 |
+| 1750 |  1 |
++------+----+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> select sal, rank() over(order by sal) R1 from emp;
++------+----+
+| sal  | R1 |
++------+----+
+|  800 |  1 |
+|  950 |  2 |
+| 1000 |  3 |
+| 1100 |  4 |
+| 1250 |  5 |
+| 1250 |  5 |
+| 1250 |  5 |
+| 1300 |  8 |
+| 1350 |  9 |
+| 1500 | 10 |
+| 1600 | 11 |
+| 1750 | 12 |
+| 1750 | 12 |
+| 1750 | 12 |
+| 1750 | 12 |
+| 1750 | 12 |
+| 1750 | 12 |
+| 1750 | 12 |
+| 1750 | 12 |
+| 2000 | 20 |
+| 2450 | 21 |
+| 2575 | 22 |
+| 2850 | 23 |
+| 2975 | 24 |
+| 3000 | 25 |
+| 3000 | 25 |
+| 3350 | 27 |
+| 4150 | 28 |
+| 5000 | 29 |
+| 5000 | 29 |
++------+----+
+30 rows in set (0.00 sec)
+
+mysql> select sal, dinse_rank() over(order by sal) R1 from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'over(order by sal) R1 from emp' at line 1
+mysql>
+mysql>
+mysql> select sal, dense_rank() over(order by sal) R1 from emp;
++------+----+
+| sal  | R1 |
++------+----+
+|  800 |  1 |
+|  950 |  2 |
+| 1000 |  3 |
+| 1100 |  4 |
+| 1250 |  5 |
+| 1250 |  5 |
+| 1250 |  5 |
+| 1300 |  6 |
+| 1350 |  7 |
+| 1500 |  8 |
+| 1600 |  9 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 2000 | 11 |
+| 2450 | 12 |
+| 2575 | 13 |
+| 2850 | 14 |
+| 2975 | 15 |
+| 3000 | 16 |
+| 3000 | 16 |
+| 3350 | 17 |
+| 4150 | 18 |
+| 5000 | 19 |
+| 5000 | 19 |
++------+----+
+30 rows in set (0.00 sec)
+
+mysql> select sal, dense_rank() over(order by sal desc) R1 from emp;
++------+----+
+| sal  | R1 |
++------+----+
+| 5000 |  1 |
+| 5000 |  1 |
+| 4150 |  2 |
+| 3350 |  3 |
+| 3000 |  4 |
+| 3000 |  4 |
+| 2975 |  5 |
+| 2850 |  6 |
+| 2575 |  7 |
+| 2450 |  8 |
+| 2000 |  9 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1750 | 10 |
+| 1600 | 11 |
+| 1500 | 12 |
+| 1350 | 13 |
+| 1300 | 14 |
+| 1250 | 15 |
+| 1250 | 15 |
+| 1250 | 15 |
+| 1100 | 16 |
+| 1000 | 17 |
+|  950 | 18 |
+|  800 | 19 |
++------+----+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql> select dense_rank() over(order by sal desc) R1, ename, job, sal from emp;
++----+----------+---------------------+------+
+| R1 | ename    | job                 | sal  |
++----+----------+---------------------+------+
+|  1 | KING     | PRESIDENT           | 5000 |
+|  1 | FRED     | vice PRESIDENT      | 5000 |
+|  2 | HOFFMAN  | MANAGER             | 4150 |
+|  3 | AARAV    | CLERK               | 3350 |
+|  4 | SCOTT    | ANALYST             | 3000 |
+|  4 | FORD     | ANALYST             | 3000 |
+|  5 | JONES    | MANAGER             | 2975 |
+|  6 | BLAKE    | MANAGER             | 2850 |
+|  7 | GRASS    | SALESMAN            | 2575 |
+|  8 | CLARK    | MANAGER             | 2450 |
+|  9 | Ruhan    | Network             | 2000 |
+| 10 | GITA     | Compliance officers | 1750 |
+| 10 | VRUSHALI | Compliance officers | 1750 |
+| 10 | SHARMIN  | Public Relation     | 1750 |
+| 10 | BANDISH  | Public Relation     | 1750 |
+| 10 | THOMAS   | CLERK               | 1750 |
+| 10 | NATASHA  | CLERK               | 1750 |
+| 10 | SANGITA  | Compliance officers | 1750 |
+| 10 | SUPRIYA  | ANALYST             | 1750 |
+| 11 | ALLEN    | SALESMAN            | 1600 |
+| 12 | TURNER   | SALESMAN            | 1500 |
+| 13 | AARUSH   | SALESMAN            | 1350 |
+| 14 | MILLER   | CLERK               | 1300 |
+| 15 | WARD     | SALESMAN            | 1250 |
+| 15 | MARTIN   | SALESMAN            | 1250 |
+| 15 | ALEX     | MANAGER             | 1250 |
+| 16 | ADAMS    | CLERK               | 1100 |
+| 17 | Neel     | vice PRESIDENT      | 1000 |
+| 18 | JAMES    | CLERK               |  950 |
+| 19 | SMITH    | CLERK               |  800 |
++----+----------+---------------------+------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select * from (select dense_rank() over(order by sal desc) R1, ename, job, sal from emp) T1;
++----+----------+---------------------+------+
+| R1 | ename    | job                 | sal  |
++----+----------+---------------------+------+
+|  1 | KING     | PRESIDENT           | 5000 |
+|  1 | FRED     | vice PRESIDENT      | 5000 |
+|  2 | HOFFMAN  | MANAGER             | 4150 |
+|  3 | AARAV    | CLERK               | 3350 |
+|  4 | SCOTT    | ANALYST             | 3000 |
+|  4 | FORD     | ANALYST             | 3000 |
+|  5 | JONES    | MANAGER             | 2975 |
+|  6 | BLAKE    | MANAGER             | 2850 |
+|  7 | GRASS    | SALESMAN            | 2575 |
+|  8 | CLARK    | MANAGER             | 2450 |
+|  9 | Ruhan    | Network             | 2000 |
+| 10 | GITA     | Compliance officers | 1750 |
+| 10 | VRUSHALI | Compliance officers | 1750 |
+| 10 | SHARMIN  | Public Relation     | 1750 |
+| 10 | BANDISH  | Public Relation     | 1750 |
+| 10 | THOMAS   | CLERK               | 1750 |
+| 10 | NATASHA  | CLERK               | 1750 |
+| 10 | SANGITA  | Compliance officers | 1750 |
+| 10 | SUPRIYA  | ANALYST             | 1750 |
+| 11 | ALLEN    | SALESMAN            | 1600 |
+| 12 | TURNER   | SALESMAN            | 1500 |
+| 13 | AARUSH   | SALESMAN            | 1350 |
+| 14 | MILLER   | CLERK               | 1300 |
+| 15 | WARD     | SALESMAN            | 1250 |
+| 15 | MARTIN   | SALESMAN            | 1250 |
+| 15 | ALEX     | MANAGER             | 1250 |
+| 16 | ADAMS    | CLERK               | 1100 |
+| 17 | Neel     | vice PRESIDENT      | 1000 |
+| 18 | JAMES    | CLERK               |  950 |
+| 19 | SMITH    | CLERK               |  800 |
++----+----------+---------------------+------+
+30 rows in set (0.00 sec)
+
+mysql> select * from (select dense_rank() over(order by sal desc) R1, ename, job, sal from emp) T1 where R1=1;
++----+-------+----------------+------+
+| R1 | ename | job            | sal  |
++----+-------+----------------+------+
+|  1 | KING  | PRESIDENT      | 5000 |
+|  1 | FRED  | vice PRESIDENT | 5000 |
++----+-------+----------------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from (select dense_rank() over(order by sal desc) R1, ename, job, sal from emp) T1 where R1=2;
++----+---------+---------+------+
+| R1 | ename   | job     | sal  |
++----+---------+---------+------+
+|  2 | HOFFMAN | MANAGER | 4150 |
++----+---------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from (select dense_rank() over(order by sal desc) R1, ename, job, sal from emp) T1 where R1=3;
++----+-------+-------+------+
+| R1 | ename | job   | sal  |
++----+-------+-------+------+
+|  3 | AARAV | CLERK | 3350 |
++----+-------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from (select dense_rank() over(order by sal desc) R1, ename, job, sal from emp) T1 where R1=7;
++----+-------+----------+------+
+| R1 | ename | job      | sal  |
++----+-------+----------+------+
+|  7 | GRASS | SALESMAN | 2575 |
++----+-------+----------+------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> select ^from dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '^from dept' at line 1
+mysql> select *  from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select count(*) from emp;;
++----------+
+| count(*) |
++----------+
+|       30 |
++----------+
+1 row in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql>
+mysql> select count(*) from emp;
++----------+
+| count(*) |
++----------+
+|       30 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from dept;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select * from dept, emp;
++--------+------------+----------+------------+------------+-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  | EMPNO | ENAME    | GENDER | JOB                 | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | BONUSID | USER NAME    | PWD        | PHONE      | isActive |
++--------+------------+----------+------------+------------+-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  6001 | GITA     | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | GITA         | sales@2017 | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  6001 | GITA     | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | GITA         | sales@2017 | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  6001 | GITA     | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | GITA         | sales@2017 | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  6001 | GITA     | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | GITA         | sales@2017 | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  6001 | GITA     | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | GITA         | sales@2017 | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  6001 | GITA     | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | GITA         | sales@2017 | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  6129 | VRUSHALI | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | VRUSHALI     | PUN@8877   | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  6129 | VRUSHALI | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | VRUSHALI     | PUN@8877   | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  6129 | VRUSHALI | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | VRUSHALI     | PUN@8877   | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  6129 | VRUSHALI | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | VRUSHALI     | PUN@8877   | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  6129 | VRUSHALI | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | VRUSHALI     | PUN@8877   | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  6129 | VRUSHALI | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | VRUSHALI     | PUN@8877   | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  6473 | SHARMIN  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | SHARMIN      | a12recmpm  | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  6473 | SHARMIN  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | SHARMIN      | a12recmpm  | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  6473 | SHARMIN  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | SHARMIN      | a12recmpm  | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  6473 | SHARMIN  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | SHARMIN      | a12recmpm  | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  6473 | SHARMIN  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | SHARMIN      | a12recmpm  | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  6473 | SHARMIN  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | SHARMIN      | a12recmpm  | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  6781 | BANDISH  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | BANDISH      | a12recmpm  | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  6781 | BANDISH  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | BANDISH      | a12recmpm  | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  6781 | BANDISH  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | BANDISH      | a12recmpm  | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  6781 | BANDISH  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | BANDISH      | a12recmpm  | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  6781 | BANDISH  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | BANDISH      | a12recmpm  | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  6781 | BANDISH  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | BANDISH      | a12recmpm  | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7369 | SMITH    | M      | CLERK               | 7902 | 1980-12-17 |  800 | NULL |     20 |       2 | TRITONE      | a12recmpm  | 7032300023 |        0 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7369 | SMITH    | M      | CLERK               | 7902 | 1980-12-17 |  800 | NULL |     20 |       2 | TRITONE      | a12recmpm  | 7032300023 |        0 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7369 | SMITH    | M      | CLERK               | 7902 | 1980-12-17 |  800 | NULL |     20 |       2 | TRITONE      | a12recmpm  | 7032300023 |        0 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7369 | SMITH    | M      | CLERK               | 7902 | 1980-12-17 |  800 | NULL |     20 |       2 | TRITONE      | a12recmpm  | 7032300023 |        0 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7369 | SMITH    | M      | CLERK               | 7902 | 1980-12-17 |  800 | NULL |     20 |       2 | TRITONE      | a12recmpm  | 7032300023 |        0 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7369 | SMITH    | M      | CLERK               | 7902 | 1980-12-17 |  800 | NULL |     20 |       2 | TRITONE      | a12recmpm  | 7032300023 |        0 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7415 | AARAV    | M      | CLERK               | 7902 | 1981-12-31 | 3350 | NULL |     10 |    NULL | AARAV        | NULL       | 7032300084 |        0 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7415 | AARAV    | M      | CLERK               | 7902 | 1981-12-31 | 3350 | NULL |     10 |    NULL | AARAV        | NULL       | 7032300084 |        0 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7415 | AARAV    | M      | CLERK               | 7902 | 1981-12-31 | 3350 | NULL |     10 |    NULL | AARAV        | NULL       | 7032300084 |        0 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7415 | AARAV    | M      | CLERK               | 7902 | 1981-12-31 | 3350 | NULL |     10 |    NULL | AARAV        | NULL       | 7032300084 |        0 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7415 | AARAV    | M      | CLERK               | 7902 | 1981-12-31 | 3350 | NULL |     10 |    NULL | AARAV        | NULL       | 7032300084 |        0 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7415 | AARAV    | M      | CLERK               | 7902 | 1981-12-31 | 3350 | NULL |     10 |    NULL | AARAV        | NULL       | 7032300084 |        0 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7421 | THOMAS   | M      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     10 |       1 | THOMAS       | r50mpm     | 7032300011 |        0 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7421 | THOMAS   | M      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     10 |       1 | THOMAS       | r50mpm     | 7032300011 |        0 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7421 | THOMAS   | M      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     10 |       1 | THOMAS       | r50mpm     | 7032300011 |        0 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7421 | THOMAS   | M      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     10 |       1 | THOMAS       | r50mpm     | 7032300011 |        0 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7421 | THOMAS   | M      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     10 |       1 | THOMAS       | r50mpm     | 7032300011 |        0 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7421 | THOMAS   | M      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     10 |       1 | THOMAS       | r50mpm     | 7032300011 |        0 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7499 | ALLEN    | M      | SALESMAN            | 7698 | 1981-02-20 | 1600 |  300 |     30 |       4 | ALWAYS TESTE | sales@2017 | 7032300096 |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7499 | ALLEN    | M      | SALESMAN            | 7698 | 1981-02-20 | 1600 |  300 |     30 |       4 | ALWAYS TESTE | sales@2017 | 7032300096 |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7499 | ALLEN    | M      | SALESMAN            | 7698 | 1981-02-20 | 1600 |  300 |     30 |       4 | ALWAYS TESTE | sales@2017 | 7032300096 |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7499 | ALLEN    | M      | SALESMAN            | 7698 | 1981-02-20 | 1600 |  300 |     30 |       4 | ALWAYS TESTE | sales@2017 | 7032300096 |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7499 | ALLEN    | M      | SALESMAN            | 7698 | 1981-02-20 | 1600 |  300 |     30 |       4 | ALWAYS TESTE | sales@2017 | 7032300096 |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7499 | ALLEN    | M      | SALESMAN            | 7698 | 1981-02-20 | 1600 |  300 |     30 |       4 | ALWAYS TESTE | sales@2017 | 7032300096 |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7521 | WARD     | M      | SALESMAN            | 7698 | 1981-02-22 | 1250 |  500 |     30 |       1 | WARD         | sales@2017 | 7132300034 |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7521 | WARD     | M      | SALESMAN            | 7698 | 1981-02-22 | 1250 |  500 |     30 |       1 | WARD         | sales@2017 | 7132300034 |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7521 | WARD     | M      | SALESMAN            | 7698 | 1981-02-22 | 1250 |  500 |     30 |       1 | WARD         | sales@2017 | 7132300034 |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7521 | WARD     | M      | SALESMAN            | 7698 | 1981-02-22 | 1250 |  500 |     30 |       1 | WARD         | sales@2017 | 7132300034 |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7521 | WARD     | M      | SALESMAN            | 7698 | 1981-02-22 | 1250 |  500 |     30 |       1 | WARD         | sales@2017 | 7132300034 |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7521 | WARD     | M      | SALESMAN            | 7698 | 1981-02-22 | 1250 |  500 |     30 |       1 | WARD         | sales@2017 | 7132300034 |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7566 | JONES    | M      | MANAGER             | 7839 | 1981-04-02 | 2975 | NULL |     20 |       4 | HONEYCOMB    | a12recmpm  | 7132300039 |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7566 | JONES    | M      | MANAGER             | 7839 | 1981-04-02 | 2975 | NULL |     20 |       4 | HONEYCOMB    | a12recmpm  | 7132300039 |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7566 | JONES    | M      | MANAGER             | 7839 | 1981-04-02 | 2975 | NULL |     20 |       4 | HONEYCOMB    | a12recmpm  | 7132300039 |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7566 | JONES    | M      | MANAGER             | 7839 | 1981-04-02 | 2975 | NULL |     20 |       4 | HONEYCOMB    | a12recmpm  | 7132300039 |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7566 | JONES    | M      | MANAGER             | 7839 | 1981-04-02 | 2975 | NULL |     20 |       4 | HONEYCOMB    | a12recmpm  | 7132300039 |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7566 | JONES    | M      | MANAGER             | 7839 | 1981-04-02 | 2975 | NULL |     20 |       4 | HONEYCOMB    | a12recmpm  | 7132300039 |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7654 | MARTIN   | M      | SALESMAN            | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       6 | LIFE RACER   | sales@2017 | 7132300050 |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7654 | MARTIN   | M      | SALESMAN            | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       6 | LIFE RACER   | sales@2017 | 7132300050 |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7654 | MARTIN   | M      | SALESMAN            | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       6 | LIFE RACER   | sales@2017 | 7132300050 |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7654 | MARTIN   | M      | SALESMAN            | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       6 | LIFE RACER   | sales@2017 | 7132300050 |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7654 | MARTIN   | M      | SALESMAN            | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       6 | LIFE RACER   | sales@2017 | 7132300050 |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7654 | MARTIN   | M      | SALESMAN            | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       6 | LIFE RACER   | sales@2017 | 7132300050 |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7698 | BLAKE    | M      | MANAGER             | 7839 | 1981-05-01 | 2850 | NULL |     30 |       1 | BIG BEN      | sales@2017 | 7132300027 |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7698 | BLAKE    | M      | MANAGER             | 7839 | 1981-05-01 | 2850 | NULL |     30 |       1 | BIG BEN      | sales@2017 | 7132300027 |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7698 | BLAKE    | M      | MANAGER             | 7839 | 1981-05-01 | 2850 | NULL |     30 |       1 | BIG BEN      | sales@2017 | 7132300027 |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7698 | BLAKE    | M      | MANAGER             | 7839 | 1981-05-01 | 2850 | NULL |     30 |       1 | BIG BEN      | sales@2017 | 7132300027 |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7698 | BLAKE    | M      | MANAGER             | 7839 | 1981-05-01 | 2850 | NULL |     30 |       1 | BIG BEN      | sales@2017 | 7132300027 |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7698 | BLAKE    | M      | MANAGER             | 7839 | 1981-05-01 | 2850 | NULL |     30 |       1 | BIG BEN      | sales@2017 | 7132300027 |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7782 | CLARK    | M      | MANAGER             | 7839 | 1981-06-09 | 2450 | NULL |     10 |       3 | CLARK        | r50mpm     | 7032300001 |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7782 | CLARK    | M      | MANAGER             | 7839 | 1981-06-09 | 2450 | NULL |     10 |       3 | CLARK        | r50mpm     | 7032300001 |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7782 | CLARK    | M      | MANAGER             | 7839 | 1981-06-09 | 2450 | NULL |     10 |       3 | CLARK        | r50mpm     | 7032300001 |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7782 | CLARK    | M      | MANAGER             | 7839 | 1981-06-09 | 2450 | NULL |     10 |       3 | CLARK        | r50mpm     | 7032300001 |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7782 | CLARK    | M      | MANAGER             | 7839 | 1981-06-09 | 2450 | NULL |     10 |       3 | CLARK        | r50mpm     | 7032300001 |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7782 | CLARK    | M      | MANAGER             | 7839 | 1981-06-09 | 2450 | NULL |     10 |       3 | CLARK        | r50mpm     | 7032300001 |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7788 | SCOTT    | M      | ANALYST             | 7566 | 1982-12-09 | 3000 | NULL |     20 |       3 | WHITE SAND   | a12recmpm  | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7788 | SCOTT    | M      | ANALYST             | 7566 | 1982-12-09 | 3000 | NULL |     20 |       3 | WHITE SAND   | a12recmpm  | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7788 | SCOTT    | M      | ANALYST             | 7566 | 1982-12-09 | 3000 | NULL |     20 |       3 | WHITE SAND   | a12recmpm  | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7788 | SCOTT    | M      | ANALYST             | 7566 | 1982-12-09 | 3000 | NULL |     20 |       3 | WHITE SAND   | a12recmpm  | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7788 | SCOTT    | M      | ANALYST             | 7566 | 1982-12-09 | 3000 | NULL |     20 |       3 | WHITE SAND   | a12recmpm  | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7788 | SCOTT    | M      | ANALYST             | 7566 | 1982-12-09 | 3000 | NULL |     20 |       3 | WHITE SAND   | a12recmpm  | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7839 | KING     | M      | PRESIDENT           | NULL | 1981-11-17 | 5000 | NULL |     10 |       1 | KING         | r50mpm     | 7132300081 |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7839 | KING     | M      | PRESIDENT           | NULL | 1981-11-17 | 5000 | NULL |     10 |       1 | KING         | r50mpm     | 7132300081 |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7839 | KING     | M      | PRESIDENT           | NULL | 1981-11-17 | 5000 | NULL |     10 |       1 | KING         | r50mpm     | 7132300081 |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7839 | KING     | M      | PRESIDENT           | NULL | 1981-11-17 | 5000 | NULL |     10 |       1 | KING         | r50mpm     | 7132300081 |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7839 | KING     | M      | PRESIDENT           | NULL | 1981-11-17 | 5000 | NULL |     10 |       1 | KING         | r50mpm     | 7132300081 |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7839 | KING     | M      | PRESIDENT           | NULL | 1981-11-17 | 5000 | NULL |     10 |       1 | KING         | r50mpm     | 7132300081 |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7840 | FRED     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 5000 | NULL |     20 |       1 | SAND STONE   | a12recmpm  | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7840 | FRED     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 5000 | NULL |     20 |       1 | SAND STONE   | a12recmpm  | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7840 | FRED     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 5000 | NULL |     20 |       1 | SAND STONE   | a12recmpm  | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7840 | FRED     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 5000 | NULL |     20 |       1 | SAND STONE   | a12recmpm  | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7840 | FRED     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 5000 | NULL |     20 |       1 | SAND STONE   | a12recmpm  | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7840 | FRED     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 5000 | NULL |     20 |       1 | SAND STONE   | a12recmpm  | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7844 | TURNER   | M      | SALESMAN            | 7698 | 1981-09-08 | 1500 |    0 |     30 |       5 | SAND DUST    | sales@2017 | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7844 | TURNER   | M      | SALESMAN            | 7698 | 1981-09-08 | 1500 |    0 |     30 |       5 | SAND DUST    | sales@2017 | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7844 | TURNER   | M      | SALESMAN            | 7698 | 1981-09-08 | 1500 |    0 |     30 |       5 | SAND DUST    | sales@2017 | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7844 | TURNER   | M      | SALESMAN            | 7698 | 1981-09-08 | 1500 |    0 |     30 |       5 | SAND DUST    | sales@2017 | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7844 | TURNER   | M      | SALESMAN            | 7698 | 1981-09-08 | 1500 |    0 |     30 |       5 | SAND DUST    | sales@2017 | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7844 | TURNER   | M      | SALESMAN            | 7698 | 1981-09-08 | 1500 |    0 |     30 |       5 | SAND DUST    | sales@2017 | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7876 | ADAMS    | M      | CLERK               | 7788 | 1983-01-12 | 1100 | NULL |     20 |       1 | CRAZY ANYONE | a12recmpm  | 7132300086 |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7876 | ADAMS    | M      | CLERK               | 7788 | 1983-01-12 | 1100 | NULL |     20 |       1 | CRAZY ANYONE | a12recmpm  | 7132300086 |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7876 | ADAMS    | M      | CLERK               | 7788 | 1983-01-12 | 1100 | NULL |     20 |       1 | CRAZY ANYONE | a12recmpm  | 7132300086 |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7876 | ADAMS    | M      | CLERK               | 7788 | 1983-01-12 | 1100 | NULL |     20 |       1 | CRAZY ANYONE | a12recmpm  | 7132300086 |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7876 | ADAMS    | M      | CLERK               | 7788 | 1983-01-12 | 1100 | NULL |     20 |       1 | CRAZY ANYONE | a12recmpm  | 7132300086 |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7876 | ADAMS    | M      | CLERK               | 7788 | 1983-01-12 | 1100 | NULL |     20 |       1 | CRAZY ANYONE | a12recmpm  | 7132300086 |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7888 | Ruhan    | M      | Network             | 7888 | 1983-08-09 | 2000 | NULL |     60 |       1 | Ruhan        | BRD@1122   | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7888 | Ruhan    | M      | Network             | 7888 | 1983-08-09 | 2000 | NULL |     60 |       1 | Ruhan        | BRD@1122   | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7888 | Ruhan    | M      | Network             | 7888 | 1983-08-09 | 2000 | NULL |     60 |       1 | Ruhan        | BRD@1122   | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7888 | Ruhan    | M      | Network             | 7888 | 1983-08-09 | 2000 | NULL |     60 |       1 | Ruhan        | BRD@1122   | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7888 | Ruhan    | M      | Network             | 7888 | 1983-08-09 | 2000 | NULL |     60 |       1 | Ruhan        | BRD@1122   | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7888 | Ruhan    | M      | Network             | 7888 | 1983-08-09 | 2000 | NULL |     60 |       1 | Ruhan        | BRD@1122   | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7889 | Neel     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 1000 | NULL |     60 |       0 | Neel         | BRD@1122   | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7889 | Neel     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 1000 | NULL |     60 |       0 | Neel         | BRD@1122   | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7889 | Neel     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 1000 | NULL |     60 |       0 | Neel         | BRD@1122   | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7889 | Neel     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 1000 | NULL |     60 |       0 | Neel         | BRD@1122   | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7889 | Neel     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 1000 | NULL |     60 |       0 | Neel         | BRD@1122   | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7889 | Neel     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 1000 | NULL |     60 |       0 | Neel         | BRD@1122   | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7900 | JAMES    | M      | CLERK               | 7698 | 1981-12-03 |  950 | NULL |     30 |       2 | CRAZY LEADER | sales@2017 | 7132300042 |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7900 | JAMES    | M      | CLERK               | 7698 | 1981-12-03 |  950 | NULL |     30 |       2 | CRAZY LEADER | sales@2017 | 7132300042 |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7900 | JAMES    | M      | CLERK               | 7698 | 1981-12-03 |  950 | NULL |     30 |       2 | CRAZY LEADER | sales@2017 | 7132300042 |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7900 | JAMES    | M      | CLERK               | 7698 | 1981-12-03 |  950 | NULL |     30 |       2 | CRAZY LEADER | sales@2017 | 7132300042 |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7900 | JAMES    | M      | CLERK               | 7698 | 1981-12-03 |  950 | NULL |     30 |       2 | CRAZY LEADER | sales@2017 | 7132300042 |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7900 | JAMES    | M      | CLERK               | 7698 | 1981-12-03 |  950 | NULL |     30 |       2 | CRAZY LEADER | sales@2017 | 7132300042 |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7902 | FORD     | M      | ANALYST             | 7566 | 1981-12-03 | 3000 | NULL |     20 |       4 | CONBRIO      | a12recmpm  | NULL       |        0 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7902 | FORD     | M      | ANALYST             | 7566 | 1981-12-03 | 3000 | NULL |     20 |       4 | CONBRIO      | a12recmpm  | NULL       |        0 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7902 | FORD     | M      | ANALYST             | 7566 | 1981-12-03 | 3000 | NULL |     20 |       4 | CONBRIO      | a12recmpm  | NULL       |        0 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7902 | FORD     | M      | ANALYST             | 7566 | 1981-12-03 | 3000 | NULL |     20 |       4 | CONBRIO      | a12recmpm  | NULL       |        0 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7902 | FORD     | M      | ANALYST             | 7566 | 1981-12-03 | 3000 | NULL |     20 |       4 | CONBRIO      | a12recmpm  | NULL       |        0 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7902 | FORD     | M      | ANALYST             | 7566 | 1981-12-03 | 3000 | NULL |     20 |       4 | CONBRIO      | a12recmpm  | NULL       |        0 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7919 | HOFFMAN  | M      | MANAGER             | 7566 | 1982-03-24 | 4150 | NULL |     30 |       3 | INTERVAL     | sales@2017 | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7919 | HOFFMAN  | M      | MANAGER             | 7566 | 1982-03-24 | 4150 | NULL |     30 |       3 | INTERVAL     | sales@2017 | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7919 | HOFFMAN  | M      | MANAGER             | 7566 | 1982-03-24 | 4150 | NULL |     30 |       3 | INTERVAL     | sales@2017 | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7919 | HOFFMAN  | M      | MANAGER             | 7566 | 1982-03-24 | 4150 | NULL |     30 |       3 | INTERVAL     | sales@2017 | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7919 | HOFFMAN  | M      | MANAGER             | 7566 | 1982-03-24 | 4150 | NULL |     30 |       3 | INTERVAL     | sales@2017 | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7919 | HOFFMAN  | M      | MANAGER             | 7566 | 1982-03-24 | 4150 | NULL |     30 |       3 | INTERVAL     | sales@2017 | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7920 | GRASS    | M      | SALESMAN            | 7919 | 1980-02-14 | 2575 | 2700 |     30 |       5 | GRASS        | sales@2017 | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7920 | GRASS    | M      | SALESMAN            | 7919 | 1980-02-14 | 2575 | 2700 |     30 |       5 | GRASS        | sales@2017 | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7920 | GRASS    | M      | SALESMAN            | 7919 | 1980-02-14 | 2575 | 2700 |     30 |       5 | GRASS        | sales@2017 | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7920 | GRASS    | M      | SALESMAN            | 7919 | 1980-02-14 | 2575 | 2700 |     30 |       5 | GRASS        | sales@2017 | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7920 | GRASS    | M      | SALESMAN            | 7919 | 1980-02-14 | 2575 | 2700 |     30 |       5 | GRASS        | sales@2017 | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7920 | GRASS    | M      | SALESMAN            | 7919 | 1980-02-14 | 2575 | 2700 |     30 |       5 | GRASS        | sales@2017 | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7934 | MILLER   | M      | CLERK               | 7782 | 1982-01-23 | 1300 | 1300 |     10 |       2 | QUARTERNOTE  | r50mpm     | 7132300055 |        0 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7934 | MILLER   | M      | CLERK               | 7782 | 1982-01-23 | 1300 | 1300 |     10 |       2 | QUARTERNOTE  | r50mpm     | 7132300055 |        0 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7934 | MILLER   | M      | CLERK               | 7782 | 1982-01-23 | 1300 | 1300 |     10 |       2 | QUARTERNOTE  | r50mpm     | 7132300055 |        0 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7934 | MILLER   | M      | CLERK               | 7782 | 1982-01-23 | 1300 | 1300 |     10 |       2 | QUARTERNOTE  | r50mpm     | 7132300055 |        0 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7934 | MILLER   | M      | CLERK               | 7782 | 1982-01-23 | 1300 | 1300 |     10 |       2 | QUARTERNOTE  | r50mpm     | 7132300055 |        0 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7934 | MILLER   | M      | CLERK               | 7782 | 1982-01-23 | 1300 | 1300 |     10 |       2 | QUARTERNOTE  | r50mpm     | 7132300055 |        0 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7945 | AARUSH   | M      | SALESMAN            | 7902 | 1980-02-14 | 1350 | 2700 |     30 |    NULL | AARUSH       | ABCDEF     | NULL       |        0 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7945 | AARUSH   | M      | SALESMAN            | 7902 | 1980-02-14 | 1350 | 2700 |     30 |    NULL | AARUSH       | ABCDEF     | NULL       |        0 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7945 | AARUSH   | M      | SALESMAN            | 7902 | 1980-02-14 | 1350 | 2700 |     30 |    NULL | AARUSH       | ABCDEF     | NULL       |        0 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7945 | AARUSH   | M      | SALESMAN            | 7902 | 1980-02-14 | 1350 | 2700 |     30 |    NULL | AARUSH       | ABCDEF     | NULL       |        0 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7945 | AARUSH   | M      | SALESMAN            | 7902 | 1980-02-14 | 1350 | 2700 |     30 |    NULL | AARUSH       | ABCDEF     | NULL       |        0 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7945 | AARUSH   | M      | SALESMAN            | 7902 | 1980-02-14 | 1350 | 2700 |     30 |    NULL | AARUSH       | ABCDEF     | NULL       |        0 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  7949 | ALEX     | M      | MANAGER             | 7698 | 1982-01-24 | 1250 |  500 |     30 |       5 | QUARTERREST  | sales@2017 | 7156567183 |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  7949 | ALEX     | M      | MANAGER             | 7698 | 1982-01-24 | 1250 |  500 |     30 |       5 | QUARTERREST  | sales@2017 | 7156567183 |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  7949 | ALEX     | M      | MANAGER             | 7698 | 1982-01-24 | 1250 |  500 |     30 |       5 | QUARTERREST  | sales@2017 | 7156567183 |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  7949 | ALEX     | M      | MANAGER             | 7698 | 1982-01-24 | 1250 |  500 |     30 |       5 | QUARTERREST  | sales@2017 | 7156567183 |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  7949 | ALEX     | M      | MANAGER             | 7698 | 1982-01-24 | 1250 |  500 |     30 |       5 | QUARTERREST  | sales@2017 | 7156567183 |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  7949 | ALEX     | M      | MANAGER             | 7698 | 1982-01-24 | 1250 |  500 |     30 |       5 | QUARTERREST  | sales@2017 | 7156567183 |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  8433 | NATASHA  | F      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | NATASHA      | sales@2017 | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  8433 | NATASHA  | F      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | NATASHA      | sales@2017 | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  8433 | NATASHA  | F      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | NATASHA      | sales@2017 | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  8433 | NATASHA  | F      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | NATASHA      | sales@2017 | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  8433 | NATASHA  | F      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | NATASHA      | sales@2017 | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  8433 | NATASHA  | F      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | NATASHA      | sales@2017 | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  9400 | SANGITA  | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SANGITA      | NULL       | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  9400 | SANGITA  | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SANGITA      | NULL       | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  9400 | SANGITA  | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SANGITA      | NULL       | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  9400 | SANGITA  | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SANGITA      | NULL       | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  9400 | SANGITA  | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SANGITA      | NULL       | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  9400 | SANGITA  | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SANGITA      | NULL       | NULL       |        1 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |  9473 | SUPRIYA  | F      | ANALYST             | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SUPRIYA      | XYZ@1234   | NULL       |        1 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |  9473 | SUPRIYA  | F      | ANALYST             | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SUPRIYA      | XYZ@1234   | NULL       |        1 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |  9473 | SUPRIYA  | F      | ANALYST             | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SUPRIYA      | XYZ@1234   | NULL       |        1 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |  9473 | SUPRIYA  | F      | ANALYST             | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SUPRIYA      | XYZ@1234   | NULL       |        1 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |  9473 | SUPRIYA  | F      | ANALYST             | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SUPRIYA      | XYZ@1234   | NULL       |        1 |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |  9473 | SUPRIYA  | F      | ANALYST             | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SUPRIYA      | XYZ@1234   | NULL       |        1 |
++--------+------------+----------+------------+------------+-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+180 rows in set (0.00 sec)
+
+mysql> select 30 * 6;
++--------+
+| 30 * 6 |
++--------+
+|    180 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select * from menucard;
++------+------------------------------+------+
+| ID   | NAME                         | RATE |
++------+------------------------------+------+
+|   14 | Onion Hamburger              |  115 |
+|    6 | Extra Long Cheeseburger      |  100 |
+|    2 | Double Stacker               |  125 |
+|    8 | Double Cheeseburger          |  100 |
+|   13 | Cheese Hamburger             |  125 |
+|    4 | Hamburger                    |   85 |
+|   11 | Classic Grilled Dog          |   95 |
+|    1 | Chili Cheese Grilled Dog     |  115 |
+|    7 | Flame Grilled Chicken Burger |  135 |
+|    3 | Original Chicken Sandwich    |   55 |
+|    9 | McALLO TIKKI                 |   45 |
+|   12 | Veg Maharaja Mac             |   75 |
+|    5 | Big Spicy Chicken Wrap       |  100 |
+|   15 | Cheese Onion Hamburger       |  145 |
+|   10 | McVeggie Schezwan            |   85 |
++------+------------------------------+------+
+15 rows in set (0.03 sec)
+
+mysql> select * from menucard order by1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by1' at line 1
+mysql>
+mysql>
+mysql> select * from menucard order by 1;
++------+------------------------------+------+
+| ID   | NAME                         | RATE |
++------+------------------------------+------+
+|    1 | Chili Cheese Grilled Dog     |  115 |
+|    2 | Double Stacker               |  125 |
+|    3 | Original Chicken Sandwich    |   55 |
+|    4 | Hamburger                    |   85 |
+|    5 | Big Spicy Chicken Wrap       |  100 |
+|    6 | Extra Long Cheeseburger      |  100 |
+|    7 | Flame Grilled Chicken Burger |  135 |
+|    8 | Double Cheeseburger          |  100 |
+|    9 | McALLO TIKKI                 |   45 |
+|   10 | McVeggie Schezwan            |   85 |
+|   11 | Classic Grilled Dog          |   95 |
+|   12 | Veg Maharaja Mac             |   75 |
+|   13 | Cheese Hamburger             |  125 |
+|   14 | Onion Hamburger              |  115 |
+|   15 | Cheese Onion Hamburger       |  145 |
++------+------------------------------+------+
+15 rows in set (0.00 sec)
+
+mysql> select * from softdrink order by 1;
++------+----------------------+------+
+| ID   | NAME                 | RATE |
++------+----------------------+------+
+|    1 | Coca-Cola            |   45 |
+|    2 | Mello Yello          |   75 |
+|    3 | Diet Coke            |   60 |
+|    4 | Frozen Fanta Cherry  |   65 |
+|    5 | Iced Tea             |   35 |
++------+----------------------+------+
+5 rows in set (0.02 sec)
+
+mysql> select * from menucard, softdrink order by 1;
++------+------------------------------+------+------+----------------------+------+
+| ID   | NAME                         | RATE | ID   | NAME                 | RATE |
++------+------------------------------+------+------+----------------------+------+
+|    1 | Chili Cheese Grilled Dog     |  115 |    5 | Iced Tea             |   35 |
+|    1 | Chili Cheese Grilled Dog     |  115 |    1 | Coca-Cola            |   45 |
+|    1 | Chili Cheese Grilled Dog     |  115 |    2 | Mello Yello          |   75 |
+|    1 | Chili Cheese Grilled Dog     |  115 |    4 | Frozen Fanta Cherry  |   65 |
+|    1 | Chili Cheese Grilled Dog     |  115 |    3 | Diet Coke            |   60 |
+|    2 | Double Stacker               |  125 |    1 | Coca-Cola            |   45 |
+|    2 | Double Stacker               |  125 |    5 | Iced Tea             |   35 |
+|    2 | Double Stacker               |  125 |    4 | Frozen Fanta Cherry  |   65 |
+|    2 | Double Stacker               |  125 |    3 | Diet Coke            |   60 |
+|    2 | Double Stacker               |  125 |    2 | Mello Yello          |   75 |
+|    3 | Original Chicken Sandwich    |   55 |    1 | Coca-Cola            |   45 |
+|    3 | Original Chicken Sandwich    |   55 |    3 | Diet Coke            |   60 |
+|    3 | Original Chicken Sandwich    |   55 |    2 | Mello Yello          |   75 |
+|    3 | Original Chicken Sandwich    |   55 |    4 | Frozen Fanta Cherry  |   65 |
+|    3 | Original Chicken Sandwich    |   55 |    5 | Iced Tea             |   35 |
+|    4 | Hamburger                    |   85 |    2 | Mello Yello          |   75 |
+|    4 | Hamburger                    |   85 |    5 | Iced Tea             |   35 |
+|    4 | Hamburger                    |   85 |    4 | Frozen Fanta Cherry  |   65 |
+|    4 | Hamburger                    |   85 |    3 | Diet Coke            |   60 |
+|    4 | Hamburger                    |   85 |    1 | Coca-Cola            |   45 |
+|    5 | Big Spicy Chicken Wrap       |  100 |    5 | Iced Tea             |   35 |
+|    5 | Big Spicy Chicken Wrap       |  100 |    1 | Coca-Cola            |   45 |
+|    5 | Big Spicy Chicken Wrap       |  100 |    3 | Diet Coke            |   60 |
+|    5 | Big Spicy Chicken Wrap       |  100 |    4 | Frozen Fanta Cherry  |   65 |
+|    5 | Big Spicy Chicken Wrap       |  100 |    2 | Mello Yello          |   75 |
+|    6 | Extra Long Cheeseburger      |  100 |    3 | Diet Coke            |   60 |
+|    6 | Extra Long Cheeseburger      |  100 |    4 | Frozen Fanta Cherry  |   65 |
+|    6 | Extra Long Cheeseburger      |  100 |    5 | Iced Tea             |   35 |
+|    6 | Extra Long Cheeseburger      |  100 |    2 | Mello Yello          |   75 |
+|    6 | Extra Long Cheeseburger      |  100 |    1 | Coca-Cola            |   45 |
+|    7 | Flame Grilled Chicken Burger |  135 |    1 | Coca-Cola            |   45 |
+|    7 | Flame Grilled Chicken Burger |  135 |    3 | Diet Coke            |   60 |
+|    7 | Flame Grilled Chicken Burger |  135 |    4 | Frozen Fanta Cherry  |   65 |
+|    7 | Flame Grilled Chicken Burger |  135 |    5 | Iced Tea             |   35 |
+|    7 | Flame Grilled Chicken Burger |  135 |    2 | Mello Yello          |   75 |
+|    8 | Double Cheeseburger          |  100 |    3 | Diet Coke            |   60 |
+|    8 | Double Cheeseburger          |  100 |    1 | Coca-Cola            |   45 |
+|    8 | Double Cheeseburger          |  100 |    2 | Mello Yello          |   75 |
+|    8 | Double Cheeseburger          |  100 |    5 | Iced Tea             |   35 |
+|    8 | Double Cheeseburger          |  100 |    4 | Frozen Fanta Cherry  |   65 |
+|    9 | McALLO TIKKI                 |   45 |    5 | Iced Tea             |   35 |
+|    9 | McALLO TIKKI                 |   45 |    4 | Frozen Fanta Cherry  |   65 |
+|    9 | McALLO TIKKI                 |   45 |    3 | Diet Coke            |   60 |
+|    9 | McALLO TIKKI                 |   45 |    2 | Mello Yello          |   75 |
+|    9 | McALLO TIKKI                 |   45 |    1 | Coca-Cola            |   45 |
+|   10 | McVeggie Schezwan            |   85 |    1 | Coca-Cola            |   45 |
+|   10 | McVeggie Schezwan            |   85 |    2 | Mello Yello          |   75 |
+|   10 | McVeggie Schezwan            |   85 |    3 | Diet Coke            |   60 |
+|   10 | McVeggie Schezwan            |   85 |    4 | Frozen Fanta Cherry  |   65 |
+|   10 | McVeggie Schezwan            |   85 |    5 | Iced Tea             |   35 |
+|   11 | Classic Grilled Dog          |   95 |    3 | Diet Coke            |   60 |
+|   11 | Classic Grilled Dog          |   95 |    4 | Frozen Fanta Cherry  |   65 |
+|   11 | Classic Grilled Dog          |   95 |    5 | Iced Tea             |   35 |
+|   11 | Classic Grilled Dog          |   95 |    2 | Mello Yello          |   75 |
+|   11 | Classic Grilled Dog          |   95 |    1 | Coca-Cola            |   45 |
+|   12 | Veg Maharaja Mac             |   75 |    4 | Frozen Fanta Cherry  |   65 |
+|   12 | Veg Maharaja Mac             |   75 |    5 | Iced Tea             |   35 |
+|   12 | Veg Maharaja Mac             |   75 |    3 | Diet Coke            |   60 |
+|   12 | Veg Maharaja Mac             |   75 |    2 | Mello Yello          |   75 |
+|   12 | Veg Maharaja Mac             |   75 |    1 | Coca-Cola            |   45 |
+|   13 | Cheese Hamburger             |  125 |    1 | Coca-Cola            |   45 |
+|   13 | Cheese Hamburger             |  125 |    5 | Iced Tea             |   35 |
+|   13 | Cheese Hamburger             |  125 |    4 | Frozen Fanta Cherry  |   65 |
+|   13 | Cheese Hamburger             |  125 |    3 | Diet Coke            |   60 |
+|   13 | Cheese Hamburger             |  125 |    2 | Mello Yello          |   75 |
+|   14 | Onion Hamburger              |  115 |    3 | Diet Coke            |   60 |
+|   14 | Onion Hamburger              |  115 |    4 | Frozen Fanta Cherry  |   65 |
+|   14 | Onion Hamburger              |  115 |    1 | Coca-Cola            |   45 |
+|   14 | Onion Hamburger              |  115 |    5 | Iced Tea             |   35 |
+|   14 | Onion Hamburger              |  115 |    2 | Mello Yello          |   75 |
+|   15 | Cheese Onion Hamburger       |  145 |    4 | Frozen Fanta Cherry  |   65 |
+|   15 | Cheese Onion Hamburger       |  145 |    3 | Diet Coke            |   60 |
+|   15 | Cheese Onion Hamburger       |  145 |    2 | Mello Yello          |   75 |
+|   15 | Cheese Onion Hamburger       |  145 |    1 | Coca-Cola            |   45 |
+|   15 | Cheese Onion Hamburger       |  145 |    5 | Iced Tea             |   35 |
++------+------------------------------+------+------+----------------------+------+
+75 rows in set (0.00 sec)
+
+mysql> select name from menucard, softdrink;
+ERROR 1052 (23000): Column 'name' in field list is ambiguous
+mysql>
+mysql> select m.name, s.name from menucard m, softdrink s;
++------------------------------+----------------------+
+| name                         | name                 |
++------------------------------+----------------------+
+| Onion Hamburger              | Iced Tea             |
+| Onion Hamburger              | Frozen Fanta Cherry  |
+| Onion Hamburger              | Diet Coke            |
+| Onion Hamburger              | Mello Yello          |
+| Onion Hamburger              | Coca-Cola            |
+| Extra Long Cheeseburger      | Iced Tea             |
+| Extra Long Cheeseburger      | Frozen Fanta Cherry  |
+| Extra Long Cheeseburger      | Diet Coke            |
+| Extra Long Cheeseburger      | Mello Yello          |
+| Extra Long Cheeseburger      | Coca-Cola            |
+| Double Stacker               | Iced Tea             |
+| Double Stacker               | Frozen Fanta Cherry  |
+| Double Stacker               | Diet Coke            |
+| Double Stacker               | Mello Yello          |
+| Double Stacker               | Coca-Cola            |
+| Double Cheeseburger          | Iced Tea             |
+| Double Cheeseburger          | Frozen Fanta Cherry  |
+| Double Cheeseburger          | Diet Coke            |
+| Double Cheeseburger          | Mello Yello          |
+| Double Cheeseburger          | Coca-Cola            |
+| Cheese Hamburger             | Iced Tea             |
+| Cheese Hamburger             | Frozen Fanta Cherry  |
+| Cheese Hamburger             | Diet Coke            |
+| Cheese Hamburger             | Mello Yello          |
+| Cheese Hamburger             | Coca-Cola            |
+| Hamburger                    | Iced Tea             |
+| Hamburger                    | Frozen Fanta Cherry  |
+| Hamburger                    | Diet Coke            |
+| Hamburger                    | Mello Yello          |
+| Hamburger                    | Coca-Cola            |
+| Classic Grilled Dog          | Iced Tea             |
+| Classic Grilled Dog          | Frozen Fanta Cherry  |
+| Classic Grilled Dog          | Diet Coke            |
+| Classic Grilled Dog          | Mello Yello          |
+| Classic Grilled Dog          | Coca-Cola            |
+| Chili Cheese Grilled Dog     | Iced Tea             |
+| Chili Cheese Grilled Dog     | Frozen Fanta Cherry  |
+| Chili Cheese Grilled Dog     | Diet Coke            |
+| Chili Cheese Grilled Dog     | Mello Yello          |
+| Chili Cheese Grilled Dog     | Coca-Cola            |
+| Flame Grilled Chicken Burger | Iced Tea             |
+| Flame Grilled Chicken Burger | Frozen Fanta Cherry  |
+| Flame Grilled Chicken Burger | Diet Coke            |
+| Flame Grilled Chicken Burger | Mello Yello          |
+| Flame Grilled Chicken Burger | Coca-Cola            |
+| Original Chicken Sandwich    | Iced Tea             |
+| Original Chicken Sandwich    | Frozen Fanta Cherry  |
+| Original Chicken Sandwich    | Diet Coke            |
+| Original Chicken Sandwich    | Mello Yello          |
+| Original Chicken Sandwich    | Coca-Cola            |
+| McALLO TIKKI                 | Iced Tea             |
+| McALLO TIKKI                 | Frozen Fanta Cherry  |
+| McALLO TIKKI                 | Diet Coke            |
+| McALLO TIKKI                 | Mello Yello          |
+| McALLO TIKKI                 | Coca-Cola            |
+| Veg Maharaja Mac             | Iced Tea             |
+| Veg Maharaja Mac             | Frozen Fanta Cherry  |
+| Veg Maharaja Mac             | Diet Coke            |
+| Veg Maharaja Mac             | Mello Yello          |
+| Veg Maharaja Mac             | Coca-Cola            |
+| Big Spicy Chicken Wrap       | Iced Tea             |
+| Big Spicy Chicken Wrap       | Frozen Fanta Cherry  |
+| Big Spicy Chicken Wrap       | Diet Coke            |
+| Big Spicy Chicken Wrap       | Mello Yello          |
+| Big Spicy Chicken Wrap       | Coca-Cola            |
+| Cheese Onion Hamburger       | Iced Tea             |
+| Cheese Onion Hamburger       | Frozen Fanta Cherry  |
+| Cheese Onion Hamburger       | Diet Coke            |
+| Cheese Onion Hamburger       | Mello Yello          |
+| Cheese Onion Hamburger       | Coca-Cola            |
+| McVeggie Schezwan            | Iced Tea             |
+| McVeggie Schezwan            | Frozen Fanta Cherry  |
+| McVeggie Schezwan            | Diet Coke            |
+| McVeggie Schezwan            | Mello Yello          |
+| McVeggie Schezwan            | Coca-Cola            |
++------------------------------+----------------------+
+75 rows in set (0.00 sec)
+
+mysql> select m.name, m.rate,  s.name, s.rate from menucard m, softdrink s;
++------------------------------+------+----------------------+------+
+| name                         | rate | name                 | rate |
++------------------------------+------+----------------------+------+
+| Onion Hamburger              |  115 | Iced Tea             |   35 |
+| Onion Hamburger              |  115 | Frozen Fanta Cherry  |   65 |
+| Onion Hamburger              |  115 | Diet Coke            |   60 |
+| Onion Hamburger              |  115 | Mello Yello          |   75 |
+| Onion Hamburger              |  115 | Coca-Cola            |   45 |
+| Extra Long Cheeseburger      |  100 | Iced Tea             |   35 |
+| Extra Long Cheeseburger      |  100 | Frozen Fanta Cherry  |   65 |
+| Extra Long Cheeseburger      |  100 | Diet Coke            |   60 |
+| Extra Long Cheeseburger      |  100 | Mello Yello          |   75 |
+| Extra Long Cheeseburger      |  100 | Coca-Cola            |   45 |
+| Double Stacker               |  125 | Iced Tea             |   35 |
+| Double Stacker               |  125 | Frozen Fanta Cherry  |   65 |
+| Double Stacker               |  125 | Diet Coke            |   60 |
+| Double Stacker               |  125 | Mello Yello          |   75 |
+| Double Stacker               |  125 | Coca-Cola            |   45 |
+| Double Cheeseburger          |  100 | Iced Tea             |   35 |
+| Double Cheeseburger          |  100 | Frozen Fanta Cherry  |   65 |
+| Double Cheeseburger          |  100 | Diet Coke            |   60 |
+| Double Cheeseburger          |  100 | Mello Yello          |   75 |
+| Double Cheeseburger          |  100 | Coca-Cola            |   45 |
+| Cheese Hamburger             |  125 | Iced Tea             |   35 |
+| Cheese Hamburger             |  125 | Frozen Fanta Cherry  |   65 |
+| Cheese Hamburger             |  125 | Diet Coke            |   60 |
+| Cheese Hamburger             |  125 | Mello Yello          |   75 |
+| Cheese Hamburger             |  125 | Coca-Cola            |   45 |
+| Hamburger                    |   85 | Iced Tea             |   35 |
+| Hamburger                    |   85 | Frozen Fanta Cherry  |   65 |
+| Hamburger                    |   85 | Diet Coke            |   60 |
+| Hamburger                    |   85 | Mello Yello          |   75 |
+| Hamburger                    |   85 | Coca-Cola            |   45 |
+| Classic Grilled Dog          |   95 | Iced Tea             |   35 |
+| Classic Grilled Dog          |   95 | Frozen Fanta Cherry  |   65 |
+| Classic Grilled Dog          |   95 | Diet Coke            |   60 |
+| Classic Grilled Dog          |   95 | Mello Yello          |   75 |
+| Classic Grilled Dog          |   95 | Coca-Cola            |   45 |
+| Chili Cheese Grilled Dog     |  115 | Iced Tea             |   35 |
+| Chili Cheese Grilled Dog     |  115 | Frozen Fanta Cherry  |   65 |
+| Chili Cheese Grilled Dog     |  115 | Diet Coke            |   60 |
+| Chili Cheese Grilled Dog     |  115 | Mello Yello          |   75 |
+| Chili Cheese Grilled Dog     |  115 | Coca-Cola            |   45 |
+| Flame Grilled Chicken Burger |  135 | Iced Tea             |   35 |
+| Flame Grilled Chicken Burger |  135 | Frozen Fanta Cherry  |   65 |
+| Flame Grilled Chicken Burger |  135 | Diet Coke            |   60 |
+| Flame Grilled Chicken Burger |  135 | Mello Yello          |   75 |
+| Flame Grilled Chicken Burger |  135 | Coca-Cola            |   45 |
+| Original Chicken Sandwich    |   55 | Iced Tea             |   35 |
+| Original Chicken Sandwich    |   55 | Frozen Fanta Cherry  |   65 |
+| Original Chicken Sandwich    |   55 | Diet Coke            |   60 |
+| Original Chicken Sandwich    |   55 | Mello Yello          |   75 |
+| Original Chicken Sandwich    |   55 | Coca-Cola            |   45 |
+| McALLO TIKKI                 |   45 | Iced Tea             |   35 |
+| McALLO TIKKI                 |   45 | Frozen Fanta Cherry  |   65 |
+| McALLO TIKKI                 |   45 | Diet Coke            |   60 |
+| McALLO TIKKI                 |   45 | Mello Yello          |   75 |
+| McALLO TIKKI                 |   45 | Coca-Cola            |   45 |
+| Veg Maharaja Mac             |   75 | Iced Tea             |   35 |
+| Veg Maharaja Mac             |   75 | Frozen Fanta Cherry  |   65 |
+| Veg Maharaja Mac             |   75 | Diet Coke            |   60 |
+| Veg Maharaja Mac             |   75 | Mello Yello          |   75 |
+| Veg Maharaja Mac             |   75 | Coca-Cola            |   45 |
+| Big Spicy Chicken Wrap       |  100 | Iced Tea             |   35 |
+| Big Spicy Chicken Wrap       |  100 | Frozen Fanta Cherry  |   65 |
+| Big Spicy Chicken Wrap       |  100 | Diet Coke            |   60 |
+| Big Spicy Chicken Wrap       |  100 | Mello Yello          |   75 |
+| Big Spicy Chicken Wrap       |  100 | Coca-Cola            |   45 |
+| Cheese Onion Hamburger       |  145 | Iced Tea             |   35 |
+| Cheese Onion Hamburger       |  145 | Frozen Fanta Cherry  |   65 |
+| Cheese Onion Hamburger       |  145 | Diet Coke            |   60 |
+| Cheese Onion Hamburger       |  145 | Mello Yello          |   75 |
+| Cheese Onion Hamburger       |  145 | Coca-Cola            |   45 |
+| McVeggie Schezwan            |   85 | Iced Tea             |   35 |
+| McVeggie Schezwan            |   85 | Frozen Fanta Cherry  |   65 |
+| McVeggie Schezwan            |   85 | Diet Coke            |   60 |
+| McVeggie Schezwan            |   85 | Mello Yello          |   75 |
+| McVeggie Schezwan            |   85 | Coca-Cola            |   45 |
++------------------------------+------+----------------------+------+
+75 rows in set (0.00 sec)
+
+mysql> select m.name , m.rate,  s.name, s.rate, m.rate + s.rate Total from menucard m, softdrink s;
++------------------------------+------+----------------------+------+-------+
+| name                         | rate | name                 | rate | Total |
++------------------------------+------+----------------------+------+-------+
+| Onion Hamburger              |  115 | Iced Tea             |   35 |   150 |
+| Onion Hamburger              |  115 | Frozen Fanta Cherry  |   65 |   180 |
+| Onion Hamburger              |  115 | Diet Coke            |   60 |   175 |
+| Onion Hamburger              |  115 | Mello Yello          |   75 |   190 |
+| Onion Hamburger              |  115 | Coca-Cola            |   45 |   160 |
+| Extra Long Cheeseburger      |  100 | Iced Tea             |   35 |   135 |
+| Extra Long Cheeseburger      |  100 | Frozen Fanta Cherry  |   65 |   165 |
+| Extra Long Cheeseburger      |  100 | Diet Coke            |   60 |   160 |
+| Extra Long Cheeseburger      |  100 | Mello Yello          |   75 |   175 |
+| Extra Long Cheeseburger      |  100 | Coca-Cola            |   45 |   145 |
+| Double Stacker               |  125 | Iced Tea             |   35 |   160 |
+| Double Stacker               |  125 | Frozen Fanta Cherry  |   65 |   190 |
+| Double Stacker               |  125 | Diet Coke            |   60 |   185 |
+| Double Stacker               |  125 | Mello Yello          |   75 |   200 |
+| Double Stacker               |  125 | Coca-Cola            |   45 |   170 |
+| Double Cheeseburger          |  100 | Iced Tea             |   35 |   135 |
+| Double Cheeseburger          |  100 | Frozen Fanta Cherry  |   65 |   165 |
+| Double Cheeseburger          |  100 | Diet Coke            |   60 |   160 |
+| Double Cheeseburger          |  100 | Mello Yello          |   75 |   175 |
+| Double Cheeseburger          |  100 | Coca-Cola            |   45 |   145 |
+| Cheese Hamburger             |  125 | Iced Tea             |   35 |   160 |
+| Cheese Hamburger             |  125 | Frozen Fanta Cherry  |   65 |   190 |
+| Cheese Hamburger             |  125 | Diet Coke            |   60 |   185 |
+| Cheese Hamburger             |  125 | Mello Yello          |   75 |   200 |
+| Cheese Hamburger             |  125 | Coca-Cola            |   45 |   170 |
+| Hamburger                    |   85 | Iced Tea             |   35 |   120 |
+| Hamburger                    |   85 | Frozen Fanta Cherry  |   65 |   150 |
+| Hamburger                    |   85 | Diet Coke            |   60 |   145 |
+| Hamburger                    |   85 | Mello Yello          |   75 |   160 |
+| Hamburger                    |   85 | Coca-Cola            |   45 |   130 |
+| Classic Grilled Dog          |   95 | Iced Tea             |   35 |   130 |
+| Classic Grilled Dog          |   95 | Frozen Fanta Cherry  |   65 |   160 |
+| Classic Grilled Dog          |   95 | Diet Coke            |   60 |   155 |
+| Classic Grilled Dog          |   95 | Mello Yello          |   75 |   170 |
+| Classic Grilled Dog          |   95 | Coca-Cola            |   45 |   140 |
+| Chili Cheese Grilled Dog     |  115 | Iced Tea             |   35 |   150 |
+| Chili Cheese Grilled Dog     |  115 | Frozen Fanta Cherry  |   65 |   180 |
+| Chili Cheese Grilled Dog     |  115 | Diet Coke            |   60 |   175 |
+| Chili Cheese Grilled Dog     |  115 | Mello Yello          |   75 |   190 |
+| Chili Cheese Grilled Dog     |  115 | Coca-Cola            |   45 |   160 |
+| Flame Grilled Chicken Burger |  135 | Iced Tea             |   35 |   170 |
+| Flame Grilled Chicken Burger |  135 | Frozen Fanta Cherry  |   65 |   200 |
+| Flame Grilled Chicken Burger |  135 | Diet Coke            |   60 |   195 |
+| Flame Grilled Chicken Burger |  135 | Mello Yello          |   75 |   210 |
+| Flame Grilled Chicken Burger |  135 | Coca-Cola            |   45 |   180 |
+| Original Chicken Sandwich    |   55 | Iced Tea             |   35 |    90 |
+| Original Chicken Sandwich    |   55 | Frozen Fanta Cherry  |   65 |   120 |
+| Original Chicken Sandwich    |   55 | Diet Coke            |   60 |   115 |
+| Original Chicken Sandwich    |   55 | Mello Yello          |   75 |   130 |
+| Original Chicken Sandwich    |   55 | Coca-Cola            |   45 |   100 |
+| McALLO TIKKI                 |   45 | Iced Tea             |   35 |    80 |
+| McALLO TIKKI                 |   45 | Frozen Fanta Cherry  |   65 |   110 |
+| McALLO TIKKI                 |   45 | Diet Coke            |   60 |   105 |
+| McALLO TIKKI                 |   45 | Mello Yello          |   75 |   120 |
+| McALLO TIKKI                 |   45 | Coca-Cola            |   45 |    90 |
+| Veg Maharaja Mac             |   75 | Iced Tea             |   35 |   110 |
+| Veg Maharaja Mac             |   75 | Frozen Fanta Cherry  |   65 |   140 |
+| Veg Maharaja Mac             |   75 | Diet Coke            |   60 |   135 |
+| Veg Maharaja Mac             |   75 | Mello Yello          |   75 |   150 |
+| Veg Maharaja Mac             |   75 | Coca-Cola            |   45 |   120 |
+| Big Spicy Chicken Wrap       |  100 | Iced Tea             |   35 |   135 |
+| Big Spicy Chicken Wrap       |  100 | Frozen Fanta Cherry  |   65 |   165 |
+| Big Spicy Chicken Wrap       |  100 | Diet Coke            |   60 |   160 |
+| Big Spicy Chicken Wrap       |  100 | Mello Yello          |   75 |   175 |
+| Big Spicy Chicken Wrap       |  100 | Coca-Cola            |   45 |   145 |
+| Cheese Onion Hamburger       |  145 | Iced Tea             |   35 |   180 |
+| Cheese Onion Hamburger       |  145 | Frozen Fanta Cherry  |   65 |   210 |
+| Cheese Onion Hamburger       |  145 | Diet Coke            |   60 |   205 |
+| Cheese Onion Hamburger       |  145 | Mello Yello          |   75 |   220 |
+| Cheese Onion Hamburger       |  145 | Coca-Cola            |   45 |   190 |
+| McVeggie Schezwan            |   85 | Iced Tea             |   35 |   120 |
+| McVeggie Schezwan            |   85 | Frozen Fanta Cherry  |   65 |   150 |
+| McVeggie Schezwan            |   85 | Diet Coke            |   60 |   145 |
+| McVeggie Schezwan            |   85 | Mello Yello          |   75 |   160 |
+| McVeggie Schezwan            |   85 | Coca-Cola            |   45 |   130 |
++------------------------------+------+----------------------+------+-------+
+75 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> select ebane, deptno from emp;
+ERROR 1054 (42S22): Unknown column 'ebane' in 'field list'
+mysql>
+mysql>
+mysql> select enane, deptno from emp;
+ERROR 1054 (42S22): Unknown column 'enane' in 'field list'
+mysql>
+mysql>
+mysql>
+mysql> select ename, deptno from emp;
++----------+--------+
+| ename    | deptno |
++----------+--------+
+| GITA     |     30 |
+| VRUSHALI |     50 |
+| SHARMIN  |     20 |
+| BANDISH  |     20 |
+| SMITH    |     20 |
+| AARAV    |     10 |
+| THOMAS   |     10 |
+| ALLEN    |     30 |
+| WARD     |     30 |
+| JONES    |     20 |
+| MARTIN   |     30 |
+| BLAKE    |     30 |
+| CLARK    |     10 |
+| SCOTT    |     20 |
+| KING     |     10 |
+| FRED     |     20 |
+| TURNER   |     30 |
+| ADAMS    |     20 |
+| Ruhan    |     60 |
+| Neel     |     60 |
+| JAMES    |     30 |
+| FORD     |     20 |
+| HOFFMAN  |     30 |
+| GRASS    |     30 |
+| MILLER   |     10 |
+| AARUSH   |     30 |
+| ALEX     |     30 |
+| NATASHA  |     30 |
+| SANGITA  |     50 |
+| SUPRIYA  |     50 |
++----------+--------+
+30 rows in set (0.00 sec)
+
+mysql> select dname, deptno from dept;
++------------+--------+
+| dname      | deptno |
++------------+--------+
+| ACCOUNTING |     10 |
+| RESEARCH   |     20 |
+| SALES      |     30 |
+| OPERATIONS |     40 |
+| HR         |     50 |
+| IT         |     60 |
++------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select distinct deptno from emp;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
+|     30 |
+|     50 |
+|     60 |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select  deptno from dept;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
+|     30 |
+|     40 |
+|     50 |
+|     60 |
++--------+
+6 rows in set (0.00 sec)
+
+mysql> select  ename, dname, deptno from emp, dept where emp.deptno = dept.deptno;
+ERROR 1052 (23000): Column 'deptno' in field list is ambiguous
+mysql>
+mysql> select  ename, emp.deptno, dept.deptno,  dname, deptno from emp, dept where emp.deptno = dept.deptno;
+ERROR 1052 (23000): Column 'deptno' in field list is ambiguous
+mysql>
+mysql>
+mysql> select  ename, emp.deptno, dept.deptno,  dname from emp, dept where emp.deptno = dept.deptno;
++----------+--------+--------+------------+
+| ename    | deptno | deptno | dname      |
++----------+--------+--------+------------+
+| AARAV    |     10 |     10 | ACCOUNTING |
+| THOMAS   |     10 |     10 | ACCOUNTING |
+| CLARK    |     10 |     10 | ACCOUNTING |
+| KING     |     10 |     10 | ACCOUNTING |
+| MILLER   |     10 |     10 | ACCOUNTING |
+| SHARMIN  |     20 |     20 | RESEARCH   |
+| BANDISH  |     20 |     20 | RESEARCH   |
+| SMITH    |     20 |     20 | RESEARCH   |
+| JONES    |     20 |     20 | RESEARCH   |
+| SCOTT    |     20 |     20 | RESEARCH   |
+| FRED     |     20 |     20 | RESEARCH   |
+| ADAMS    |     20 |     20 | RESEARCH   |
+| FORD     |     20 |     20 | RESEARCH   |
+| GITA     |     30 |     30 | SALES      |
+| ALLEN    |     30 |     30 | SALES      |
+| WARD     |     30 |     30 | SALES      |
+| MARTIN   |     30 |     30 | SALES      |
+| BLAKE    |     30 |     30 | SALES      |
+| TURNER   |     30 |     30 | SALES      |
+| JAMES    |     30 |     30 | SALES      |
+| HOFFMAN  |     30 |     30 | SALES      |
+| GRASS    |     30 |     30 | SALES      |
+| AARUSH   |     30 |     30 | SALES      |
+| ALEX     |     30 |     30 | SALES      |
+| NATASHA  |     30 |     30 | SALES      |
+| VRUSHALI |     50 |     50 | HR         |
+| SANGITA  |     50 |     50 | HR         |
+| SUPRIYA  |     50 |     50 | HR         |
+| Ruhan    |     60 |     60 | IT         |
+| Neel     |     60 |     60 | IT         |
++----------+--------+--------+------------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> select  ename, emp.deptno, dept.deptno,  dname from emp join dept on emp.deptno = dept.deptno;
++----------+--------+--------+------------+
+| ename    | deptno | deptno | dname      |
++----------+--------+--------+------------+
+| AARAV    |     10 |     10 | ACCOUNTING |
+| THOMAS   |     10 |     10 | ACCOUNTING |
+| CLARK    |     10 |     10 | ACCOUNTING |
+| KING     |     10 |     10 | ACCOUNTING |
+| MILLER   |     10 |     10 | ACCOUNTING |
+| SHARMIN  |     20 |     20 | RESEARCH   |
+| BANDISH  |     20 |     20 | RESEARCH   |
+| SMITH    |     20 |     20 | RESEARCH   |
+| JONES    |     20 |     20 | RESEARCH   |
+| SCOTT    |     20 |     20 | RESEARCH   |
+| FRED     |     20 |     20 | RESEARCH   |
+| ADAMS    |     20 |     20 | RESEARCH   |
+| FORD     |     20 |     20 | RESEARCH   |
+| GITA     |     30 |     30 | SALES      |
+| ALLEN    |     30 |     30 | SALES      |
+| WARD     |     30 |     30 | SALES      |
+| MARTIN   |     30 |     30 | SALES      |
+| BLAKE    |     30 |     30 | SALES      |
+| TURNER   |     30 |     30 | SALES      |
+| JAMES    |     30 |     30 | SALES      |
+| HOFFMAN  |     30 |     30 | SALES      |
+| GRASS    |     30 |     30 | SALES      |
+| AARUSH   |     30 |     30 | SALES      |
+| ALEX     |     30 |     30 | SALES      |
+| NATASHA  |     30 |     30 | SALES      |
+| VRUSHALI |     50 |     50 | HR         |
+| SANGITA  |     50 |     50 | HR         |
+| SUPRIYA  |     50 |     50 | HR         |
+| Ruhan    |     60 |     60 | IT         |
+| Neel     |     60 |     60 | IT         |
++----------+--------+--------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select distinct deptno from emp;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
+|     30 |
+|     50 |
+|     60 |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select distinct deptno from dept
+    -> ;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
+|     30 |
+|     40 |
+|     50 |
+|     60 |
++--------+
+6 rows in set (0.00 sec)
+
+mysql> select  ename, emp.deptno, dept.deptno,  dname from emp join dept on emp.deptno = dept.deptno;
++----------+--------+--------+------------+
+| ename    | deptno | deptno | dname      |
++----------+--------+--------+------------+
+| AARAV    |     10 |     10 | ACCOUNTING |
+| THOMAS   |     10 |     10 | ACCOUNTING |
+| CLARK    |     10 |     10 | ACCOUNTING |
+| KING     |     10 |     10 | ACCOUNTING |
+| MILLER   |     10 |     10 | ACCOUNTING |
+| SHARMIN  |     20 |     20 | RESEARCH   |
+| BANDISH  |     20 |     20 | RESEARCH   |
+| SMITH    |     20 |     20 | RESEARCH   |
+| JONES    |     20 |     20 | RESEARCH   |
+| SCOTT    |     20 |     20 | RESEARCH   |
+| FRED     |     20 |     20 | RESEARCH   |
+| ADAMS    |     20 |     20 | RESEARCH   |
+| FORD     |     20 |     20 | RESEARCH   |
+| GITA     |     30 |     30 | SALES      |
+| ALLEN    |     30 |     30 | SALES      |
+| WARD     |     30 |     30 | SALES      |
+| MARTIN   |     30 |     30 | SALES      |
+| BLAKE    |     30 |     30 | SALES      |
+| TURNER   |     30 |     30 | SALES      |
+| JAMES    |     30 |     30 | SALES      |
+| HOFFMAN  |     30 |     30 | SALES      |
+| GRASS    |     30 |     30 | SALES      |
+| AARUSH   |     30 |     30 | SALES      |
+| ALEX     |     30 |     30 | SALES      |
+| NATASHA  |     30 |     30 | SALES      |
+| VRUSHALI |     50 |     50 | HR         |
+| SANGITA  |     50 |     50 | HR         |
+| SUPRIYA  |     50 |     50 | HR         |
+| Ruhan    |     60 |     60 | IT         |
+| Neel     |     60 |     60 | IT         |
++----------+--------+--------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select  ename, emp.deptno, dept.deptno,  dname from emp left outer join  dept on emp.deptno = dept.deptno;
++----------+--------+--------+------------+
+| ename    | deptno | deptno | dname      |
++----------+--------+--------+------------+
+| GITA     |     30 |     30 | SALES      |
+| VRUSHALI |     50 |     50 | HR         |
+| SHARMIN  |     20 |     20 | RESEARCH   |
+| BANDISH  |     20 |     20 | RESEARCH   |
+| SMITH    |     20 |     20 | RESEARCH   |
+| AARAV    |     10 |     10 | ACCOUNTING |
+| THOMAS   |     10 |     10 | ACCOUNTING |
+| ALLEN    |     30 |     30 | SALES      |
+| WARD     |     30 |     30 | SALES      |
+| JONES    |     20 |     20 | RESEARCH   |
+| MARTIN   |     30 |     30 | SALES      |
+| BLAKE    |     30 |     30 | SALES      |
+| CLARK    |     10 |     10 | ACCOUNTING |
+| SCOTT    |     20 |     20 | RESEARCH   |
+| KING     |     10 |     10 | ACCOUNTING |
+| FRED     |     20 |     20 | RESEARCH   |
+| TURNER   |     30 |     30 | SALES      |
+| ADAMS    |     20 |     20 | RESEARCH   |
+| Ruhan    |     60 |     60 | IT         |
+| Neel     |     60 |     60 | IT         |
+| JAMES    |     30 |     30 | SALES      |
+| FORD     |     20 |     20 | RESEARCH   |
+| HOFFMAN  |     30 |     30 | SALES      |
+| GRASS    |     30 |     30 | SALES      |
+| MILLER   |     10 |     10 | ACCOUNTING |
+| AARUSH   |     30 |     30 | SALES      |
+| ALEX     |     30 |     30 | SALES      |
+| NATASHA  |     30 |     30 | SALES      |
+| SANGITA  |     50 |     50 | HR         |
+| SUPRIYA  |     50 |     50 | HR         |
++----------+--------+--------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select  ename, emp.deptno, dept.deptno,  dname from emp gight outer join  dept on emp.deptno = dept.deptno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'outer join  dept on emp.deptno = dept.deptno' at line 1
+mysql>
+mysql>
+mysql> select  ename, emp.deptno, dept.deptno,  dname from emp right  outer join  dept on emp.deptno = dept.deptno;
++----------+--------+--------+------------+
+| ename    | deptno | deptno | dname      |
++----------+--------+--------+------------+
+| AARAV    |     10 |     10 | ACCOUNTING |
+| THOMAS   |     10 |     10 | ACCOUNTING |
+| CLARK    |     10 |     10 | ACCOUNTING |
+| KING     |     10 |     10 | ACCOUNTING |
+| MILLER   |     10 |     10 | ACCOUNTING |
+| SHARMIN  |     20 |     20 | RESEARCH   |
+| BANDISH  |     20 |     20 | RESEARCH   |
+| SMITH    |     20 |     20 | RESEARCH   |
+| JONES    |     20 |     20 | RESEARCH   |
+| SCOTT    |     20 |     20 | RESEARCH   |
+| FRED     |     20 |     20 | RESEARCH   |
+| ADAMS    |     20 |     20 | RESEARCH   |
+| FORD     |     20 |     20 | RESEARCH   |
+| GITA     |     30 |     30 | SALES      |
+| ALLEN    |     30 |     30 | SALES      |
+| WARD     |     30 |     30 | SALES      |
+| MARTIN   |     30 |     30 | SALES      |
+| BLAKE    |     30 |     30 | SALES      |
+| TURNER   |     30 |     30 | SALES      |
+| JAMES    |     30 |     30 | SALES      |
+| HOFFMAN  |     30 |     30 | SALES      |
+| GRASS    |     30 |     30 | SALES      |
+| AARUSH   |     30 |     30 | SALES      |
+| ALEX     |     30 |     30 | SALES      |
+| NATASHA  |     30 |     30 | SALES      |
+| NULL     |   NULL |     40 | OPERATIONS |
+| VRUSHALI |     50 |     50 | HR         |
+| SANGITA  |     50 |     50 | HR         |
+| SUPRIYA  |     50 |     50 | HR         |
+| Ruhan    |     60 |     60 | IT         |
+| Neel     |     60 |     60 | IT         |
++----------+--------+--------+------------+
+31 rows in set (0.00 sec)
+
+mysql> select  ename, e.deptno, d.deptno,  dname from emp e left outer join  dept d on e.deptno = d.deptno;
++----------+--------+--------+------------+
+| ename    | deptno | deptno | dname      |
++----------+--------+--------+------------+
+| GITA     |     30 |     30 | SALES      |
+| VRUSHALI |     50 |     50 | HR         |
+| SHARMIN  |     20 |     20 | RESEARCH   |
+| BANDISH  |     20 |     20 | RESEARCH   |
+| SMITH    |     20 |     20 | RESEARCH   |
+| AARAV    |     10 |     10 | ACCOUNTING |
+| THOMAS   |     10 |     10 | ACCOUNTING |
+| ALLEN    |     30 |     30 | SALES      |
+| WARD     |     30 |     30 | SALES      |
+| JONES    |     20 |     20 | RESEARCH   |
+| MARTIN   |     30 |     30 | SALES      |
+| BLAKE    |     30 |     30 | SALES      |
+| CLARK    |     10 |     10 | ACCOUNTING |
+| SCOTT    |     20 |     20 | RESEARCH   |
+| KING     |     10 |     10 | ACCOUNTING |
+| FRED     |     20 |     20 | RESEARCH   |
+| TURNER   |     30 |     30 | SALES      |
+| ADAMS    |     20 |     20 | RESEARCH   |
+| Ruhan    |     60 |     60 | IT         |
+| Neel     |     60 |     60 | IT         |
+| JAMES    |     30 |     30 | SALES      |
+| FORD     |     20 |     20 | RESEARCH   |
+| HOFFMAN  |     30 |     30 | SALES      |
+| GRASS    |     30 |     30 | SALES      |
+| MILLER   |     10 |     10 | ACCOUNTING |
+| AARUSH   |     30 |     30 | SALES      |
+| ALEX     |     30 |     30 | SALES      |
+| NATASHA  |     30 |     30 | SALES      |
+| SANGITA  |     50 |     50 | HR         |
+| SUPRIYA  |     50 |     50 | HR         |
++----------+--------+--------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select row_number() over()  R1, ename, e.deptno, d.deptno,  dname from emp e left outer join  dept d on e.deptno = d.deptno;
++----+----------+--------+--------+------------+
+| R1 | ename    | deptno | deptno | dname      |
++----+----------+--------+--------+------------+
+|  1 | GITA     |     30 |     30 | SALES      |
+|  2 | VRUSHALI |     50 |     50 | HR         |
+|  3 | SHARMIN  |     20 |     20 | RESEARCH   |
+|  4 | BANDISH  |     20 |     20 | RESEARCH   |
+|  5 | SMITH    |     20 |     20 | RESEARCH   |
+|  6 | AARAV    |     10 |     10 | ACCOUNTING |
+|  7 | THOMAS   |     10 |     10 | ACCOUNTING |
+|  8 | ALLEN    |     30 |     30 | SALES      |
+|  9 | WARD     |     30 |     30 | SALES      |
+| 10 | JONES    |     20 |     20 | RESEARCH   |
+| 11 | MARTIN   |     30 |     30 | SALES      |
+| 12 | BLAKE    |     30 |     30 | SALES      |
+| 13 | CLARK    |     10 |     10 | ACCOUNTING |
+| 14 | SCOTT    |     20 |     20 | RESEARCH   |
+| 15 | KING     |     10 |     10 | ACCOUNTING |
+| 16 | FRED     |     20 |     20 | RESEARCH   |
+| 17 | TURNER   |     30 |     30 | SALES      |
+| 18 | ADAMS    |     20 |     20 | RESEARCH   |
+| 19 | Ruhan    |     60 |     60 | IT         |
+| 20 | Neel     |     60 |     60 | IT         |
+| 21 | JAMES    |     30 |     30 | SALES      |
+| 22 | FORD     |     20 |     20 | RESEARCH   |
+| 23 | HOFFMAN  |     30 |     30 | SALES      |
+| 24 | GRASS    |     30 |     30 | SALES      |
+| 25 | MILLER   |     10 |     10 | ACCOUNTING |
+| 26 | AARUSH   |     30 |     30 | SALES      |
+| 27 | ALEX     |     30 |     30 | SALES      |
+| 28 | NATASHA  |     30 |     30 | SALES      |
+| 29 | SANGITA  |     50 |     50 | HR         |
+| 30 | SUPRIYA  |     50 |     50 | HR         |
++----+----------+--------+--------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select dname, sum(sal) from emp e, dept d where  e.deptnp = d.deptno;
+ERROR 1054 (42S22): Unknown column 'e.deptnp' in 'where clause'
+mysql>
+mysql>
+mysql> select dname, sum(sal) from emp e, dept d where  e.deptno = d.deptno;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'db1.d.DNAME'; this is incompatible with sql_mode=only_full_group_by
+mysql>
+mysql>
+mysql>
+mysql> select dname, sum(sal) from emp e, dept d where  e.deptno = d.deptno group by dname;
++------------+----------+
+| dname      | sum(sal) |
++------------+----------+
+| SALES      |    22225 |
+| HR         |     5250 |
+| RESEARCH   |    19375 |
+| ACCOUNTING |    13850 |
+| IT         |     3000 |
++------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select dname, sum(sal), count(*) from emp e, dept d where  e.deptno = d.deptno group by dname;
++------------+----------+----------+
+| dname      | sum(sal) | count(*) |
++------------+----------+----------+
+| SALES      |    22225 |       12 |
+| HR         |     5250 |        3 |
+| RESEARCH   |    19375 |        8 |
+| ACCOUNTING |    13850 |        5 |
+| IT         |     3000 |        2 |
++------------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> select row_number() over() R1, dname, sum(sal), count(*) from emp e, dept d where  e.deptno = d.deptno group by dname;
++----+------------+----------+----------+
+| R1 | dname      | sum(sal) | count(*) |
++----+------------+----------+----------+
+|  1 | SALES      |    22225 |       12 |
+|  2 | HR         |     5250 |        3 |
+|  3 | RESEARCH   |    19375 |        8 |
+|  4 | ACCOUNTING |    13850 |        5 |
+|  5 | IT         |     3000 |        2 |
++----+------------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select row_number() over() R1, dname, sum(sal), count(*) from emp e, dept d where  e.deptno = d.deptno group by dname;
++----+------------+----------+----------+
+| R1 | dname      | sum(sal) | count(*) |
++----+------------+----------+----------+
+|  1 | SALES      |    22225 |       12 |
+|  2 | HR         |     5250 |        3 |
+|  3 | RESEARCH   |    19375 |        8 |
+|  4 | ACCOUNTING |    13850 |        5 |
+|  5 | IT         |     3000 |        2 |
++----+------------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select row_number() over() R1, dname, sum(sal), count(*) from emp e, dept d where  e.deptno = d.deptno group by dname;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

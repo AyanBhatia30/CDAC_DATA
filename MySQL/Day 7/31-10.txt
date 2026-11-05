@@ -1,0 +1,2033 @@
+select  _id, custId,transactionDate, type,amount, sum(case when type = 'd' then -amount else amount  end) over(partition by custId order by _id) R1 from transactions;
+
+
+
+
+ select * from  (select * from dept) T1;
+ 
+ with cte as (select * from dept) select * from cte;
+ 
+ 
+ 
+ select * from (select dense_rank() over(order by sal desc) R1, sal from emp) T1 where T1.R1 = 2;
+ 
+ with cte as (select dense_rank() over(order by sal desc) R1,sal from emp) select * from cte where R1 = 2;
+ 
+ 
+ 
+ 
+ select 10  union select 20;   // 10
+							   // 20
+							   
+							   
+							   
+				
+
+
+
+
+
+
+
+
+with cte as (select * from dhl  union select * from  fedex) select * from cte where status =  'Delivered';
+
+
+
+
+
+
+
+with recursive cte as (select 1 n union select  n + 1 from  cte  where n < 10 ) select * from cte;
+
+
+
+
+mysql>  use db1
+Database changed
+mysql> select job from emp;
++---------------------+
+| job                 |
++---------------------+
+| Compliance officers |
+| Compliance officers |
+| Public Relation     |
+| Public Relation     |
+| CLERK               |
+| CLERK               |
+| CLERK               |
+| SALESMAN            |
+| SALESMAN            |
+| MANAGER             |
+| SALESMAN            |
+| MANAGER             |
+| MANAGER             |
+| ANALYST             |
+| PRESIDENT           |
+| vice PRESIDENT      |
+| SALESMAN            |
+| CLERK               |
+| Network             |
+| vice PRESIDENT      |
+| CLERK               |
+| ANALYST             |
+| MANAGER             |
+| SALESMAN            |
+| CLERK               |
+| SALESMAN            |
+| MANAGER             |
+| CLERK               |
+| Compliance officers |
+| ANALYST             |
++---------------------+
+30 rows in set (0.07 sec)
+
+mysql> select row_number() over(order by null)  R1, job from emp;
++----+---------------------+
+| R1 | job                 |
++----+---------------------+
+|  1 | Compliance officers |
+|  2 | Compliance officers |
+|  3 | Public Relation     |
+|  4 | Public Relation     |
+|  5 | CLERK               |
+|  6 | CLERK               |
+|  7 | CLERK               |
+|  8 | SALESMAN            |
+|  9 | SALESMAN            |
+| 10 | MANAGER             |
+| 11 | SALESMAN            |
+| 12 | MANAGER             |
+| 13 | MANAGER             |
+| 14 | ANALYST             |
+| 15 | PRESIDENT           |
+| 16 | vice PRESIDENT      |
+| 17 | SALESMAN            |
+| 18 | CLERK               |
+| 19 | Network             |
+| 20 | vice PRESIDENT      |
+| 21 | CLERK               |
+| 22 | ANALYST             |
+| 23 | MANAGER             |
+| 24 | SALESMAN            |
+| 25 | CLERK               |
+| 26 | SALESMAN            |
+| 27 | MANAGER             |
+| 28 | CLERK               |
+| 29 | Compliance officers |
+| 30 | ANALYST             |
++----+---------------------+
+30 rows in set (0.03 sec)
+
+mysql> select row_number() over(partition by job order by null)  R1, job from emp;
++----+---------------------+
+| R1 | job                 |
++----+---------------------+
+|  1 | ANALYST             |
+|  2 | ANALYST             |
+|  3 | ANALYST             |
+|  1 | CLERK               |
+|  2 | CLERK               |
+|  3 | CLERK               |
+|  4 | CLERK               |
+|  5 | CLERK               |
+|  6 | CLERK               |
+|  7 | CLERK               |
+|  1 | Compliance officers |
+|  2 | Compliance officers |
+|  3 | Compliance officers |
+|  1 | MANAGER             |
+|  2 | MANAGER             |
+|  3 | MANAGER             |
+|  4 | MANAGER             |
+|  5 | MANAGER             |
+|  1 | Network             |
+|  1 | PRESIDENT           |
+|  1 | Public Relation     |
+|  2 | Public Relation     |
+|  1 | SALESMAN            |
+|  2 | SALESMAN            |
+|  3 | SALESMAN            |
+|  4 | SALESMAN            |
+|  5 | SALESMAN            |
+|  6 | SALESMAN            |
+|  1 | vice PRESIDENT      |
+|  2 | vice PRESIDENT      |
++----+---------------------+
+30 rows in set (0.01 sec)
+
+mysql> select row_number() over(partition by job order by job)  R1, job from emp;
++----+---------------------+
+| R1 | job                 |
++----+---------------------+
+|  1 | ANALYST             |
+|  2 | ANALYST             |
+|  3 | ANALYST             |
+|  1 | CLERK               |
+|  2 | CLERK               |
+|  3 | CLERK               |
+|  4 | CLERK               |
+|  5 | CLERK               |
+|  6 | CLERK               |
+|  7 | CLERK               |
+|  1 | Compliance officers |
+|  2 | Compliance officers |
+|  3 | Compliance officers |
+|  1 | MANAGER             |
+|  2 | MANAGER             |
+|  3 | MANAGER             |
+|  4 | MANAGER             |
+|  5 | MANAGER             |
+|  1 | Network             |
+|  1 | PRESIDENT           |
+|  1 | Public Relation     |
+|  2 | Public Relation     |
+|  1 | SALESMAN            |
+|  2 | SALESMAN            |
+|  3 | SALESMAN            |
+|  4 | SALESMAN            |
+|  5 | SALESMAN            |
+|  6 | SALESMAN            |
+|  1 | vice PRESIDENT      |
+|  2 | vice PRESIDENT      |
++----+---------------------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select * from transactions;
++-----+--------+---------------------+------+--------+
+| _id | custId | transactionDate     | type | amount |
++-----+--------+---------------------+------+--------+
+|   1 |   1002 | 2021-01-01 10:24:34 | c    |  30000 |
+|   2 |   1001 | 2021-01-01 12:45:13 | c    |  30000 |
+|   3 |   1003 | 2021-01-01 14:00:04 | c    |  30000 |
+|   4 |   1002 | 2021-01-01 12:24:34 | c    | 370000 |
+|   5 |   1001 | 2021-01-01 14:45:13 | c    | 370000 |
+|   6 |   1003 | 2021-01-01 15:00:04 | c    | 370000 |
+|   7 |   1002 | 2021-01-01 10:24:34 | d    |   7000 |
+|   8 |   1001 | 2021-01-01 12:45:13 | d    |   7500 |
+|   9 |   1003 | 2021-01-01 14:00:04 | d    |   7000 |
+|  10 |   1001 | 2021-01-01 11:20:10 | d    |   2000 |
+|  11 |   1002 | 2021-02-12 12:00:42 | d    |   4000 |
+|  12 |   1001 | 2021-02-23 10:24:34 | d    |   1500 |
+|  13 |   1003 | 2021-01-12 09:23:09 | d    |   1000 |
+|  14 |   1001 | 2021-02-28 11:43:13 | c    |    500 |
+|  15 |   1002 | 2021-03-13 12:23:31 | d    |    500 |
+|  16 |   1002 | 2021-03-01 11:20:43 | c    |   1500 |
+|  17 |   1003 | 2021-02-24 11:34:32 | c    |    200 |
+|  18 |   1002 | 2021-04-30 14:20:32 | d    |   6000 |
+|  19 |   1001 | 2021-02-27 11:43:10 | d    |   2000 |
+|  20 |   1001 | 2021-03-17 09:15:23 | c    |   1200 |
+|  21 |   1003 | 2021-04-06 09:13:22 | d    |   4500 |
+|  22 |   1003 | 2021-02-04 11:32:43 | d    |   4200 |
+|  23 |   1001 | 2021-05-14 10:17:10 | c    |    600 |
+|  24 |   1003 | 2021-02-07 14:45:33 | c    |    400 |
+|  25 |   1002 | 2021-04-29 15:53:23 | c    |   1200 |
+|  26 |   1002 | 2021-06-23 09:53:54 | c    |   1600 |
+|  27 |   1003 | 2021-03-06 11:50:34 | d    |   3000 |
+|  28 |   1002 | 2021-04-30 14:20:33 | d    |   3000 |
+|  29 |   1001 | 2021-05-14 10:17:13 | c    |    600 |
+|  30 |   1003 | 2021-01-01 14:00:05 | d    |   7000 |
+|  31 |   1002 | 2021-06-23 09:53:57 | c    |    250 |
+|  32 |   1001 | 2021-05-14 10:17:18 | d    |   5600 |
+|  33 |   1003 | 2021-03-06 11:50:37 | c    |    200 |
++-----+--------+---------------------+------+--------+
+33 rows in set (0.03 sec)
+
+mysql> select * from transactions order by custId;
++-----+--------+---------------------+------+--------+
+| _id | custId | transactionDate     | type | amount |
++-----+--------+---------------------+------+--------+
+|   2 |   1001 | 2021-01-01 12:45:13 | c    |  30000 |
+|   5 |   1001 | 2021-01-01 14:45:13 | c    | 370000 |
+|  14 |   1001 | 2021-02-28 11:43:13 | c    |    500 |
+|   8 |   1001 | 2021-01-01 12:45:13 | d    |   7500 |
+|  10 |   1001 | 2021-01-01 11:20:10 | d    |   2000 |
+|  12 |   1001 | 2021-02-23 10:24:34 | d    |   1500 |
+|  19 |   1001 | 2021-02-27 11:43:10 | d    |   2000 |
+|  20 |   1001 | 2021-03-17 09:15:23 | c    |   1200 |
+|  23 |   1001 | 2021-05-14 10:17:10 | c    |    600 |
+|  29 |   1001 | 2021-05-14 10:17:13 | c    |    600 |
+|  32 |   1001 | 2021-05-14 10:17:18 | d    |   5600 |
+|   1 |   1002 | 2021-01-01 10:24:34 | c    |  30000 |
+|  16 |   1002 | 2021-03-01 11:20:43 | c    |   1500 |
+|   4 |   1002 | 2021-01-01 12:24:34 | c    | 370000 |
+|   7 |   1002 | 2021-01-01 10:24:34 | d    |   7000 |
+|  15 |   1002 | 2021-03-13 12:23:31 | d    |    500 |
+|  11 |   1002 | 2021-02-12 12:00:42 | d    |   4000 |
+|  18 |   1002 | 2021-04-30 14:20:32 | d    |   6000 |
+|  25 |   1002 | 2021-04-29 15:53:23 | c    |   1200 |
+|  26 |   1002 | 2021-06-23 09:53:54 | c    |   1600 |
+|  28 |   1002 | 2021-04-30 14:20:33 | d    |   3000 |
+|  31 |   1002 | 2021-06-23 09:53:57 | c    |    250 |
+|  13 |   1003 | 2021-01-12 09:23:09 | d    |   1000 |
+|  24 |   1003 | 2021-02-07 14:45:33 | c    |    400 |
+|  17 |   1003 | 2021-02-24 11:34:32 | c    |    200 |
+|   3 |   1003 | 2021-01-01 14:00:04 | c    |  30000 |
+|  27 |   1003 | 2021-03-06 11:50:34 | d    |   3000 |
+|   6 |   1003 | 2021-01-01 15:00:04 | c    | 370000 |
+|   9 |   1003 | 2021-01-01 14:00:04 | d    |   7000 |
+|  30 |   1003 | 2021-01-01 14:00:05 | d    |   7000 |
+|  21 |   1003 | 2021-04-06 09:13:22 | d    |   4500 |
+|  22 |   1003 | 2021-02-04 11:32:43 | d    |   4200 |
+|  33 |   1003 | 2021-03-06 11:50:37 | c    |    200 |
++-----+--------+---------------------+------+--------+
+33 rows in set (0.00 sec)
+
+mysql> select  _id, custId,transactionDate, type,amount from transactions order by custId;
++-----+--------+---------------------+------+--------+
+| _id | custId | transactionDate     | type | amount |
++-----+--------+---------------------+------+--------+
+|   2 |   1001 | 2021-01-01 12:45:13 | c    |  30000 |
+|   5 |   1001 | 2021-01-01 14:45:13 | c    | 370000 |
+|  14 |   1001 | 2021-02-28 11:43:13 | c    |    500 |
+|   8 |   1001 | 2021-01-01 12:45:13 | d    |   7500 |
+|  10 |   1001 | 2021-01-01 11:20:10 | d    |   2000 |
+|  12 |   1001 | 2021-02-23 10:24:34 | d    |   1500 |
+|  19 |   1001 | 2021-02-27 11:43:10 | d    |   2000 |
+|  20 |   1001 | 2021-03-17 09:15:23 | c    |   1200 |
+|  23 |   1001 | 2021-05-14 10:17:10 | c    |    600 |
+|  29 |   1001 | 2021-05-14 10:17:13 | c    |    600 |
+|  32 |   1001 | 2021-05-14 10:17:18 | d    |   5600 |
+|   1 |   1002 | 2021-01-01 10:24:34 | c    |  30000 |
+|  16 |   1002 | 2021-03-01 11:20:43 | c    |   1500 |
+|   4 |   1002 | 2021-01-01 12:24:34 | c    | 370000 |
+|   7 |   1002 | 2021-01-01 10:24:34 | d    |   7000 |
+|  15 |   1002 | 2021-03-13 12:23:31 | d    |    500 |
+|  11 |   1002 | 2021-02-12 12:00:42 | d    |   4000 |
+|  18 |   1002 | 2021-04-30 14:20:32 | d    |   6000 |
+|  25 |   1002 | 2021-04-29 15:53:23 | c    |   1200 |
+|  26 |   1002 | 2021-06-23 09:53:54 | c    |   1600 |
+|  28 |   1002 | 2021-04-30 14:20:33 | d    |   3000 |
+|  31 |   1002 | 2021-06-23 09:53:57 | c    |    250 |
+|  13 |   1003 | 2021-01-12 09:23:09 | d    |   1000 |
+|  24 |   1003 | 2021-02-07 14:45:33 | c    |    400 |
+|  17 |   1003 | 2021-02-24 11:34:32 | c    |    200 |
+|   3 |   1003 | 2021-01-01 14:00:04 | c    |  30000 |
+|  27 |   1003 | 2021-03-06 11:50:34 | d    |   3000 |
+|   6 |   1003 | 2021-01-01 15:00:04 | c    | 370000 |
+|   9 |   1003 | 2021-01-01 14:00:04 | d    |   7000 |
+|  30 |   1003 | 2021-01-01 14:00:05 | d    |   7000 |
+|  21 |   1003 | 2021-04-06 09:13:22 | d    |   4500 |
+|  22 |   1003 | 2021-02-04 11:32:43 | d    |   4200 |
+|  33 |   1003 | 2021-03-06 11:50:37 | c    |    200 |
++-----+--------+---------------------+------+--------+
+33 rows in set (0.00 sec)
+
+mysql> select  _id, custId,transactionDate, type,amount, case when type   'd' then amount else amount  end R1 from transactions order by custId;
++-----+--------+---------------------+------+--------+--------+
+| _id | custId | transactionDate     | type | amount | R1     |
++-----+--------+---------------------+------+--------+--------+
+|   2 |   1001 | 2021-01-01 12:45:13 | c    |  30000 |  30000 |
+|   5 |   1001 | 2021-01-01 14:45:13 | c    | 370000 | 370000 |
+|  14 |   1001 | 2021-02-28 11:43:13 | c    |    500 |    500 |
+|   8 |   1001 | 2021-01-01 12:45:13 | d    |   7500 |   7500 |
+|  10 |   1001 | 2021-01-01 11:20:10 | d    |   2000 |   2000 |
+|  12 |   1001 | 2021-02-23 10:24:34 | d    |   1500 |   1500 |
+|  19 |   1001 | 2021-02-27 11:43:10 | d    |   2000 |   2000 |
+|  20 |   1001 | 2021-03-17 09:15:23 | c    |   1200 |   1200 |
+|  23 |   1001 | 2021-05-14 10:17:10 | c    |    600 |    600 |
+|  29 |   1001 | 2021-05-14 10:17:13 | c    |    600 |    600 |
+|  32 |   1001 | 2021-05-14 10:17:18 | d    |   5600 |   5600 |
+|   1 |   1002 | 2021-01-01 10:24:34 | c    |  30000 |  30000 |
+|  16 |   1002 | 2021-03-01 11:20:43 | c    |   1500 |   1500 |
+|   4 |   1002 | 2021-01-01 12:24:34 | c    | 370000 | 370000 |
+|   7 |   1002 | 2021-01-01 10:24:34 | d    |   7000 |   7000 |
+|  15 |   1002 | 2021-03-13 12:23:31 | d    |    500 |    500 |
+|  11 |   1002 | 2021-02-12 12:00:42 | d    |   4000 |   4000 |
+|  18 |   1002 | 2021-04-30 14:20:32 | d    |   6000 |   6000 |
+|  25 |   1002 | 2021-04-29 15:53:23 | c    |   1200 |   1200 |
+|  26 |   1002 | 2021-06-23 09:53:54 | c    |   1600 |   1600 |
+|  28 |   1002 | 2021-04-30 14:20:33 | d    |   3000 |   3000 |
+|  31 |   1002 | 2021-06-23 09:53:57 | c    |    250 |    250 |
+|  13 |   1003 | 2021-01-12 09:23:09 | d    |   1000 |   1000 |
+|  24 |   1003 | 2021-02-07 14:45:33 | c    |    400 |    400 |
+|  17 |   1003 | 2021-02-24 11:34:32 | c    |    200 |    200 |
+|   3 |   1003 | 2021-01-01 14:00:04 | c    |  30000 |  30000 |
+|  27 |   1003 | 2021-03-06 11:50:34 | d    |   3000 |   3000 |
+|   6 |   1003 | 2021-01-01 15:00:04 | c    | 370000 | 370000 |
+|   9 |   1003 | 2021-01-01 14:00:04 | d    |   7000 |   7000 |
+|  30 |   1003 | 2021-01-01 14:00:05 | d    |   7000 |   7000 |
+|  21 |   1003 | 2021-04-06 09:13:22 | d    |   4500 |   4500 |
+|  22 |   1003 | 2021-02-04 11:32:43 | d    |   4200 |   4200 |
+|  33 |   1003 | 2021-03-06 11:50:37 | c    |    200 |    200 |
++-----+--------+---------------------+------+--------+--------+
+33 rows in set (0.00 sec)
+
+mysql>
+mysql> select  _id, custId,transactionDate, type,amount, case when type = 'd' then -amount else amount  end R1 from transactions order by custId;
++-----+--------+---------------------+------+--------+--------+
+| _id | custId | transactionDate     | type | amount | R1     |
++-----+--------+---------------------+------+--------+--------+
+|   2 |   1001 | 2021-01-01 12:45:13 | c    |  30000 |  30000 |
+|   5 |   1001 | 2021-01-01 14:45:13 | c    | 370000 | 370000 |
+|  14 |   1001 | 2021-02-28 11:43:13 | c    |    500 |    500 |
+|   8 |   1001 | 2021-01-01 12:45:13 | d    |   7500 |  -7500 |
+|  10 |   1001 | 2021-01-01 11:20:10 | d    |   2000 |  -2000 |
+|  12 |   1001 | 2021-02-23 10:24:34 | d    |   1500 |  -1500 |
+|  19 |   1001 | 2021-02-27 11:43:10 | d    |   2000 |  -2000 |
+|  20 |   1001 | 2021-03-17 09:15:23 | c    |   1200 |   1200 |
+|  23 |   1001 | 2021-05-14 10:17:10 | c    |    600 |    600 |
+|  29 |   1001 | 2021-05-14 10:17:13 | c    |    600 |    600 |
+|  32 |   1001 | 2021-05-14 10:17:18 | d    |   5600 |  -5600 |
+|   1 |   1002 | 2021-01-01 10:24:34 | c    |  30000 |  30000 |
+|  16 |   1002 | 2021-03-01 11:20:43 | c    |   1500 |   1500 |
+|   4 |   1002 | 2021-01-01 12:24:34 | c    | 370000 | 370000 |
+|   7 |   1002 | 2021-01-01 10:24:34 | d    |   7000 |  -7000 |
+|  15 |   1002 | 2021-03-13 12:23:31 | d    |    500 |   -500 |
+|  11 |   1002 | 2021-02-12 12:00:42 | d    |   4000 |  -4000 |
+|  18 |   1002 | 2021-04-30 14:20:32 | d    |   6000 |  -6000 |
+|  25 |   1002 | 2021-04-29 15:53:23 | c    |   1200 |   1200 |
+|  26 |   1002 | 2021-06-23 09:53:54 | c    |   1600 |   1600 |
+|  28 |   1002 | 2021-04-30 14:20:33 | d    |   3000 |  -3000 |
+|  31 |   1002 | 2021-06-23 09:53:57 | c    |    250 |    250 |
+|  13 |   1003 | 2021-01-12 09:23:09 | d    |   1000 |  -1000 |
+|  24 |   1003 | 2021-02-07 14:45:33 | c    |    400 |    400 |
+|  17 |   1003 | 2021-02-24 11:34:32 | c    |    200 |    200 |
+|   3 |   1003 | 2021-01-01 14:00:04 | c    |  30000 |  30000 |
+|  27 |   1003 | 2021-03-06 11:50:34 | d    |   3000 |  -3000 |
+|   6 |   1003 | 2021-01-01 15:00:04 | c    | 370000 | 370000 |
+|   9 |   1003 | 2021-01-01 14:00:04 | d    |   7000 |  -7000 |
+|  30 |   1003 | 2021-01-01 14:00:05 | d    |   7000 |  -7000 |
+|  21 |   1003 | 2021-04-06 09:13:22 | d    |   4500 |  -4500 |
+|  22 |   1003 | 2021-02-04 11:32:43 | d    |   4200 |  -4200 |
+|  33 |   1003 | 2021-03-06 11:50:37 | c    |    200 |    200 |
++-----+--------+---------------------+------+--------+--------+
+33 rows in set (0.00 sec)
+
+mysql> select 1000 + -500;
++-------------+
+| 1000 + -500 |
++-------------+
+|         500 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from r;
++----+------+
+| id | c1   |
++----+------+
+|  1 |   -2 |
+|  2 | NULL |
+|  3 |    1 |
+|  4 |    2 |
+|  5 |   -1 |
+|  6 | NULL |
+|  7 |    3 |
+|  8 |   -2 |
+|  9 | NULL |
+| 10 |    1 |
+| 11 |    5 |
+| 12 |    2 |
+| 13 | NULL |
+| 14 |    1 |
+| 15 | NULL |
++----+------+
+15 rows in set (0.03 sec)
+
+mysql> select sum*c1) from r;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') from r' at line 1
+mysql>
+mysql>
+mysql> select sum(c1) from r;
++---------+
+| sum(c1) |
++---------+
+|      10 |
++---------+
+1 row in set (0.02 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select  _id, custId,transactionDate, type,amount, case when type = 'd' then -amount else amount  end R1 from transactions order by custId;
++-----+--------+---------------------+------+--------+--------+
+| _id | custId | transactionDate     | type | amount | R1     |
++-----+--------+---------------------+------+--------+--------+
+|   2 |   1001 | 2021-01-01 12:45:13 | c    |  30000 |  30000 |
+|   5 |   1001 | 2021-01-01 14:45:13 | c    | 370000 | 370000 |
+|  14 |   1001 | 2021-02-28 11:43:13 | c    |    500 |    500 |
+|   8 |   1001 | 2021-01-01 12:45:13 | d    |   7500 |  -7500 |
+|  10 |   1001 | 2021-01-01 11:20:10 | d    |   2000 |  -2000 |
+|  12 |   1001 | 2021-02-23 10:24:34 | d    |   1500 |  -1500 |
+|  19 |   1001 | 2021-02-27 11:43:10 | d    |   2000 |  -2000 |
+|  20 |   1001 | 2021-03-17 09:15:23 | c    |   1200 |   1200 |
+|  23 |   1001 | 2021-05-14 10:17:10 | c    |    600 |    600 |
+|  29 |   1001 | 2021-05-14 10:17:13 | c    |    600 |    600 |
+|  32 |   1001 | 2021-05-14 10:17:18 | d    |   5600 |  -5600 |
+|   1 |   1002 | 2021-01-01 10:24:34 | c    |  30000 |  30000 |
+|  16 |   1002 | 2021-03-01 11:20:43 | c    |   1500 |   1500 |
+|   4 |   1002 | 2021-01-01 12:24:34 | c    | 370000 | 370000 |
+|   7 |   1002 | 2021-01-01 10:24:34 | d    |   7000 |  -7000 |
+|  15 |   1002 | 2021-03-13 12:23:31 | d    |    500 |   -500 |
+|  11 |   1002 | 2021-02-12 12:00:42 | d    |   4000 |  -4000 |
+|  18 |   1002 | 2021-04-30 14:20:32 | d    |   6000 |  -6000 |
+|  25 |   1002 | 2021-04-29 15:53:23 | c    |   1200 |   1200 |
+|  26 |   1002 | 2021-06-23 09:53:54 | c    |   1600 |   1600 |
+|  28 |   1002 | 2021-04-30 14:20:33 | d    |   3000 |  -3000 |
+|  31 |   1002 | 2021-06-23 09:53:57 | c    |    250 |    250 |
+|  13 |   1003 | 2021-01-12 09:23:09 | d    |   1000 |  -1000 |
+|  24 |   1003 | 2021-02-07 14:45:33 | c    |    400 |    400 |
+|  17 |   1003 | 2021-02-24 11:34:32 | c    |    200 |    200 |
+|   3 |   1003 | 2021-01-01 14:00:04 | c    |  30000 |  30000 |
+|  27 |   1003 | 2021-03-06 11:50:34 | d    |   3000 |  -3000 |
+|   6 |   1003 | 2021-01-01 15:00:04 | c    | 370000 | 370000 |
+|   9 |   1003 | 2021-01-01 14:00:04 | d    |   7000 |  -7000 |
+|  30 |   1003 | 2021-01-01 14:00:05 | d    |   7000 |  -7000 |
+|  21 |   1003 | 2021-04-06 09:13:22 | d    |   4500 |  -4500 |
+|  22 |   1003 | 2021-02-04 11:32:43 | d    |   4200 |  -4200 |
+|  33 |   1003 | 2021-03-06 11:50:37 | c    |    200 |    200 |
++-----+--------+---------------------+------+--------+--------+
+33 rows in set (0.00 sec)
+
+mysql> select  _id, custId,transactionDate, type,amount, sum(case when type = 'd' then -amount else amount  end) over(partition by custId order by _id) R1 from transactions;
++-----+--------+---------------------+------+--------+--------+
+| _id | custId | transactionDate     | type | amount | R1     |
++-----+--------+---------------------+------+--------+--------+
+|   2 |   1001 | 2021-01-01 12:45:13 | c    |  30000 |  30000 |
+|   5 |   1001 | 2021-01-01 14:45:13 | c    | 370000 | 400000 |
+|   8 |   1001 | 2021-01-01 12:45:13 | d    |   7500 | 392500 |
+|  10 |   1001 | 2021-01-01 11:20:10 | d    |   2000 | 390500 |
+|  12 |   1001 | 2021-02-23 10:24:34 | d    |   1500 | 389000 |
+|  14 |   1001 | 2021-02-28 11:43:13 | c    |    500 | 389500 |
+|  19 |   1001 | 2021-02-27 11:43:10 | d    |   2000 | 387500 |
+|  20 |   1001 | 2021-03-17 09:15:23 | c    |   1200 | 388700 |
+|  23 |   1001 | 2021-05-14 10:17:10 | c    |    600 | 389300 |
+|  29 |   1001 | 2021-05-14 10:17:13 | c    |    600 | 389900 |
+|  32 |   1001 | 2021-05-14 10:17:18 | d    |   5600 | 384300 |
+|   1 |   1002 | 2021-01-01 10:24:34 | c    |  30000 |  30000 |
+|   4 |   1002 | 2021-01-01 12:24:34 | c    | 370000 | 400000 |
+|   7 |   1002 | 2021-01-01 10:24:34 | d    |   7000 | 393000 |
+|  11 |   1002 | 2021-02-12 12:00:42 | d    |   4000 | 389000 |
+|  15 |   1002 | 2021-03-13 12:23:31 | d    |    500 | 388500 |
+|  16 |   1002 | 2021-03-01 11:20:43 | c    |   1500 | 390000 |
+|  18 |   1002 | 2021-04-30 14:20:32 | d    |   6000 | 384000 |
+|  25 |   1002 | 2021-04-29 15:53:23 | c    |   1200 | 385200 |
+|  26 |   1002 | 2021-06-23 09:53:54 | c    |   1600 | 386800 |
+|  28 |   1002 | 2021-04-30 14:20:33 | d    |   3000 | 383800 |
+|  31 |   1002 | 2021-06-23 09:53:57 | c    |    250 | 384050 |
+|   3 |   1003 | 2021-01-01 14:00:04 | c    |  30000 |  30000 |
+|   6 |   1003 | 2021-01-01 15:00:04 | c    | 370000 | 400000 |
+|   9 |   1003 | 2021-01-01 14:00:04 | d    |   7000 | 393000 |
+|  13 |   1003 | 2021-01-12 09:23:09 | d    |   1000 | 392000 |
+|  17 |   1003 | 2021-02-24 11:34:32 | c    |    200 | 392200 |
+|  21 |   1003 | 2021-04-06 09:13:22 | d    |   4500 | 387700 |
+|  22 |   1003 | 2021-02-04 11:32:43 | d    |   4200 | 383500 |
+|  24 |   1003 | 2021-02-07 14:45:33 | c    |    400 | 383900 |
+|  27 |   1003 | 2021-03-06 11:50:34 | d    |   3000 | 380900 |
+|  30 |   1003 | 2021-01-01 14:00:05 | d    |   7000 | 373900 |
+|  33 |   1003 | 2021-03-06 11:50:37 | c    |    200 | 374100 |
++-----+--------+---------------------+------+--------+--------+
+33 rows in set (0.02 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.04 sec)
+
+mysql> select * from  (select * from dept) T1;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>  with cte as (select * from dept) select * from cte;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select max(sal) from emp where sal < (select max(sal) from emp);
++----------+
+| max(sal) |
++----------+
+|     4150 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from (select dense_rank() over(order by sal desc) R1 from emp) T1 where R1 = 2;
++----+
+| R1 |
++----+
+|  2 |
++----+
+1 row in set (0.01 sec)
+
+mysql> select * from (select dense_rank(),  over(order by sal desc) R1, sal from emp) T1 where R1 = 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',  over(order by sal desc) R1, sal from emp) T1 where R1 = 2' at line 1
+mysql>
+mysql>
+mysql> select * from (select dense_rank() over(order by sal desc) R1, sal from emp) T1 where R1 = 2;
++----+------+
+| R1 | sal  |
++----+------+
+|  2 | 4150 |
++----+------+
+1 row in set (0.00 sec)
+
+mysql> select dense_rank() over(order by sal desc) R1, sal from emp;
++----+------+
+| R1 | sal  |
++----+------+
+|  1 | 5000 |
+|  1 | 5000 |
+|  2 | 4150 |
+|  3 | 3350 |
+|  4 | 3000 |
+|  4 | 3000 |
+|  5 | 2975 |
+|  6 | 2850 |
+|  7 | 2575 |
+|  8 | 2450 |
+|  9 | 2000 |
+| 10 | 1750 |
+| 10 | 1750 |
+| 10 | 1750 |
+| 10 | 1750 |
+| 10 | 1750 |
+| 10 | 1750 |
+| 10 | 1750 |
+| 10 | 1750 |
+| 11 | 1600 |
+| 12 | 1500 |
+| 13 | 1350 |
+| 14 | 1300 |
+| 15 | 1250 |
+| 15 | 1250 |
+| 15 | 1250 |
+| 16 | 1100 |
+| 17 | 1000 |
+| 18 |  950 |
+| 19 |  800 |
++----+------+
+30 rows in set (0.00 sec)
+
+mysql> select * from (select dense_rank() over(order by sal desc) R1, sal from emp) T1 where R1 = 2;
++----+------+
+| R1 | sal  |
++----+------+
+|  2 | 4150 |
++----+------+
+1 row in set (0.00 sec)
+
+mysql>   with cte as (select dense_rank() over(order by sal desc) R1,sal from emp) select * from cte where R1 = 2;
++----+------+
+| R1 | sal  |
++----+------+
+|  2 | 4150 |
++----+------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> select 10;
++----+
+| 10 |
++----+
+| 10 |
++----+
+1 row in set (0.00 sec)
+
+mysql> select 20;
++----+
+| 20 |
++----+
+| 20 |
++----+
+1 row in set (0.00 sec)
+
+mysql> select 10  union select 20;
++----+
+| 10 |
++----+
+| 10 |
+| 20 |
++----+
+2 rows in set (0.00 sec)
+
+mysql> select deptno from emp;
++--------+
+| deptno |
++--------+
+|     10 |
+|     10 |
+|     10 |
+|     10 |
+|     10 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     50 |
+|     50 |
+|     50 |
+|     60 |
+|     60 |
++--------+
+30 rows in set (0.00 sec)
+
+mysql> select deptno from dept;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
+|     30 |
+|     40 |
+|     50 |
+|     60 |
++--------+
+6 rows in set (0.00 sec)
+
+mysql>
+mysql> select deptno from emp union select deptno from dept;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
+|     30 |
+|     50 |
+|     60 |
+|     40 |
++--------+
+6 rows in set (0.00 sec)
+
+mysql> select deptno from emp union all select deptno from dept;
++--------+
+| deptno |
++--------+
+|     10 |
+|     10 |
+|     10 |
+|     10 |
+|     10 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     30 |
+|     50 |
+|     50 |
+|     50 |
+|     60 |
+|     60 |
+|     10 |
+|     20 |
+|     30 |
+|     40 |
+|     50 |
+|     60 |
++--------+
+36 rows in set (0.00 sec)
+
+mysql>
+mysql> select deptno from emp union  select deptno from dept;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
+|     30 |
+|     50 |
+|     60 |
+|     40 |
++--------+
+6 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> select deptno, enaem  from emp union  select deptno from dept;
+ERROR 1054 (42S22): Unknown column 'enaem' in 'field list'
+mysql>
+mysql>
+mysql> select deptno, enaem  from emp union  select deptno, 'saleel' R1 from dept;
+ERROR 1054 (42S22): Unknown column 'enaem' in 'field list'
+mysql> select deptno, ename   from emp union  select deptno, 'saleel' R1 from dept;
++--------+----------+
+| deptno | ename    |
++--------+----------+
+|     30 | GITA     |
+|     50 | VRUSHALI |
+|     20 | SHARMIN  |
+|     20 | BANDISH  |
+|     20 | SMITH    |
+|     10 | AARAV    |
+|     10 | THOMAS   |
+|     30 | ALLEN    |
+|     30 | WARD     |
+|     20 | JONES    |
+|     30 | MARTIN   |
+|     30 | BLAKE    |
+|     10 | CLARK    |
+|     20 | SCOTT    |
+|     10 | KING     |
+|     20 | FRED     |
+|     30 | TURNER   |
+|     20 | ADAMS    |
+|     60 | Ruhan    |
+|     60 | Neel     |
+|     30 | JAMES    |
+|     20 | FORD     |
+|     30 | HOFFMAN  |
+|     30 | GRASS    |
+|     10 | MILLER   |
+|     30 | AARUSH   |
+|     30 | ALEX     |
+|     30 | NATASHA  |
+|     50 | SANGITA  |
+|     50 | SUPRIYA  |
+|     10 | saleel   |
+|     20 | saleel   |
+|     30 | saleel   |
+|     40 | saleel   |
+|     50 | saleel   |
+|     60 | saleel   |
++--------+----------+
+36 rows in set (0.00 sec)
+
+mysql> select deptno, ename   from emp union  select deptno, 'saleel' R1 from dept;
++--------+----------+
+| deptno | ename    |
++--------+----------+
+|     30 | GITA     |
+|     50 | VRUSHALI |
+|     20 | SHARMIN  |
+|     20 | BANDISH  |
+|     20 | SMITH    |
+|     10 | AARAV    |
+|     10 | THOMAS   |
+|     30 | ALLEN    |
+|     30 | WARD     |
+|     20 | JONES    |
+|     30 | MARTIN   |
+|     30 | BLAKE    |
+|     10 | CLARK    |
+|     20 | SCOTT    |
+|     10 | KING     |
+|     20 | FRED     |
+|     30 | TURNER   |
+|     20 | ADAMS    |
+|     60 | Ruhan    |
+|     60 | Neel     |
+|     30 | JAMES    |
+|     20 | FORD     |
+|     30 | HOFFMAN  |
+|     30 | GRASS    |
+|     10 | MILLER   |
+|     30 | AARUSH   |
+|     30 | ALEX     |
+|     30 | NATASHA  |
+|     50 | SANGITA  |
+|     50 | SUPRIYA  |
+|     10 | saleel   |
+|     20 | saleel   |
+|     30 | saleel   |
+|     40 | saleel   |
+|     50 | saleel   |
+|     60 | saleel   |
++--------+----------+
+36 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select * from dhl;
++-------------+---------+------------------+---------------+
+| tracking_id | carrier | status           | delivery_date |
++-------------+---------+------------------+---------------+
+| DHL100021   | DHL     | Delivered        | 2025-07-04    |
+| DHL100027   | DHL     | Pending          | 2025-07-23    |
+| DHL100022   | DHL     | In Transit       | 2025-07-05    |
+| DHL100023   | DHL     | Dispatched       | 2025-07-06    |
+| DHL100028   | DHL     | Pending          | 2025-12-23    |
+| DHL100024   | DHL     | Out for Delivery | 2025-07-07    |
+| DHL100025   | DHL     | Delayed          | 2025-07-08    |
+| DHL100026   | DHL     | In Transit       | 2025-07-03    |
++-------------+---------+------------------+---------------+
+8 rows in set (0.02 sec)
+
+mysql> select * from fedex;
++--------------+---------+------------------+---------------+
+| tracking_id  | carrier | status           | delivery_date |
++--------------+---------+------------------+---------------+
+| FEDEX100001  | FedEx   | Dispatched       | 2025-07-04    |
+| FEDEX100002  | FedEx   | In Transit       | 2025-07-05    |
+| FEDEX100006  | FedEx   | Pending          | 2025-06-29    |
+| FEDEX100003  | FedEx   | Delivered        | 2025-07-03    |
+| FEDEX100004  | FedEx   | Out for Delivery | 2025-07-07    |
+| FEDEX100007  | FedEx   | Pending          | 2025-01-09    |
+| FEDEX100005  | FedEx   | Delayed          | 2025-07-08    |
++--------------+---------+------------------+---------------+
+7 rows in set (0.02 sec)
+
+mysql> select * from dhl union select * from fedex;
++--------------+---------+------------------+---------------+
+| tracking_id  | carrier | status           | delivery_date |
++--------------+---------+------------------+---------------+
+| DHL100021    | DHL     | Delivered        | 2025-07-04    |
+| DHL100027    | DHL     | Pending          | 2025-07-23    |
+| DHL100022    | DHL     | In Transit       | 2025-07-05    |
+| DHL100023    | DHL     | Dispatched       | 2025-07-06    |
+| DHL100028    | DHL     | Pending          | 2025-12-23    |
+| DHL100024    | DHL     | Out for Delivery | 2025-07-07    |
+| DHL100025    | DHL     | Delayed          | 2025-07-08    |
+| DHL100026    | DHL     | In Transit       | 2025-07-03    |
+| FEDEX100001  | FedEx   | Dispatched       | 2025-07-04    |
+| FEDEX100002  | FedEx   | In Transit       | 2025-07-05    |
+| FEDEX100006  | FedEx   | Pending          | 2025-06-29    |
+| FEDEX100003  | FedEx   | Delivered        | 2025-07-03    |
+| FEDEX100004  | FedEx   | Out for Delivery | 2025-07-07    |
+| FEDEX100007  | FedEx   | Pending          | 2025-01-09    |
+| FEDEX100005  | FedEx   | Delayed          | 2025-07-08    |
++--------------+---------+------------------+---------------+
+15 rows in set (0.00 sec)
+
+mysql> select * from dhl union select * from fedex where ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from dhl union select * from fedex where status = 'Delivered';
++--------------+---------+------------------+---------------+
+| tracking_id  | carrier | status           | delivery_date |
++--------------+---------+------------------+---------------+
+| DHL100021    | DHL     | Delivered        | 2025-07-04    |
+| DHL100027    | DHL     | Pending          | 2025-07-23    |
+| DHL100022    | DHL     | In Transit       | 2025-07-05    |
+| DHL100023    | DHL     | Dispatched       | 2025-07-06    |
+| DHL100028    | DHL     | Pending          | 2025-12-23    |
+| DHL100024    | DHL     | Out for Delivery | 2025-07-07    |
+| DHL100025    | DHL     | Delayed          | 2025-07-08    |
+| DHL100026    | DHL     | In Transit       | 2025-07-03    |
+| FEDEX100003  | FedEx   | Delivered        | 2025-07-03    |
++--------------+---------+------------------+---------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from dhl where status = 'Delivered' union select * from fedex where status = 'Delivered';
++--------------+---------+-----------+---------------+
+| tracking_id  | carrier | status    | delivery_date |
++--------------+---------+-----------+---------------+
+| DHL100021    | DHL     | Delivered | 2025-07-04    |
+| FEDEX100003  | FedEx   | Delivered | 2025-07-03    |
++--------------+---------+-----------+---------------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> with cte as (select * from dhl  union select * from  fedex) select * from cte where status =  'Delivered';
++--------------+---------+-----------+---------------+
+| tracking_id  | carrier | status    | delivery_date |
++--------------+---------+-----------+---------------+
+| DHL100021    | DHL     | Delivered | 2025-07-04    |
+| FEDEX100003  | FedEx   | Delivered | 2025-07-03    |
++--------------+---------+-----------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> with recursive cte as (select 1 n union select  n + 1 from  cte  where n < 10 ) select * from cte;
++------+
+| n    |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    4 |
+|    5 |
+|    6 |
+|    7 |
+|    8 |
+|    9 |
+|   10 |
++------+
+10 rows in set (0.00 sec)
+
+mysql> with recursive cte as (select 1 n union select  n + 1 from  cte  where n <= 10 ) select * from cte;
++------+
+| n    |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    4 |
+|    5 |
+|    6 |
+|    7 |
+|    8 |
+|    9 |
+|   10 |
+|   11 |
++------+
+11 rows in set (0.00 sec)
+
+mysql> with recursive cte as (select 1 n union select  n + 1 from  cte  where n <= 10 ) select n from cte;
++------+
+| n    |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    4 |
+|    5 |
+|    6 |
+|    7 |
+|    8 |
+|    9 |
+|   10 |
+|   11 |
++------+
+11 rows in set (0.00 sec)
+
+mysql> with recursive cte as (select 1 n union select  n + 1 from  cte  where n <= 10 ) select now() + interval n day from cte;
++------------------------+
+| now() + interval n day |
++------------------------+
+| 2026-11-01 11:49:14    |
+| 2026-11-02 11:49:14    |
+| 2026-11-03 11:49:14    |
+| 2026-11-04 11:49:14    |
+| 2026-11-05 11:49:14    |
+| 2026-11-06 11:49:14    |
+| 2026-11-07 11:49:14    |
+| 2026-11-08 11:49:14    |
+| 2026-11-09 11:49:14    |
+| 2026-11-10 11:49:14    |
+| 2026-11-11 11:49:14    |
++------------------------+
+11 rows in set (0.02 sec)
+
+mysql> with recursive cte as (select 1 n union select  n + 1 from  cte  where n <= 10 ) select now() + interval n day from cte;
++------------------------+
+| now() + interval n day |
++------------------------+
+| 2026-11-01 11:50:35    |
+| 2026-11-02 11:50:35    |
+| 2026-11-03 11:50:35    |
+| 2026-11-04 11:50:35    |
+| 2026-11-05 11:50:35    |
+| 2026-11-06 11:50:35    |
+| 2026-11-07 11:50:35    |
+| 2026-11-08 11:50:35    |
+| 2026-11-09 11:50:35    |
+| 2026-11-10 11:50:35    |
+| 2026-11-11 11:50:35    |
++------------------------+
+11 rows in set (0.00 sec)
+
+mysql>
+mysql> select deptno from emp union select deptno from dept;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
+|     30 |
+|     50 |
+|     60 |
+|     40 |
++--------+
+6 rows in set (0.00 sec)
+
+mysql> select deptno from emp intersect select deptno from dept;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
+|     30 |
+|     50 |
+|     60 |
++--------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> select deptno from emp except select deptno from dept;
+Empty set (0.00 sec)
+
+mysql> select deptno from dept except select deptno from emp;
++--------+
+| deptno |
++--------+
+|     40 |
++--------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select ntile(4) over(order by null) from emp;
++------------------------------+
+| ntile(4) over(order by null) |
++------------------------------+
+|                            1 |
+|                            1 |
+|                            1 |
+|                            1 |
+|                            1 |
+|                            1 |
+|                            1 |
+|                            1 |
+|                            2 |
+|                            2 |
+|                            2 |
+|                            2 |
+|                            2 |
+|                            2 |
+|                            2 |
+|                            2 |
+|                            3 |
+|                            3 |
+|                            3 |
+|                            3 |
+|                            3 |
+|                            3 |
+|                            3 |
+|                            4 |
+|                            4 |
+|                            4 |
+|                            4 |
+|                            4 |
+|                            4 |
+|                            4 |
++------------------------------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql> select ntile(4) over(order by null) R1 from emp;
++----+
+| R1 |
++----+
+|  1 |
+|  1 |
+|  1 |
+|  1 |
+|  1 |
+|  1 |
+|  1 |
+|  1 |
+|  2 |
+|  2 |
+|  2 |
+|  2 |
+|  2 |
+|  2 |
+|  2 |
+|  2 |
+|  3 |
+|  3 |
+|  3 |
+|  3 |
+|  3 |
+|  3 |
+|  3 |
+|  4 |
+|  4 |
+|  4 |
+|  4 |
+|  4 |
+|  4 |
+|  4 |
++----+
+30 rows in set (0.00 sec)
+
+mysql> select ntile(4) over(order by null) R1, ename, job from emp;
++----+----------+---------------------+
+| R1 | ename    | job                 |
++----+----------+---------------------+
+|  1 | GITA     | Compliance officers |
+|  1 | VRUSHALI | Compliance officers |
+|  1 | SHARMIN  | Public Relation     |
+|  1 | BANDISH  | Public Relation     |
+|  1 | SMITH    | CLERK               |
+|  1 | AARAV    | CLERK               |
+|  1 | THOMAS   | CLERK               |
+|  1 | ALLEN    | SALESMAN            |
+|  2 | WARD     | SALESMAN            |
+|  2 | JONES    | MANAGER             |
+|  2 | MARTIN   | SALESMAN            |
+|  2 | BLAKE    | MANAGER             |
+|  2 | CLARK    | MANAGER             |
+|  2 | SCOTT    | ANALYST             |
+|  2 | KING     | PRESIDENT           |
+|  2 | FRED     | vice PRESIDENT      |
+|  3 | TURNER   | SALESMAN            |
+|  3 | ADAMS    | CLERK               |
+|  3 | Ruhan    | Network             |
+|  3 | Neel     | vice PRESIDENT      |
+|  3 | JAMES    | CLERK               |
+|  3 | FORD     | ANALYST             |
+|  3 | HOFFMAN  | MANAGER             |
+|  4 | GRASS    | SALESMAN            |
+|  4 | MILLER   | CLERK               |
+|  4 | AARUSH   | SALESMAN            |
+|  4 | ALEX     | MANAGER             |
+|  4 | NATASHA  | CLERK               |
+|  4 | SANGITA  | Compliance officers |
+|  4 | SUPRIYA  | ANALYST             |
++----+----------+---------------------+
+30 rows in set (0.00 sec)
+
+mysql> select ntile(7) over(order by null) R1, ename, job from emp;
++----+----------+---------------------+
+| R1 | ename    | job                 |
++----+----------+---------------------+
+|  1 | GITA     | Compliance officers |
+|  1 | VRUSHALI | Compliance officers |
+|  1 | SHARMIN  | Public Relation     |
+|  1 | BANDISH  | Public Relation     |
+|  1 | SMITH    | CLERK               |
+|  2 | AARAV    | CLERK               |
+|  2 | THOMAS   | CLERK               |
+|  2 | ALLEN    | SALESMAN            |
+|  2 | WARD     | SALESMAN            |
+|  2 | JONES    | MANAGER             |
+|  3 | MARTIN   | SALESMAN            |
+|  3 | BLAKE    | MANAGER             |
+|  3 | CLARK    | MANAGER             |
+|  3 | SCOTT    | ANALYST             |
+|  4 | KING     | PRESIDENT           |
+|  4 | FRED     | vice PRESIDENT      |
+|  4 | TURNER   | SALESMAN            |
+|  4 | ADAMS    | CLERK               |
+|  5 | Ruhan    | Network             |
+|  5 | Neel     | vice PRESIDENT      |
+|  5 | JAMES    | CLERK               |
+|  5 | FORD     | ANALYST             |
+|  6 | HOFFMAN  | MANAGER             |
+|  6 | GRASS    | SALESMAN            |
+|  6 | MILLER   | CLERK               |
+|  6 | AARUSH   | SALESMAN            |
+|  7 | ALEX     | MANAGER             |
+|  7 | NATASHA  | CLERK               |
+|  7 | SANGITA  | Compliance officers |
+|  7 | SUPRIYA  | ANALYST             |
++----+----------+---------------------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql> drop user 'saleel'@'localhost';
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create user 'saleel'@'localhost' identified by 'saleel';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --user=saleel --password=saleel
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select uset();
+ERROR 1046 (3D000): No database selected
+mysql> select user();
++------------------+
+| user()           |
++------------------+
+| saleel@localhost |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
++--------------------+
+2 rows in set (0.02 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --user=root --password=root x
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db1;
+Database changed
+mysql> desc dept;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| DEPTNO    | int         | NO   | PRI | NULL    |       |
+| DNAME     | varchar(12) | YES  |     | NULL    |       |
+| LOC       | varchar(10) | YES  |     | NULL    |       |
+| PWD       | varchar(20) | YES  |     | NULL    |       |
+| STARTEDON | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> grant select on db1.dept to 'saleel'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --user=saleel --password=saleel
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db1                |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> use db1;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_db1 |
++---------------+
+| dept          |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into dept values(1,1,1,1,1\);
+ERROR:
+Unknown command '\)'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\)' at line 1
+mysql>
+mysql>
+mysql> insert into dept values(1,1,1,1,1);
+ERROR 1142 (42000): INSERT command denied to user 'saleel'@'localhost' for table 'dept'
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --user=root --password=root x
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> grant insert  on db1.dept to 'saleel'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --user=saleel --password=saleel
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db1
+Database changed
+mysql> insert into dept values(1,1,1,1,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --user=root --password=root x
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db1
+Database changed
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --user=saleel --password=saleel
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select * from dept;
+ERROR 1046 (3D000): No database selected
+mysql> use db1;
+Database changed
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into dept values(1,1,1,1,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --user=root --password=root x
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db1
+Database changed
+mysql> table dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      1 | 1          | 1        | 1          | 1          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>
+C:\Users\SALEEL>
+C:\Users\SALEEL>
+C:\Users\SALEEL>mysql --user=root --password=root x
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db1;
+Database changed
+mysql> table dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      1 | 1          | 1        | 1          | 1          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> table dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      1 | 1          | 1        | 1          | 1          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>  table dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      1 | 1          | 1        | 1          | 1          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>  table dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      1 | 1          | 1        | 1          | 1          |
+|      2 | 2          | 2        | 2          | 2          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> update dept set DNAME = 'abc' where deptno = 1;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  table dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      1 | abc        | 1        | 1          | 1          |
+|      2 | 2          | 2        | 2          | 2          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> grant update  on db1.dept to 'saleel'@'localhost';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update dept set DNAME = 'xyz' where deptno = 1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> table dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      1 | xyz        | 1        | 1          | 1          |
+|      2 | 2          | 2        | 2          | 2          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+8 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> update dept set DNAME = 'xyz' where deptno = 1;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> update dept set DNAME = 'xyzzzz' where deptno = 1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> table dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      1 | xyzzzz     | 1        | 1          | 1          |
+|      2 | 2          | 2        | 2          | 2          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> commit
+    -> ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> revoke update on db1.dept from 'saleel'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> exit'
+    '> ^C
+mysql>
+mysql>
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --user=root --password=root x
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 21
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show variable like 'auto%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'variable like 'auto%'' at line 1
+mysql> show variables like 'auto%';
++--------------------------+-------+
+| Variable_name            | Value |
++--------------------------+-------+
+| auto_generate_certs      | ON    |
+| auto_increment_increment | 1     |
+| auto_increment_offset    | 1     |
+| autocommit               | OFF   |
+| automatic_sp_privileges  | ON    |
++--------------------------+-------+
+5 rows in set (0.06 sec)
+
+mysql> use db1;
+Database changed
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      1 | xyzzzz     | 1        | 1          | 1          |
+|      2 | 2          | 2        | 2          | 2          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> delete from dept where deptno <=2;\
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      1 | xyzzzz     | 1        | 1          | 1          |
+|      2 | 2          | 2        | 2          | 2          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> delete from dept where deptno =1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from dept where deptno =2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint sp2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> rollback to sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|      2 | 2          | 2        | 2          | 2          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> use x;
+Database changed
+mysql> show tables;
++-------------+
+| Tables_in_x |
++-------------+
+| student     |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> create table xyz (c1 int);
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> show tables;
++-------------+
+| Tables_in_x |
++-------------+
+| student     |
+| xyz         |
++-------------+
+2 rows in set (0.00 sec)
+
+mysql> create  temporary table abc (c1 int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc abc;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| c1    | int  | YES  |     | NULL    | NULL  |
++-------+------+------+-----+---------+-------+
+1 row in set (0.02 sec)
+
+mysql> show tables;
++-------------+
+| Tables_in_x |
++-------------+
+| student     |
+| xyz         |
++-------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into abc values(10000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table abc;
++-------+
+| c1    |
++-------+
+| 10000 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --user=root --password=root x
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 22
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use x;
+Database changed
+mysql> desc abc;
+ERROR 1146 (42S02): Table 'x.abc' doesn't exist
+mysql> use x;
+Database changed
+mysql> selecrt * from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selecrt * from student' at line 1
+mysql>
+mysql>
+mysql> select * from student;
++------+---------+-------+
+| id   | name    | marks |
++------+---------+-------+
+|    1 | saleel  |    71 |
+|    2 | sharmin |    70 |
+|    3 | neel    |    71 |
+|    4 | deep    |    69 |
+|    5 | rajesh  |    75 |
++------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create temporary table student as select * from student  where 0;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
+Empty set (0.00 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    | NULL  |
+| name  | varchar(20) | YES  |     | NULL    | NULL  |
+| marks | int         | YES  |     | NULL    | NULL  |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into student(1,1,1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,1,1)' at line 1
+mysql> insert into student values (1,1,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    | NULL  |
+| name  | varchar(20) | YES  |     | NULL    | NULL  |
+| marks | int         | YES  |     | NULL    | NULL  |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> table student;
++------+------+-------+
+| id   | name | marks |
++------+------+-------+
+|    1 | 1    |     1 |
++------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> drop temporary table student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> table student;
++------+---------+-------+
+| id   | name    | marks |
++------+---------+-------+
+|    1 | saleel  |    71 |
+|    2 | sharmin |    70 |
+|    3 | neel    |    71 |
+|    4 | deep    |    69 |
+|    5 | rajesh  |    75 |
++------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| marks | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>

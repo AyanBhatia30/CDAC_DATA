@@ -1,0 +1,6 @@
+step1 : install visual c++ redistributable 2019 
+step2: Install workbench
+step3: set workbench path in environment variable.
+step4: enter connection with user details as below on command prompt
+
+mysql --host=192.168.10.115 --port=3306 --user=dac120 --password=welcome

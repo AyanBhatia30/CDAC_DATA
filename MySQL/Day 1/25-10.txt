@@ -1,0 +1,1338 @@
+d(x) = 5
+
+insert into x values(v1, v2, v3, v4, v5);
+insert into x values(v1, v2, NULL, NULL, v5);
+
+
+
+insert into x(field-list) values();
+insert into x(a1, a2, a5) values(v1, v2, v3);
+
+
+
+
+
+
+insert into emp values(1001, 'ruhan', null, null, null);
+insert into emp(id, ename) values(1002, 'neel');
+
+
+
+
+
+
+drop table orders;
+
+create table orders(oID int , oDate date, rate int, qty int, amount int default (rate * qty));
+
+insert into orders(oid, odate, rate, qty) values(1, curdate(), 7, 5);
+
+
+create table orders(oID int , oDate date default (curdate()) , rate int, qty int, amount int default (rate * qty));
+
+insert into orders(oid, rate, qty) values(1,7, 5);
+
+drop table users;
+
+create table users(ID int primary key, userNAme varchar(10), pwd varbinary(10) invisible);
+
+
+
+drop table a;
+create table a(oid int, rate int, discountRate int generated always as (if(rate < 1000 ,  rate *.2, rate *.05)), `New Rate` int generated always as (rate - discountRate));
+
+
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --host=localhost --port=3306 --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| db1                 |
+| information_schema  |
+| interview questions |
+| mysql               |
+| newdb               |
+| performance_schema  |
+| sakila              |
+| sys                 |
+| world               |
+| x                   |
+| y                   |
+| z                   |
++---------------------+
+12 rows in set (0.03 sec)
+
+mysql> drop database x;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> drop database y;
+Query OK, 5 rows affected (0.08 sec)
+
+mysql> drop database z;
+Query OK, 5 rows affected (0.08 sec)
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| db1                 |
+| information_schema  |
+| interview questions |
+| mysql               |
+| newdb               |
+| performance_schema  |
+| sakila              |
+| sys                 |
+| world               |
++---------------------+
+9 rows in set (0.00 sec)
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| db1                 |
+| information_schema  |
+| interview questions |
+| mysql               |
+| newdb               |
+| performance_schema  |
+| sakila              |
+| sys                 |
+| world               |
++---------------------+
+9 rows in set (0.00 sec)
+
+mysql> show schemas;
++---------------------+
+| Database            |
++---------------------+
+| db1                 |
+| information_schema  |
+| interview questions |
+| mysql               |
+| newdb               |
+| performance_schema  |
+| sakila              |
+| sys                 |
+| world               |
++---------------------+
+9 rows in set (0.00 sec)
+
+mysql> create database x;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show schemas;
++---------------------+
+| Database            |
++---------------------+
+| db1                 |
+| information_schema  |
+| interview questions |
+| mysql               |
+| newdb               |
+| performance_schema  |
+| sakila              |
+| sys                 |
+| world               |
+| x                   |
++---------------------+
+10 rows in set (0.00 sec)
+
+mysql> create database x;
+ERROR 1007 (HY000): Can't create database 'x'; database exists
+mysql> create database if not exists x;
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> select database();
++------------+
+| database() |
++------------+
+| NULL       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> use x;
+Database changed
+mysql> select database();
++------------+
+| database() |
++------------+
+| x          |
++------------+
+1 row in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --host=localhost --port=3306 --user=root --password=root x
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select database();
++------------+
+| database() |
++------------+
+| x          |
++------------+
+1 row in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\SALEEL>mysql --host=localhost --port=3306 --user=root --password=root x
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 19
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create table emp(ID int, ename varchar(10), DoB date, sal int, isActive bool);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> describe emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| ename    | varchar(10) | YES  |     | NULL    |       |
+| DoB      | date        | YES  |     | NULL    |       |
+| sal      | int         | YES  |     | NULL    |       |
+| isActive | tinyint(1)  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| ename    | varchar(10) | YES  |     | NULL    |       |
+| DoB      | date        | YES  |     | NULL    |       |
+| sal      | int         | YES  |     | NULL    |       |
+| isActive | tinyint(1)  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into emp values(1,'saleel', '1912-05-21', 4000, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+--------+------------+------+----------+
+| ID   | ename  | DoB        | sal  | isActive |
++------+--------+------------+------+----------+
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
++------+--------+------------+------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(1,'saleel', '1912-05-21', 4000, 1, 1111);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into emp values(1,'saleel', '1912-05-21', 4000);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> insert into emp values(1.45,'saleel', '1912-05-21', 4000, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp values(1.55,'saleel', '1912-05-21', 4000, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+--------+------------+------+----------+
+| ID   | ename  | DoB        | sal  | isActive |
++------+--------+------------+------+----------+
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    2 | saleel | 1912-05-21 | 4000 |        1 |
++------+--------+------------+------+----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp values(-1,'saleel', '1912-05-21', null, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+--------+------------+------+----------+
+| ID   | ename  | DoB        | sal  | isActive |
++------+--------+------------+------+----------+
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    2 | saleel | 1912-05-21 | 4000 |        1 |
+|   -1 | saleel | 1912-05-21 | NULL |        1 |
++------+--------+------------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> insert into emp values(-1,'saleel', '1912-05-21', null, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp values(-2,'saleel', null , null, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+--------+------------+------+----------+
+| ID   | ename  | DoB        | sal  | isActive |
++------+--------+------------+------+----------+
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    2 | saleel | 1912-05-21 | 4000 |        1 |
+|   -1 | saleel | 1912-05-21 | NULL |        1 |
+|   -1 | saleel | 1912-05-21 | NULL |        1 |
+|   -2 | saleel | NULL       | NULL |        1 |
++------+--------+------------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| ename    | varchar(10) | YES  |     | NULL    |       |
+| DoB      | date        | YES  |     | NULL    |       |
+| sal      | int         | YES  |     | NULL    |       |
+| isActive | tinyint(1)  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into emp values(-2,'saleel', null , null, 1000);
+ERROR 1264 (22003): Out of range value for column 'isActive' at row 1
+mysql>
+mysql>
+mysql> insert into emp values(-2,'saleel', null , null, 256);
+ERROR 1264 (22003): Out of range value for column 'isActive' at row 1
+mysql>
+mysql> insert into emp values(-2,'saleel', null , null, 255);
+ERROR 1264 (22003): Out of range value for column 'isActive' at row 1
+mysql> insert into emp values(-2,'saleel', null , null, 129);
+ERROR 1264 (22003): Out of range value for column 'isActive' at row 1
+mysql> insert into emp values(-2,'saleel', null , null, 128);
+ERROR 1264 (22003): Out of range value for column 'isActive' at row 1
+mysql>
+mysql>
+mysql> insert into emp values(-2,'saleel', null , null, 126);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+--------+------------+------+----------+
+| ID   | ename  | DoB        | sal  | isActive |
++------+--------+------------+------+----------+
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    2 | saleel | 1912-05-21 | 4000 |        1 |
+|   -1 | saleel | 1912-05-21 | NULL |        1 |
+|   -1 | saleel | 1912-05-21 | NULL |        1 |
+|   -2 | saleel | NULL       | NULL |        1 |
+|   -2 | saleel | NULL       | NULL |      126 |
++------+--------+------------+------+----------+
+7 rows in set (0.00 sec)
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| ename    | varchar(10) | YES  |     | NULL    |       |
+| DoB      | date        | YES  |     | NULL    |       |
+| sal      | int         | YES  |     | NULL    |       |
+| isActive | tinyint(1)  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table a(c1 int, c2 varchar(4));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into a values(1, 'asdfg');
+ERROR 1406 (22001): Data too long for column 'c2' at row 1
+mysql>
+mysql>
+mysql> insert into a values(1, 'asdf');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> se;ect * from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'se' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ect * from emp' at line 1
+mysql> select * from a;
++------+------+
+| c1   | c2   |
++------+------+
+|    1 | asdf |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into a values(-18, 'asdf');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++------+------+
+| c1   | c2   |
++------+------+
+|    1 | asdf |
+|  -18 | asdf |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> create table a(c1 int, c2 varchar(4));
+ERROR 1050 (42S01): Table 'a' already exists
+mysql> create table id not exists a(c1 int, c2 varchar(4));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not exists a(c1 int, c2 varchar(4))' at line 1
+mysql>
+mysql> create table id not exists a(c1 int, c2 varchar(4));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not exists a(c1 int, c2 varchar(4))' at line 1
+mysql>
+mysql>
+mysql> create table if not exists a(c1 int, c2 varchar(4));
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql>
+mysql> create table if not exists b(c1 int unsined, c2 varchar(4));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'unsined, c2 varchar(4))' at line 1
+mysql>
+mysql> create table if not exists b(c1 int unsinged, c2 varchar(4));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'unsinged, c2 varchar(4))' at line 1
+mysql>
+mysql>
+mysql> create table if not exists b(c1 int unsigned, c2 varchar(4));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into b values(-1,2323);
+ERROR 1264 (22003): Out of range value for column 'c1' at row 1
+mysql> desc b;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| c1    | int unsigned | YES  |     | NULL    |       |
+| c2    | varchar(4)   | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc b;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| c1    | int unsigned | YES  |     | NULL    |       |
+| c2    | varchar(4)   | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> insert into b values(1,2323);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from b;
++------+------+
+| c1   | c2   |
++------+------+
+|    1 | 2323 |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| ename    | varchar(10) | YES  |     | NULL    |       |
+| DoB      | date        | YES  |     | NULL    |       |
+| sal      | int         | YES  |     | NULL    |       |
+| isActive | tinyint(1)  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp;
++------+--------+------------+------+----------+
+| ID   | ename  | DoB        | sal  | isActive |
++------+--------+------------+------+----------+
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    2 | saleel | 1912-05-21 | 4000 |        1 |
+|   -1 | saleel | 1912-05-21 | NULL |        1 |
+|   -1 | saleel | 1912-05-21 | NULL |        1 |
+|   -2 | saleel | NULL       | NULL |        1 |
+|   -2 | saleel | NULL       | NULL |      126 |
++------+--------+------------+------+----------+
+7 rows in set (0.00 sec)
+
+mysql> onsert into emp values(1001, 'ruhan', null, null, null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'onsert into emp values(1001, 'ruhan', null, null, null)' at line 1
+mysql>
+mysql>
+mysql> insert into emp values(1001, 'ruhan', null, null, null);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(id, ename) values(1002, 'neel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+--------+------------+------+----------+
+| ID   | ename  | DoB        | sal  | isActive |
++------+--------+------------+------+----------+
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    1 | saleel | 1912-05-21 | 4000 |        1 |
+|    2 | saleel | 1912-05-21 | 4000 |        1 |
+|   -1 | saleel | 1912-05-21 | NULL |        1 |
+|   -1 | saleel | 1912-05-21 | NULL |        1 |
+|   -2 | saleel | NULL       | NULL |        1 |
+|   -2 | saleel | NULL       | NULL |      126 |
+| 1001 | ruhan  | NULL       | NULL |     NULL |
+| 1002 | neel   | NULL       | NULL |     NULL |
++------+--------+------------+------+----------+
+9 rows in set (0.00 sec)
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| ename    | varchar(10) | YES  |     | NULL    |       |
+| DoB      | date        | YES  |     | NULL    |       |
+| sal      | int         | YES  |     | NULL    |       |
+| isActive | tinyint(1)  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table c(id int, ename varchar(10), city varchar(10) default 'baroda');
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc c;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| ename | varchar(10) | YES  |     | NULL    |       |
+| city  | varchar(10) | YES  |     | baroda  |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into c(id, ename) values(1,'saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into c values(2,'sharmin', 'pune');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from c;
++------+---------+--------+
+| id   | ename   | city   |
++------+---------+--------+
+|    1 | saleel  | baroda |
+|    2 | sharmin | pune   |
++------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> create table orders(oID int , oDate date, rate int, qty int, amount int default (rate * qty));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc orders;
++--------+------+------+-----+------------------+-------------------+
+| Field  | Type | Null | Key | Default          | Extra             |
++--------+------+------+-----+------------------+-------------------+
+| oID    | int  | YES  |     | NULL             |                   |
+| oDate  | date | YES  |     | NULL             |                   |
+| rate   | int  | YES  |     | NULL             |                   |
+| qty    | int  | YES  |     | NULL             |                   |
+| amount | int  | YES  |     | (`rate` * `qty`) | DEFAULT_GENERATED |
++--------+------+------+-----+------------------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2026-10-25 10:49:55 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select now(), curdate();
++---------------------+------------+
+| now()               | curdate()  |
++---------------------+------------+
+| 2026-10-25 10:50:11 | 2026-10-25 |
++---------------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select now(), curdate(), curtime();
++---------------------+------------+-----------+
+| now()               | curdate()  | curtime() |
++---------------------+------------+-----------+
+| 2026-10-25 10:50:28 | 2026-10-25 | 10:50:28  |
++---------------------+------------+-----------+
+1 row in set (0.01 sec)
+
+mysql> insert into orders(oid, odate, rate, qty) values(1, curdate(), 7, 5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from orders;
++------+------------+------+------+--------+
+| oID  | oDate      | rate | qty  | amount |
++------+------------+------+------+--------+
+|    1 | 2026-10-25 |    7 |    5 |     35 |
++------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> drop table orders;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table orders(oID int , oDate date default curdate() , rate int, qty int, amount int default (rate * qty));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'curdate() , rate int, qty int, amount int default (rate * qty))' at line 1
+mysql>
+mysql> create table orders(oID int , oDate date default (curdate()) , rate int, qty int, amount int default (rate * qty));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc orders;
++--------+------+------+-----+------------------+-------------------+
+| Field  | Type | Null | Key | Default          | Extra             |
++--------+------+------+-----+------------------+-------------------+
+| oID    | int  | YES  |     | NULL             |                   |
+| oDate  | date | YES  |     | curdate()        | DEFAULT_GENERATED |
+| rate   | int  | YES  |     | NULL             |                   |
+| qty    | int  | YES  |     | NULL             |                   |
+| amount | int  | YES  |     | (`rate` * `qty`) | DEFAULT_GENERATED |
++--------+------+------+-----+------------------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into orders(oid, rate, qty) values(1,7, 5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from orders;
++------+------------+------+------+--------+
+| oID  | oDate      | rate | qty  | amount |
++------+------------+------+------+--------+
+|    1 | 2026-10-25 |    7 |    5 |     35 |
++------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> update orders set rate = 10 where oid = 1;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from orders;
++------+------------+------+------+--------+
+| oID  | oDate      | rate | qty  | amount |
++------+------------+------+------+--------+
+|    1 | 2026-10-25 |   10 |    5 |     35 |
++------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> update orders set amount = default;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from orders;
++------+------------+------+------+--------+
+| oID  | oDate      | rate | qty  | amount |
++------+------------+------+------+--------+
+|    1 | 2026-10-25 |   10 |    5 |     50 |
++------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into orders(oid, rate, qty, amount) values(1,7, 5, -1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from orders;
++------+------------+------+------+--------+
+| oID  | oDate      | rate | qty  | amount |
++------+------------+------+------+--------+
+|    1 | 2026-10-25 |   10 |    5 |     50 |
+|    1 | 2026-10-25 |    7 |    5 |     -1 |
++------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into orders(oid, rate, qty) values(2,7, 5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from orders;
++------+------------+------+------+--------+
+| oID  | oDate      | rate | qty  | amount |
++------+------------+------+------+--------+
+|    1 | 2026-10-25 |   10 |    5 |     50 |
+|    1 | 2026-10-25 |    7 |    5 |     -1 |
+|    2 | 2026-10-25 |    7 |    5 |     35 |
++------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> create table d(c1 int default 100, c2 int default 200, c3 int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql>
+mysql> insert into d values(default, default, -1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into d values(default, default, default(c1));
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into d values(default, default, default(c2));
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from d;
++------+------+------+
+| c1   | c2   | c3   |
++------+------+------+
+|  100 |  200 |   -1 |
+|  100 |  200 |  100 |
+|  100 |  200 |  200 |
++------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> drop table orders;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table orders(oID int auto_increment , oDate date default (curdate()) , rate int, qty int, amount int default (rate * qty));
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql>
+mysql>
+mysql>
+mysql> create table orders(oID int auto_increment primary key  , oDate date default (curdate()) , rate int, qty int, amount int default (rate * qty));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table users(ID int auto_increment primary key, userNAme varchar(10), pwd varchar(10) invisible);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc ussers;
+ERROR 1146 (42S02): Table 'x.ussers' doesn't exist
+mysql> desc users;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| ID       | int         | NO   | PRI | NULL    | auto_increment |
+| userNAme | varchar(10) | YES  |     | NULL    |                |
+| pwd      | varchar(10) | YES  |     | NULL    | INVISIBLE      |
++----------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into users values(default, 'saleel', 'saleel');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>
+mysql>
+mysql> insert into users(id, userName, pwd) values(default, 'saleel', 'saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from users;
++----+----------+
+| ID | userNAme |
++----+----------+
+|  1 | saleel   |
++----+----------+
+1 row in set (0.00 sec)
+
+mysql> select id, userName, pwd from users;
++----+----------+--------+
+| id | userName | pwd    |
++----+----------+--------+
+|  1 | saleel   | saleel |
++----+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> drop table users;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table users(ID int auto_increment primary key, userNAme varchar(10), pwd varbinary(10) invisible);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into users(id, userName, pwd) values(default, 'saleel', 'saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from users;
++----+----------+
+| ID | userNAme |
++----+----------+
+|  1 | saleel   |
++----+----------+
+1 row in set (0.00 sec)
+
+mysql> select id, userName, pwd from users;
++----+----------+----------------+
+| id | userName | pwd            |
++----+----------+----------------+
+|  1 | saleel   | 0x73616C65656C |
++----+----------+----------------+
+1 row in set (0.00 sec)
+
+mysql> insert into users(id, userName, pwd) values(default, 'saleel', 'saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> select id, userName, pwd from users;
++----+----------+----------------+
+| id | userName | pwd            |
++----+----------+----------------+
+|  1 | saleel   | 0x73616C65656C |
+|  2 | saleel   | 0x73616C65656C |
++----+----------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select id, userName, cast(pwd as char) from users;
++----+----------+-------------------+
+| id | userName | cast(pwd as char) |
++----+----------+-------------------+
+|  1 | saleel   | saleel            |
+|  2 | saleel   | saleel            |
++----+----------+-------------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into users(id, userName, pwd) values(default, 'saleel', 'saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select id, userName, pwd from users;
++----+----------+----------------+
+| id | userName | pwd            |
++----+----------+----------------+
+|  1 | saleel   | 0x73616C65656C |
+|  2 | saleel   | 0x73616C65656C |
+|  3 | saleel   | 0x73616C65656C |
++----+----------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into users(id, userName, pwd) values(1000, 'saleel', 'saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select id, userName, pwd from users;
++------+----------+----------------+
+| id   | userName | pwd            |
++------+----------+----------------+
+|    1 | saleel   | 0x73616C65656C |
+|    2 | saleel   | 0x73616C65656C |
+|    3 | saleel   | 0x73616C65656C |
+| 1000 | saleel   | 0x73616C65656C |
++------+----------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into users(id, userName, pwd) values(default, 'saleel', 'saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select id, userName, pwd from users;
++------+----------+----------------+
+| id   | userName | pwd            |
++------+----------+----------------+
+|    1 | saleel   | 0x73616C65656C |
+|    2 | saleel   | 0x73616C65656C |
+|    3 | saleel   | 0x73616C65656C |
+| 1000 | saleel   | 0x73616C65656C |
+| 1001 | saleel   | 0x73616C65656C |
++------+----------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into users(id, userName, pwd) values(1000, 'saleel', 'saleel');
+ERROR 1062 (23000): Duplicate entry '1000' for key 'users.PRIMARY'
+mysql>
+mysql> insert into users(id, userName, pwd) values(null, 'saleel', 'saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select id, userName, pwd from users;
++------+----------+----------------+
+| id   | userName | pwd            |
++------+----------+----------------+
+|    1 | saleel   | 0x73616C65656C |
+|    2 | saleel   | 0x73616C65656C |
+|    3 | saleel   | 0x73616C65656C |
+| 1000 | saleel   | 0x73616C65656C |
+| 1001 | saleel   | 0x73616C65656C |
+| 1002 | saleel   | 0x73616C65656C |
++------+----------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> desc users;
++----------+---------------+------+-----+---------+----------------+
+| Field    | Type          | Null | Key | Default | Extra          |
++----------+---------------+------+-----+---------+----------------+
+| ID       | int           | NO   | PRI | NULL    | auto_increment |
+| userNAme | varchar(10)   | YES  |     | NULL    |                |
+| pwd      | varbinary(10) | YES  |     | NULL    | INVISIBLE      |
++----------+---------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> drop table users;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table users(ID int primary key, userNAme varchar(10), pwd varbinary(10) invisible);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into users(id, userName, pwd) values(null, 'saleel', 'saleel');
+ERROR 1048 (23000): Column 'ID' cannot be null
+mysql> desc users;
++----------+---------------+------+-----+---------+-----------+
+| Field    | Type          | Null | Key | Default | Extra     |
++----------+---------------+------+-----+---------+-----------+
+| ID       | int           | NO   | PRI | NULL    |           |
+| userNAme | varchar(10)   | YES  |     | NULL    |           |
+| pwd      | varbinary(10) | YES  |     | NULL    | INVISIBLE |
++----------+---------------+------+-----+---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> drop table a;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table a(c1 int, c2 int, c3 int default (c1+c2), c4 int generated always as (c1+c2));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc a;
++-------+------+------+-----+---------------+-------------------+
+| Field | Type | Null | Key | Default       | Extra             |
++-------+------+------+-----+---------------+-------------------+
+| c1    | int  | YES  |     | NULL          |                   |
+| c2    | int  | YES  |     | NULL          |                   |
+| c3    | int  | YES  |     | (`c1` + `c2`) | DEFAULT_GENERATED |
+| c4    | int  | YES  |     | NULL          | VIRTUAL GENERATED |
++-------+------+------+-----+---------------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into a(c1, c2) values(7, 4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table a;
++------+------+------+------+
+| c1   | c2   | c3   | c4   |
++------+------+------+------+
+|    7 |    4 |   11 |   11 |
++------+------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from a;
++------+------+------+------+
+| c1   | c2   | c3   | c4   |
++------+------+------+------+
+|    7 |    4 |   11 |   11 |
++------+------+------+------+
+1 row in set (0.00 sec)
+
+mysql> table a;
++------+------+------+------+
+| c1   | c2   | c3   | c4   |
++------+------+------+------+
+|    7 |    4 |   11 |   11 |
++------+------+------+------+
+1 row in set (0.00 sec)
+
+mysql> update a set c2  = 7;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from a;
++------+------+------+------+
+| c1   | c2   | c3   | c4   |
++------+------+------+------+
+|    7 |    7 |   11 |   14 |
++------+------+------+------+
+1 row in set (0.00 sec)
+
+mysql> update a set c3 = default;;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ERROR:
+No query specified
+
+mysql> select * from a;
++------+------+------+------+
+| c1   | c2   | c3   | c4   |
++------+------+------+------+
+|    7 |    7 |   14 |   14 |
++------+------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select if(1=2, 'Good', 'bad');
++------------------------+
+| if(1=2, 'Good', 'bad') |
++------------------------+
+| bad                    |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select if(1=1, 'Good', 'bad');
++------------------------+
+| if(1=1, 'Good', 'bad') |
++------------------------+
+| Good                   |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> drop table a; create table a(c1 int, status varchar(10) generated always as (if(c1=1, 'Good', 'bad')));
+Query OK, 0 rows affected (0.03 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc a;
++--------+-------------+------+-----+---------+-------------------+
+| Field  | Type        | Null | Key | Default | Extra             |
++--------+-------------+------+-----+---------+-------------------+
+| c1     | int         | YES  |     | NULL    |                   |
+| status | varchar(10) | YES  |     | NULL    | VIRTUAL GENERATED |
++--------+-------------+------+-----+---------+-------------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into a values(1);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into a(c1) values(1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into a(c1) values(112\);
+ERROR:
+Unknown command '\)'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\)' at line 1
+mysql> insert into a(c1) values(112);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table a;
++------+--------+
+| c1   | status |
++------+--------+
+|    1 | Good   |
+|  112 | bad    |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> update a set c1 = 3;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> table a;
++------+--------+
+| c1   | status |
++------+--------+
+|    3 | bad    |
+|    3 | bad    |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> drop table a;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> drop table a; create table a(c1 int, status varchar(10) generated always as (if(rate < 1000 ,  rate *.2, rate *.05)));
+ERROR 1051 (42S02): Unknown table 'x.a'
+ERROR 1054 (42S22): Unknown column 'rate' in 'generated column function'
+mysql>
+mysql> drop table a; create table a(c1 int, rate int, status varchar(10) generated always as (if(rate < 1000 ,  rate *.2, rate *.05)));
+ERROR 1051 (42S02): Unknown table 'x.a'
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> drop table a;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table a(oid int, rate int, discountRate int generated always as (if(rate < 1000 ,  rate *.2, rate *.05)));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc a;
++--------------+------+------+-----+---------+-------------------+
+| Field        | Type | Null | Key | Default | Extra             |
++--------------+------+------+-----+---------+-------------------+
+| oid          | int  | YES  |     | NULL    |                   |
+| rate         | int  | YES  |     | NULL    |                   |
+| discountRate | int  | YES  |     | NULL    | VIRTUAL GENERATED |
++--------------+------+------+-----+---------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into a values(1, 500, default);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into a values(1, 5000, default);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table a;
++------+------+--------------+
+| oid  | rate | discountRate |
++------+------+--------------+
+|    1 |  500 |          100 |
+|    1 | 5000 |          250 |
++------+------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> drop table a;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> drop table a;
+ERROR 1051 (42S02): Unknown table 'x.a'
+mysql> create table a(oid int, rate int, discountRate int generated always as (if(rate < 1000 ,  rate *.2, rate *.05)), `New Rate` int generated always as (rate - discountRate));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into a values(1, 500, default);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> desc a;
++--------------+------+------+-----+---------+-------------------+
+| Field        | Type | Null | Key | Default | Extra             |
++--------------+------+------+-----+---------+-------------------+
+| oid          | int  | YES  |     | NULL    |                   |
+| rate         | int  | YES  |     | NULL    |                   |
+| discountRate | int  | YES  |     | NULL    | VIRTUAL GENERATED |
+| New Rate     | int  | YES  |     | NULL    | VIRTUAL GENERATED |
++--------------+------+------+-----+---------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into a values(1, 500, default);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> desc a;
++--------------+------+------+-----+---------+-------------------+
+| Field        | Type | Null | Key | Default | Extra             |
++--------------+------+------+-----+---------+-------------------+
+| oid          | int  | YES  |     | NULL    |                   |
+| rate         | int  | YES  |     | NULL    |                   |
+| discountRate | int  | YES  |     | NULL    | VIRTUAL GENERATED |
+| New Rate     | int  | YES  |     | NULL    | VIRTUAL GENERATED |
++--------------+------+------+-----+---------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into a values(1, 500);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>
+mysql> insert into a(oid, rate) values(1, 500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into a(oid, rate) values(1, 5000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table a;
++------+------+--------------+----------+
+| oid  | rate | discountRate | New Rate |
++------+------+--------------+----------+
+|    1 |  500 |          100 |      400 |
+|    1 | 5000 |          250 |     4750 |
++------+------+--------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> desc a;
++--------------+------+------+-----+---------+-------------------+
+| Field        | Type | Null | Key | Default | Extra             |
++--------------+------+------+-----+---------+-------------------+
+| oid          | int  | YES  |     | NULL    |                   |
+| rate         | int  | YES  |     | NULL    |                   |
+| discountRate | int  | YES  |     | NULL    | VIRTUAL GENERATED |
+| New Rate     | int  | YES  |     | NULL    | VIRTUAL GENERATED |
++--------------+------+------+-----+---------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select 10 + 10;
++---------+
+| 10 + 10 |
++---------+
+|      20 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select 10 + null;
++-----------+
+| 10 + null |
++-----------+
+|      NULL |
++-----------+
+1 row in set (0.01 sec)
+
+mysql> select 10 - null;
++-----------+
+| 10 - null |
++-----------+
+|      NULL |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> insert into a(oid) values(1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table a;
++------+------+--------------+----------+
+| oid  | rate | discountRate | New Rate |
++------+------+--------------+----------+
+|    1 |  500 |          100 |      400 |
+|    1 | 5000 |          250 |     4750 |
+|    1 | NULL |         NULL |     NULL |
++------+------+--------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select if(1=1, 'A', if(2=2. 'B', 'C'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''B', 'C'))' at line 1
+mysql> \
+mysql>
+mysql> select if(1=1, 'A', if(2=2 'B', 'C'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''B', 'C'))' at line 1
+mysql>
+mysql>
+mysql> select if(1=1, 'A', if(2=2, 'B', 'C'));
++---------------------------------+
+| if(1=1, 'A', if(2=2, 'B', 'C')) |
++---------------------------------+
+| A                               |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select if(1=1q1, 'A', if(2=2, 'B', 'C'));
+ERROR 1054 (42S22): Unknown column '1q1' in 'field list'
+mysql>
+mysql>
+mysql> select if(1=11, 'A', if(2=2, 'B', 'C'));
++----------------------------------+
+| if(1=11, 'A', if(2=2, 'B', 'C')) |
++----------------------------------+
+| B                                |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select if(1=11, 'A', if(2=22, 'B', 'C'));
++-----------------------------------+
+| if(1=11, 'A', if(2=22, 'B', 'C')) |
++-----------------------------------+
+| C                                 |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> use db1;
+Database changed
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     -2 | -1         | -1       | -1         | -1         |
+|     -1 | -1         | -1       | -1         | -1         |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
+|     98 | NULL       | NULL     | NULL       | NULL       |
+|     99 | NULL       | NULL     | NULL       | NULL       |
++--------+------------+----------+------------+------------+
+9 rows in set (0.03 sec)
+
+mysql> select deptno from dept;
++--------+
+| deptno |
++--------+
+|     -2 |
+|     -1 |
+|     10 |
+|     20 |
+|     30 |
+|     50 |
+|     60 |
+|     98 |
+|     99 |
++--------+
+9 rows in set (0.00 sec)
+
+mysql> select deptno, if(deptno <= 30, 'A', if(deptno >30 and deptno <=60, 'B', 'C')) from dept;
++--------+-----------------------------------------------------------------+
+| deptno | if(deptno <= 30, 'A', if(deptno >30 and deptno <=60, 'B', 'C')) |
++--------+-----------------------------------------------------------------+
+|     -2 | A                                                               |
+|     -1 | A                                                               |
+|     10 | A                                                               |
+|     20 | A                                                               |
+|     30 | A                                                               |
+|     50 | B                                                               |
+|     60 | B                                                               |
+|     98 | C                                                               |
+|     99 | C                                                               |
++--------+-----------------------------------------------------------------+
+9 rows in set (0.00 sec)
+
+mysql> ^A                                                                   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

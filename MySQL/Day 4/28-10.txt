@@ -1,0 +1,2093 @@
+select ename, job, (select ) from emp;
+
+
+select   ......... form (select ......)
+
+
+
+select ......... from emp where  (select ....)
+
+select ......... from emp hwving  (select ....)
+
+
+
+
+select sal from emp where ename='jones';   // 2975
+
+select sal from emp where ename='smith';   //  800
+
+select 2975 -  800;    // 2175
+
+
+select (select sal from emp where ename='jones') R1 ,  (select sal from emp where ename='smith') R2;   ///2175
+
+
+-------------------------------------------------
+
+
+mysql> select *, * from dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from dept' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select ^*, dname from dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '^*, dname from dept' at line 1
+mysql>
+mysql>
+mysql> select dname, * from dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from dept' at line 1
+mysql>
+mysql> select *, dname from dept;
++--------+------------+----------+------------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  | dname      |
++--------+------------+----------+------------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 | ACCOUNTING |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 | RESEARCH   |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 | SALES      |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 | OPERATIONS |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 | HR         |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 | IT         |
++--------+------------+----------+------------+------------+------------+
+6 rows in set (0.04 sec)
+
+mysql> select *, deptno,  dname from dept;
++--------+------------+----------+------------+------------+--------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  | deptno | dname      |
++--------+------------+----------+------------+------------+--------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |     10 | ACCOUNTING |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |     20 | RESEARCH   |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |     30 | SALES      |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |     40 | OPERATIONS |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |     50 | HR         |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |     60 | IT         |
++--------+------------+----------+------------+------------+--------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+mysql> select *, * from dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from dept' at line 1
+mysql> select dept.*, dept.* from dept;
++--------+------------+----------+------------+------------+--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  | DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+--------+------------+----------+------------+------------+
+6 rows in set (0.01 sec)
+
+mysql> select dept.* from dept d;
+ERROR 1051 (42S02): Unknown table 'dept'
+mysql>
+mysql> select d.* from dept d;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from dept limit 2;
++--------+------------+----------+-----------+------------+
+| DEPTNO | DNAME      | LOC      | PWD       | STARTEDON  |
++--------+------------+----------+-----------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm    | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm | 12/04/1989 |
++--------+------------+----------+-----------+------------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> select * from dept limit 2, 1;
++--------+-------+---------+------------+------------+
+| DEPTNO | DNAME | LOC     | PWD        | STARTEDON  |
++--------+-------+---------+------------+------------+
+|     30 | SALES | CHICAGO | sales@2017 | 13/04/1989 |
++--------+-------+---------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> select * from dept limit 20, 1;
+Empty set (0.00 sec)
+
+mysql> select * from dept limit 5, 1;
++--------+-------+--------+----------+------------+
+| DEPTNO | DNAME | LOC    | PWD      | STARTEDON  |
++--------+-------+--------+----------+------------+
+|     60 | IT    | BARODA | BRD@1122 | 02/10/1989 |
++--------+-------+--------+----------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from dept limit (5, 1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(5, 1)' at line 1
+mysql>
+mysql>
+mysql> select * from dept limit 5, 1;
++--------+-------+--------+----------+------------+
+| DEPTNO | DNAME | LOC    | PWD      | STARTEDON  |
++--------+-------+--------+----------+------------+
+|     60 | IT    | BARODA | BRD@1122 | 02/10/1989 |
++--------+-------+--------+----------+------------+
+1 row in set (0.00 sec)
+
+mysql> set @x ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql>
+mysql> set @x = 3;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> set @x = 10;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> set @y = 'manager';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @x, @y;
++------+---------+
+| @x   | @y      |
++------+---------+
+|   10 | manager |
++------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from dept where deptno = @x;
++--------+------------+----------+--------+------------+
+| DEPTNO | DNAME      | LOC      | PWD    | STARTEDON  |
++--------+------------+----------+--------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm | 24/03/1989 |
++--------+------------+----------+--------+------------+
+1 row in set (0.02 sec)
+
+mysql> select * from dept where deptno = 10;
++--------+------------+----------+--------+------------+
+| DEPTNO | DNAME      | LOC      | PWD    | STARTEDON  |
++--------+------------+----------+--------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm | 24/03/1989 |
++--------+------------+----------+--------+------------+
+1 row in set (0.01 sec)
+
+mysql> set @x = 3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from dept limit 3;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
++--------+------------+----------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from dept limit @x;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@x' at line 1
+mysql>
+mysql>
+mysql> select * from dept limit 3;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
++--------+------------+----------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from dept limit 2+1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '+1' at line 1
+mysql>
+mysql> select * from dept limit 3;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
++--------+------------+----------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from dept limit (2+1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(2+1)' at line 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select ename, sal, hiredate from emp;
++----------+------+------------+
+| ename    | sal  | hiredate   |
++----------+------+------------+
+| GITA     | 1750 | 1981-07-19 |
+| VRUSHALI | 1750 | 1981-07-19 |
+| SHARMIN  | 1750 | 1981-07-19 |
+| BANDISH  | 1750 | 1981-07-19 |
+| SMITH    |  800 | 1980-12-17 |
+| AARAV    | 3350 | 1981-12-31 |
+| THOMAS   | 1750 | 1981-07-19 |
+| ALLEN    | 1600 | 1981-02-20 |
+| WARD     | 1250 | 1981-02-22 |
+| JONES    | 2975 | 1981-04-02 |
+| MARTIN   | 1250 | 1981-09-28 |
+| BLAKE    | 2850 | 1981-05-01 |
+| CLARK    | 2450 | 1981-06-09 |
+| SCOTT    | 3000 | 1982-12-09 |
+| KING     | 5000 | 1981-11-17 |
+| FRED     | 5000 | 1983-08-09 |
+| TURNER   | 1500 | 1981-09-08 |
+| ADAMS    | 1100 | 1983-01-12 |
+| Ruhan    | 2000 | 1983-08-09 |
+| Neel     | 1000 | 1983-08-09 |
+| JAMES    |  950 | 1981-12-03 |
+| FORD     | 3000 | 1981-12-03 |
+| HOFFMAN  | 4150 | 1982-03-24 |
+| GRASS    | 2575 | 1980-02-14 |
+| MILLER   | 1300 | 1982-01-23 |
+| AARUSH   | 1350 | 1980-02-14 |
+| ALEX     | 1250 | 1982-01-24 |
+| NATASHA  | 1750 | 1981-07-19 |
+| SANGITA  | 1750 | 1981-07-19 |
+| SUPRIYA  | 1750 | 1981-07-19 |
++----------+------+------------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql> select ename, sal, hiredate from emp order by ename;
++----------+------+------------+
+| ename    | sal  | hiredate   |
++----------+------+------------+
+| AARAV    | 3350 | 1981-12-31 |
+| AARUSH   | 1350 | 1980-02-14 |
+| ADAMS    | 1100 | 1983-01-12 |
+| ALEX     | 1250 | 1982-01-24 |
+| ALLEN    | 1600 | 1981-02-20 |
+| BANDISH  | 1750 | 1981-07-19 |
+| BLAKE    | 2850 | 1981-05-01 |
+| CLARK    | 2450 | 1981-06-09 |
+| FORD     | 3000 | 1981-12-03 |
+| FRED     | 5000 | 1983-08-09 |
+| GITA     | 1750 | 1981-07-19 |
+| GRASS    | 2575 | 1980-02-14 |
+| HOFFMAN  | 4150 | 1982-03-24 |
+| JAMES    |  950 | 1981-12-03 |
+| JONES    | 2975 | 1981-04-02 |
+| KING     | 5000 | 1981-11-17 |
+| MARTIN   | 1250 | 1981-09-28 |
+| MILLER   | 1300 | 1982-01-23 |
+| NATASHA  | 1750 | 1981-07-19 |
+| Neel     | 1000 | 1983-08-09 |
+| Ruhan    | 2000 | 1983-08-09 |
+| SANGITA  | 1750 | 1981-07-19 |
+| SCOTT    | 3000 | 1982-12-09 |
+| SHARMIN  | 1750 | 1981-07-19 |
+| SMITH    |  800 | 1980-12-17 |
+| SUPRIYA  | 1750 | 1981-07-19 |
+| THOMAS   | 1750 | 1981-07-19 |
+| TURNER   | 1500 | 1981-09-08 |
+| VRUSHALI | 1750 | 1981-07-19 |
+| WARD     | 1250 | 1981-02-22 |
++----------+------+------------+
+30 rows in set (0.01 sec)
+
+mysql> select ename, sal, hiredate from emp order by ename desc;
++----------+------+------------+
+| ename    | sal  | hiredate   |
++----------+------+------------+
+| WARD     | 1250 | 1981-02-22 |
+| VRUSHALI | 1750 | 1981-07-19 |
+| TURNER   | 1500 | 1981-09-08 |
+| THOMAS   | 1750 | 1981-07-19 |
+| SUPRIYA  | 1750 | 1981-07-19 |
+| SMITH    |  800 | 1980-12-17 |
+| SHARMIN  | 1750 | 1981-07-19 |
+| SCOTT    | 3000 | 1982-12-09 |
+| SANGITA  | 1750 | 1981-07-19 |
+| Ruhan    | 2000 | 1983-08-09 |
+| Neel     | 1000 | 1983-08-09 |
+| NATASHA  | 1750 | 1981-07-19 |
+| MILLER   | 1300 | 1982-01-23 |
+| MARTIN   | 1250 | 1981-09-28 |
+| KING     | 5000 | 1981-11-17 |
+| JONES    | 2975 | 1981-04-02 |
+| JAMES    |  950 | 1981-12-03 |
+| HOFFMAN  | 4150 | 1982-03-24 |
+| GRASS    | 2575 | 1980-02-14 |
+| GITA     | 1750 | 1981-07-19 |
+| FRED     | 5000 | 1983-08-09 |
+| FORD     | 3000 | 1981-12-03 |
+| CLARK    | 2450 | 1981-06-09 |
+| BLAKE    | 2850 | 1981-05-01 |
+| BANDISH  | 1750 | 1981-07-19 |
+| ALLEN    | 1600 | 1981-02-20 |
+| ALEX     | 1250 | 1982-01-24 |
+| ADAMS    | 1100 | 1983-01-12 |
+| AARUSH   | 1350 | 1980-02-14 |
+| AARAV    | 3350 | 1981-12-31 |
++----------+------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, sal, hiredate from emp order by sal;
++----------+------+------------+
+| ename    | sal  | hiredate   |
++----------+------+------------+
+| SMITH    |  800 | 1980-12-17 |
+| JAMES    |  950 | 1981-12-03 |
+| Neel     | 1000 | 1983-08-09 |
+| ADAMS    | 1100 | 1983-01-12 |
+| WARD     | 1250 | 1981-02-22 |
+| MARTIN   | 1250 | 1981-09-28 |
+| ALEX     | 1250 | 1982-01-24 |
+| MILLER   | 1300 | 1982-01-23 |
+| AARUSH   | 1350 | 1980-02-14 |
+| TURNER   | 1500 | 1981-09-08 |
+| ALLEN    | 1600 | 1981-02-20 |
+| GITA     | 1750 | 1981-07-19 |
+| VRUSHALI | 1750 | 1981-07-19 |
+| SHARMIN  | 1750 | 1981-07-19 |
+| BANDISH  | 1750 | 1981-07-19 |
+| THOMAS   | 1750 | 1981-07-19 |
+| NATASHA  | 1750 | 1981-07-19 |
+| SANGITA  | 1750 | 1981-07-19 |
+| SUPRIYA  | 1750 | 1981-07-19 |
+| Ruhan    | 2000 | 1983-08-09 |
+| CLARK    | 2450 | 1981-06-09 |
+| GRASS    | 2575 | 1980-02-14 |
+| BLAKE    | 2850 | 1981-05-01 |
+| JONES    | 2975 | 1981-04-02 |
+| SCOTT    | 3000 | 1982-12-09 |
+| FORD     | 3000 | 1981-12-03 |
+| AARAV    | 3350 | 1981-12-31 |
+| HOFFMAN  | 4150 | 1982-03-24 |
+| KING     | 5000 | 1981-11-17 |
+| FRED     | 5000 | 1983-08-09 |
++----------+------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, sal, hiredate from emp order by sal desc;
++----------+------+------------+
+| ename    | sal  | hiredate   |
++----------+------+------------+
+| KING     | 5000 | 1981-11-17 |
+| FRED     | 5000 | 1983-08-09 |
+| HOFFMAN  | 4150 | 1982-03-24 |
+| AARAV    | 3350 | 1981-12-31 |
+| SCOTT    | 3000 | 1982-12-09 |
+| FORD     | 3000 | 1981-12-03 |
+| JONES    | 2975 | 1981-04-02 |
+| BLAKE    | 2850 | 1981-05-01 |
+| GRASS    | 2575 | 1980-02-14 |
+| CLARK    | 2450 | 1981-06-09 |
+| Ruhan    | 2000 | 1983-08-09 |
+| GITA     | 1750 | 1981-07-19 |
+| VRUSHALI | 1750 | 1981-07-19 |
+| SHARMIN  | 1750 | 1981-07-19 |
+| BANDISH  | 1750 | 1981-07-19 |
+| THOMAS   | 1750 | 1981-07-19 |
+| NATASHA  | 1750 | 1981-07-19 |
+| SANGITA  | 1750 | 1981-07-19 |
+| SUPRIYA  | 1750 | 1981-07-19 |
+| ALLEN    | 1600 | 1981-02-20 |
+| TURNER   | 1500 | 1981-09-08 |
+| AARUSH   | 1350 | 1980-02-14 |
+| MILLER   | 1300 | 1982-01-23 |
+| WARD     | 1250 | 1981-02-22 |
+| MARTIN   | 1250 | 1981-09-28 |
+| ALEX     | 1250 | 1982-01-24 |
+| ADAMS    | 1100 | 1983-01-12 |
+| Neel     | 1000 | 1983-08-09 |
+| JAMES    |  950 | 1981-12-03 |
+| SMITH    |  800 | 1980-12-17 |
++----------+------+------------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql> select ename, sal, hiredate from emp order by hiredate;
++----------+------+------------+
+| ename    | sal  | hiredate   |
++----------+------+------------+
+| GRASS    | 2575 | 1980-02-14 |
+| AARUSH   | 1350 | 1980-02-14 |
+| SMITH    |  800 | 1980-12-17 |
+| ALLEN    | 1600 | 1981-02-20 |
+| WARD     | 1250 | 1981-02-22 |
+| JONES    | 2975 | 1981-04-02 |
+| BLAKE    | 2850 | 1981-05-01 |
+| CLARK    | 2450 | 1981-06-09 |
+| GITA     | 1750 | 1981-07-19 |
+| VRUSHALI | 1750 | 1981-07-19 |
+| SHARMIN  | 1750 | 1981-07-19 |
+| BANDISH  | 1750 | 1981-07-19 |
+| THOMAS   | 1750 | 1981-07-19 |
+| NATASHA  | 1750 | 1981-07-19 |
+| SANGITA  | 1750 | 1981-07-19 |
+| SUPRIYA  | 1750 | 1981-07-19 |
+| TURNER   | 1500 | 1981-09-08 |
+| MARTIN   | 1250 | 1981-09-28 |
+| KING     | 5000 | 1981-11-17 |
+| JAMES    |  950 | 1981-12-03 |
+| FORD     | 3000 | 1981-12-03 |
+| AARAV    | 3350 | 1981-12-31 |
+| MILLER   | 1300 | 1982-01-23 |
+| ALEX     | 1250 | 1982-01-24 |
+| HOFFMAN  | 4150 | 1982-03-24 |
+| SCOTT    | 3000 | 1982-12-09 |
+| ADAMS    | 1100 | 1983-01-12 |
+| FRED     | 5000 | 1983-08-09 |
+| Ruhan    | 2000 | 1983-08-09 |
+| Neel     | 1000 | 1983-08-09 |
++----------+------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, sal, hiredate from emp order by hiredate desc;
++----------+------+------------+
+| ename    | sal  | hiredate   |
++----------+------+------------+
+| FRED     | 5000 | 1983-08-09 |
+| Ruhan    | 2000 | 1983-08-09 |
+| Neel     | 1000 | 1983-08-09 |
+| ADAMS    | 1100 | 1983-01-12 |
+| SCOTT    | 3000 | 1982-12-09 |
+| HOFFMAN  | 4150 | 1982-03-24 |
+| ALEX     | 1250 | 1982-01-24 |
+| MILLER   | 1300 | 1982-01-23 |
+| AARAV    | 3350 | 1981-12-31 |
+| JAMES    |  950 | 1981-12-03 |
+| FORD     | 3000 | 1981-12-03 |
+| KING     | 5000 | 1981-11-17 |
+| MARTIN   | 1250 | 1981-09-28 |
+| TURNER   | 1500 | 1981-09-08 |
+| GITA     | 1750 | 1981-07-19 |
+| VRUSHALI | 1750 | 1981-07-19 |
+| SHARMIN  | 1750 | 1981-07-19 |
+| BANDISH  | 1750 | 1981-07-19 |
+| THOMAS   | 1750 | 1981-07-19 |
+| NATASHA  | 1750 | 1981-07-19 |
+| SANGITA  | 1750 | 1981-07-19 |
+| SUPRIYA  | 1750 | 1981-07-19 |
+| CLARK    | 2450 | 1981-06-09 |
+| BLAKE    | 2850 | 1981-05-01 |
+| JONES    | 2975 | 1981-04-02 |
+| WARD     | 1250 | 1981-02-22 |
+| ALLEN    | 1600 | 1981-02-20 |
+| SMITH    |  800 | 1980-12-17 |
+| GRASS    | 2575 | 1980-02-14 |
+| AARUSH   | 1350 | 1980-02-14 |
++----------+------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, job, sal, hiredate from emp;
++----------+---------------------+------+------------+
+| ename    | job                 | sal  | hiredate   |
++----------+---------------------+------+------------+
+| GITA     | Compliance officers | 1750 | 1981-07-19 |
+| VRUSHALI | Compliance officers | 1750 | 1981-07-19 |
+| SHARMIN  | Public Relation     | 1750 | 1981-07-19 |
+| BANDISH  | Public Relation     | 1750 | 1981-07-19 |
+| SMITH    | CLERK               |  800 | 1980-12-17 |
+| AARAV    | CLERK               | 3350 | 1981-12-31 |
+| THOMAS   | CLERK               | 1750 | 1981-07-19 |
+| ALLEN    | SALESMAN            | 1600 | 1981-02-20 |
+| WARD     | SALESMAN            | 1250 | 1981-02-22 |
+| JONES    | MANAGER             | 2975 | 1981-04-02 |
+| MARTIN   | SALESMAN            | 1250 | 1981-09-28 |
+| BLAKE    | MANAGER             | 2850 | 1981-05-01 |
+| CLARK    | MANAGER             | 2450 | 1981-06-09 |
+| SCOTT    | ANALYST             | 3000 | 1982-12-09 |
+| KING     | PRESIDENT           | 5000 | 1981-11-17 |
+| FRED     | vice PRESIDENT      | 5000 | 1983-08-09 |
+| TURNER   | SALESMAN            | 1500 | 1981-09-08 |
+| ADAMS    | CLERK               | 1100 | 1983-01-12 |
+| Ruhan    | Network             | 2000 | 1983-08-09 |
+| Neel     | vice PRESIDENT      | 1000 | 1983-08-09 |
+| JAMES    | CLERK               |  950 | 1981-12-03 |
+| FORD     | ANALYST             | 3000 | 1981-12-03 |
+| HOFFMAN  | MANAGER             | 4150 | 1982-03-24 |
+| GRASS    | SALESMAN            | 2575 | 1980-02-14 |
+| MILLER   | CLERK               | 1300 | 1982-01-23 |
+| AARUSH   | SALESMAN            | 1350 | 1980-02-14 |
+| ALEX     | MANAGER             | 1250 | 1982-01-24 |
+| NATASHA  | CLERK               | 1750 | 1981-07-19 |
+| SANGITA  | Compliance officers | 1750 | 1981-07-19 |
+| SUPRIYA  | ANALYST             | 1750 | 1981-07-19 |
++----------+---------------------+------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, job, sal, deptno from emp;
++----------+---------------------+------+--------+
+| ename    | job                 | sal  | deptno |
++----------+---------------------+------+--------+
+| GITA     | Compliance officers | 1750 |     30 |
+| VRUSHALI | Compliance officers | 1750 |     50 |
+| SHARMIN  | Public Relation     | 1750 |     20 |
+| BANDISH  | Public Relation     | 1750 |     20 |
+| SMITH    | CLERK               |  800 |     20 |
+| AARAV    | CLERK               | 3350 |     10 |
+| THOMAS   | CLERK               | 1750 |     10 |
+| ALLEN    | SALESMAN            | 1600 |     30 |
+| WARD     | SALESMAN            | 1250 |     30 |
+| JONES    | MANAGER             | 2975 |     20 |
+| MARTIN   | SALESMAN            | 1250 |     30 |
+| BLAKE    | MANAGER             | 2850 |     30 |
+| CLARK    | MANAGER             | 2450 |     10 |
+| SCOTT    | ANALYST             | 3000 |     20 |
+| KING     | PRESIDENT           | 5000 |     10 |
+| FRED     | vice PRESIDENT      | 5000 |     20 |
+| TURNER   | SALESMAN            | 1500 |     30 |
+| ADAMS    | CLERK               | 1100 |     20 |
+| Ruhan    | Network             | 2000 |     60 |
+| Neel     | vice PRESIDENT      | 1000 |     60 |
+| JAMES    | CLERK               |  950 |     30 |
+| FORD     | ANALYST             | 3000 |     20 |
+| HOFFMAN  | MANAGER             | 4150 |     30 |
+| GRASS    | SALESMAN            | 2575 |     30 |
+| MILLER   | CLERK               | 1300 |     10 |
+| AARUSH   | SALESMAN            | 1350 |     30 |
+| ALEX     | MANAGER             | 1250 |     30 |
+| NATASHA  | CLERK               | 1750 |     30 |
+| SANGITA  | Compliance officers | 1750 |     50 |
+| SUPRIYA  | ANALYST             | 1750 |     50 |
++----------+---------------------+------+--------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, job, sal, deptno from emp order by jib;
+ERROR 1054 (42S22): Unknown column 'jib' in 'order clause'
+mysql> select ename, job, sal, deptno from emp order by job;
++----------+---------------------+------+--------+
+| ename    | job                 | sal  | deptno |
++----------+---------------------+------+--------+
+| SCOTT    | ANALYST             | 3000 |     20 |
+| FORD     | ANALYST             | 3000 |     20 |
+| SUPRIYA  | ANALYST             | 1750 |     50 |
+| SMITH    | CLERK               |  800 |     20 |
+| AARAV    | CLERK               | 3350 |     10 |
+| THOMAS   | CLERK               | 1750 |     10 |
+| ADAMS    | CLERK               | 1100 |     20 |
+| JAMES    | CLERK               |  950 |     30 |
+| MILLER   | CLERK               | 1300 |     10 |
+| NATASHA  | CLERK               | 1750 |     30 |
+| GITA     | Compliance officers | 1750 |     30 |
+| VRUSHALI | Compliance officers | 1750 |     50 |
+| SANGITA  | Compliance officers | 1750 |     50 |
+| JONES    | MANAGER             | 2975 |     20 |
+| BLAKE    | MANAGER             | 2850 |     30 |
+| CLARK    | MANAGER             | 2450 |     10 |
+| HOFFMAN  | MANAGER             | 4150 |     30 |
+| ALEX     | MANAGER             | 1250 |     30 |
+| Ruhan    | Network             | 2000 |     60 |
+| KING     | PRESIDENT           | 5000 |     10 |
+| SHARMIN  | Public Relation     | 1750 |     20 |
+| BANDISH  | Public Relation     | 1750 |     20 |
+| ALLEN    | SALESMAN            | 1600 |     30 |
+| WARD     | SALESMAN            | 1250 |     30 |
+| MARTIN   | SALESMAN            | 1250 |     30 |
+| TURNER   | SALESMAN            | 1500 |     30 |
+| GRASS    | SALESMAN            | 2575 |     30 |
+| AARUSH   | SALESMAN            | 1350 |     30 |
+| FRED     | vice PRESIDENT      | 5000 |     20 |
+| Neel     | vice PRESIDENT      | 1000 |     60 |
++----------+---------------------+------+--------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, job, sal, deptno from emp order by job, deptno;
++----------+---------------------+------+--------+
+| ename    | job                 | sal  | deptno |
++----------+---------------------+------+--------+
+| SCOTT    | ANALYST             | 3000 |     20 |
+| FORD     | ANALYST             | 3000 |     20 |
+| SUPRIYA  | ANALYST             | 1750 |     50 |
+| AARAV    | CLERK               | 3350 |     10 |
+| THOMAS   | CLERK               | 1750 |     10 |
+| MILLER   | CLERK               | 1300 |     10 |
+| SMITH    | CLERK               |  800 |     20 |
+| ADAMS    | CLERK               | 1100 |     20 |
+| JAMES    | CLERK               |  950 |     30 |
+| NATASHA  | CLERK               | 1750 |     30 |
+| GITA     | Compliance officers | 1750 |     30 |
+| VRUSHALI | Compliance officers | 1750 |     50 |
+| SANGITA  | Compliance officers | 1750 |     50 |
+| CLARK    | MANAGER             | 2450 |     10 |
+| JONES    | MANAGER             | 2975 |     20 |
+| BLAKE    | MANAGER             | 2850 |     30 |
+| HOFFMAN  | MANAGER             | 4150 |     30 |
+| ALEX     | MANAGER             | 1250 |     30 |
+| Ruhan    | Network             | 2000 |     60 |
+| KING     | PRESIDENT           | 5000 |     10 |
+| SHARMIN  | Public Relation     | 1750 |     20 |
+| BANDISH  | Public Relation     | 1750 |     20 |
+| ALLEN    | SALESMAN            | 1600 |     30 |
+| WARD     | SALESMAN            | 1250 |     30 |
+| MARTIN   | SALESMAN            | 1250 |     30 |
+| TURNER   | SALESMAN            | 1500 |     30 |
+| GRASS    | SALESMAN            | 2575 |     30 |
+| AARUSH   | SALESMAN            | 1350 |     30 |
+| FRED     | vice PRESIDENT      | 5000 |     20 |
+| Neel     | vice PRESIDENT      | 1000 |     60 |
++----------+---------------------+------+--------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql> select ename, job, sal, deptno from emp order by job asc, deptno desc;
++----------+---------------------+------+--------+
+| ename    | job                 | sal  | deptno |
++----------+---------------------+------+--------+
+| SUPRIYA  | ANALYST             | 1750 |     50 |
+| SCOTT    | ANALYST             | 3000 |     20 |
+| FORD     | ANALYST             | 3000 |     20 |
+| JAMES    | CLERK               |  950 |     30 |
+| NATASHA  | CLERK               | 1750 |     30 |
+| SMITH    | CLERK               |  800 |     20 |
+| ADAMS    | CLERK               | 1100 |     20 |
+| AARAV    | CLERK               | 3350 |     10 |
+| THOMAS   | CLERK               | 1750 |     10 |
+| MILLER   | CLERK               | 1300 |     10 |
+| VRUSHALI | Compliance officers | 1750 |     50 |
+| SANGITA  | Compliance officers | 1750 |     50 |
+| GITA     | Compliance officers | 1750 |     30 |
+| BLAKE    | MANAGER             | 2850 |     30 |
+| HOFFMAN  | MANAGER             | 4150 |     30 |
+| ALEX     | MANAGER             | 1250 |     30 |
+| JONES    | MANAGER             | 2975 |     20 |
+| CLARK    | MANAGER             | 2450 |     10 |
+| Ruhan    | Network             | 2000 |     60 |
+| KING     | PRESIDENT           | 5000 |     10 |
+| SHARMIN  | Public Relation     | 1750 |     20 |
+| BANDISH  | Public Relation     | 1750 |     20 |
+| ALLEN    | SALESMAN            | 1600 |     30 |
+| WARD     | SALESMAN            | 1250 |     30 |
+| MARTIN   | SALESMAN            | 1250 |     30 |
+| TURNER   | SALESMAN            | 1500 |     30 |
+| GRASS    | SALESMAN            | 2575 |     30 |
+| AARUSH   | SALESMAN            | 1350 |     30 |
+| Neel     | vice PRESIDENT      | 1000 |     60 |
+| FRED     | vice PRESIDENT      | 5000 |     20 |
++----------+---------------------+------+--------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> select ename, job, sal, deptno from emp order by 2
+    -> ;
++----------+---------------------+------+--------+
+| ename    | job                 | sal  | deptno |
++----------+---------------------+------+--------+
+| SCOTT    | ANALYST             | 3000 |     20 |
+| FORD     | ANALYST             | 3000 |     20 |
+| SUPRIYA  | ANALYST             | 1750 |     50 |
+| SMITH    | CLERK               |  800 |     20 |
+| AARAV    | CLERK               | 3350 |     10 |
+| THOMAS   | CLERK               | 1750 |     10 |
+| ADAMS    | CLERK               | 1100 |     20 |
+| JAMES    | CLERK               |  950 |     30 |
+| MILLER   | CLERK               | 1300 |     10 |
+| NATASHA  | CLERK               | 1750 |     30 |
+| GITA     | Compliance officers | 1750 |     30 |
+| VRUSHALI | Compliance officers | 1750 |     50 |
+| SANGITA  | Compliance officers | 1750 |     50 |
+| JONES    | MANAGER             | 2975 |     20 |
+| BLAKE    | MANAGER             | 2850 |     30 |
+| CLARK    | MANAGER             | 2450 |     10 |
+| HOFFMAN  | MANAGER             | 4150 |     30 |
+| ALEX     | MANAGER             | 1250 |     30 |
+| Ruhan    | Network             | 2000 |     60 |
+| KING     | PRESIDENT           | 5000 |     10 |
+| SHARMIN  | Public Relation     | 1750 |     20 |
+| BANDISH  | Public Relation     | 1750 |     20 |
+| ALLEN    | SALESMAN            | 1600 |     30 |
+| WARD     | SALESMAN            | 1250 |     30 |
+| MARTIN   | SALESMAN            | 1250 |     30 |
+| TURNER   | SALESMAN            | 1500 |     30 |
+| GRASS    | SALESMAN            | 2575 |     30 |
+| AARUSH   | SALESMAN            | 1350 |     30 |
+| FRED     | vice PRESIDENT      | 5000 |     20 |
+| Neel     | vice PRESIDENT      | 1000 |     60 |
++----------+---------------------+------+--------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, job j, sal, deptno from emp order by j desc;
++----------+---------------------+------+--------+
+| ename    | j                   | sal  | deptno |
++----------+---------------------+------+--------+
+| FRED     | vice PRESIDENT      | 5000 |     20 |
+| Neel     | vice PRESIDENT      | 1000 |     60 |
+| ALLEN    | SALESMAN            | 1600 |     30 |
+| WARD     | SALESMAN            | 1250 |     30 |
+| MARTIN   | SALESMAN            | 1250 |     30 |
+| TURNER   | SALESMAN            | 1500 |     30 |
+| GRASS    | SALESMAN            | 2575 |     30 |
+| AARUSH   | SALESMAN            | 1350 |     30 |
+| SHARMIN  | Public Relation     | 1750 |     20 |
+| BANDISH  | Public Relation     | 1750 |     20 |
+| KING     | PRESIDENT           | 5000 |     10 |
+| Ruhan    | Network             | 2000 |     60 |
+| JONES    | MANAGER             | 2975 |     20 |
+| BLAKE    | MANAGER             | 2850 |     30 |
+| CLARK    | MANAGER             | 2450 |     10 |
+| HOFFMAN  | MANAGER             | 4150 |     30 |
+| ALEX     | MANAGER             | 1250 |     30 |
+| GITA     | Compliance officers | 1750 |     30 |
+| VRUSHALI | Compliance officers | 1750 |     50 |
+| SANGITA  | Compliance officers | 1750 |     50 |
+| SMITH    | CLERK               |  800 |     20 |
+| AARAV    | CLERK               | 3350 |     10 |
+| THOMAS   | CLERK               | 1750 |     10 |
+| ADAMS    | CLERK               | 1100 |     20 |
+| JAMES    | CLERK               |  950 |     30 |
+| MILLER   | CLERK               | 1300 |     10 |
+| NATASHA  | CLERK               | 1750 |     30 |
+| SCOTT    | ANALYST             | 3000 |     20 |
+| FORD     | ANALYST             | 3000 |     20 |
+| SUPRIYA  | ANALYST             | 1750 |     50 |
++----------+---------------------+------+--------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, job, sal, deptno from emp order by job;
++----------+---------------------+------+--------+
+| ename    | job                 | sal  | deptno |
++----------+---------------------+------+--------+
+| SCOTT    | ANALYST             | 3000 |     20 |
+| FORD     | ANALYST             | 3000 |     20 |
+| SUPRIYA  | ANALYST             | 1750 |     50 |
+| SMITH    | CLERK               |  800 |     20 |
+| AARAV    | CLERK               | 3350 |     10 |
+| THOMAS   | CLERK               | 1750 |     10 |
+| ADAMS    | CLERK               | 1100 |     20 |
+| JAMES    | CLERK               |  950 |     30 |
+| MILLER   | CLERK               | 1300 |     10 |
+| NATASHA  | CLERK               | 1750 |     30 |
+| GITA     | Compliance officers | 1750 |     30 |
+| VRUSHALI | Compliance officers | 1750 |     50 |
+| SANGITA  | Compliance officers | 1750 |     50 |
+| JONES    | MANAGER             | 2975 |     20 |
+| BLAKE    | MANAGER             | 2850 |     30 |
+| CLARK    | MANAGER             | 2450 |     10 |
+| HOFFMAN  | MANAGER             | 4150 |     30 |
+| ALEX     | MANAGER             | 1250 |     30 |
+| Ruhan    | Network             | 2000 |     60 |
+| KING     | PRESIDENT           | 5000 |     10 |
+| SHARMIN  | Public Relation     | 1750 |     20 |
+| BANDISH  | Public Relation     | 1750 |     20 |
+| ALLEN    | SALESMAN            | 1600 |     30 |
+| WARD     | SALESMAN            | 1250 |     30 |
+| MARTIN   | SALESMAN            | 1250 |     30 |
+| TURNER   | SALESMAN            | 1500 |     30 |
+| GRASS    | SALESMAN            | 2575 |     30 |
+| AARUSH   | SALESMAN            | 1350 |     30 |
+| FRED     | vice PRESIDENT      | 5000 |     20 |
+| Neel     | vice PRESIDENT      | 1000 |     60 |
++----------+---------------------+------+--------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, job, sal, deptno from emp vlimit 5  order by job;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '5  order by job' at line 1
+mysql> select ename, job, sal, deptno from emp vlimit 5  order by job;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '5  order by job' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select ename, job, sal, deptno from emp limit 5  order by job;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by job' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select ename, job, sal, deptno from emp order by job limit 5;
++---------+---------+------+--------+
+| ename   | job     | sal  | deptno |
++---------+---------+------+--------+
+| FORD    | ANALYST | 3000 |     20 |
+| SCOTT   | ANALYST | 3000 |     20 |
+| SUPRIYA | ANALYST | 1750 |     50 |
+| ADAMS   | CLERK   | 1100 |     20 |
+| SMITH   | CLERK   |  800 |     20 |
++---------+---------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select job from emp;
++---------------------+
+| job                 |
++---------------------+
+| Compliance officers |
+| Compliance officers |
+| Public Relation     |
+| Public Relation     |
+| CLERK               |
+| CLERK               |
+| CLERK               |
+| SALESMAN            |
+| SALESMAN            |
+| MANAGER             |
+| SALESMAN            |
+| MANAGER             |
+| MANAGER             |
+| ANALYST             |
+| PRESIDENT           |
+| vice PRESIDENT      |
+| SALESMAN            |
+| CLERK               |
+| Network             |
+| vice PRESIDENT      |
+| CLERK               |
+| ANALYST             |
+| MANAGER             |
+| SALESMAN            |
+| CLERK               |
+| SALESMAN            |
+| MANAGER             |
+| CLERK               |
+| Compliance officers |
+| ANALYST             |
++---------------------+
+30 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select all * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> select job from emp;
++---------------------+
+| job                 |
++---------------------+
+| Compliance officers |
+| Compliance officers |
+| Public Relation     |
+| Public Relation     |
+| CLERK               |
+| CLERK               |
+| CLERK               |
+| SALESMAN            |
+| SALESMAN            |
+| MANAGER             |
+| SALESMAN            |
+| MANAGER             |
+| MANAGER             |
+| ANALYST             |
+| PRESIDENT           |
+| vice PRESIDENT      |
+| SALESMAN            |
+| CLERK               |
+| Network             |
+| vice PRESIDENT      |
+| CLERK               |
+| ANALYST             |
+| MANAGER             |
+| SALESMAN            |
+| CLERK               |
+| SALESMAN            |
+| MANAGER             |
+| CLERK               |
+| Compliance officers |
+| ANALYST             |
++---------------------+
+30 rows in set (0.00 sec)
+
+mysql> select all job from emp;
++---------------------+
+| job                 |
++---------------------+
+| Compliance officers |
+| Compliance officers |
+| Public Relation     |
+| Public Relation     |
+| CLERK               |
+| CLERK               |
+| CLERK               |
+| SALESMAN            |
+| SALESMAN            |
+| MANAGER             |
+| SALESMAN            |
+| MANAGER             |
+| MANAGER             |
+| ANALYST             |
+| PRESIDENT           |
+| vice PRESIDENT      |
+| SALESMAN            |
+| CLERK               |
+| Network             |
+| vice PRESIDENT      |
+| CLERK               |
+| ANALYST             |
+| MANAGER             |
+| SALESMAN            |
+| CLERK               |
+| SALESMAN            |
+| MANAGER             |
+| CLERK               |
+| Compliance officers |
+| ANALYST             |
++---------------------+
+30 rows in set (0.00 sec)
+
+mysql> select distinct job from emp;
++---------------------+
+| job                 |
++---------------------+
+| Compliance officers |
+| Public Relation     |
+| CLERK               |
+| SALESMAN            |
+| MANAGER             |
+| ANALYST             |
+| PRESIDENT           |
+| vice PRESIDENT      |
+| Network             |
++---------------------+
+9 rows in set (0.05 sec)
+
+mysql> select sal from emp order by sal desc;
++------+
+| sal  |
++------+
+| 5000 |
+| 5000 |
+| 4150 |
+| 3350 |
+| 3000 |
+| 3000 |
+| 2975 |
+| 2850 |
+| 2575 |
+| 2450 |
+| 2000 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1600 |
+| 1500 |
+| 1350 |
+| 1300 |
+| 1250 |
+| 1250 |
+| 1250 |
+| 1100 |
+| 1000 |
+|  950 |
+|  800 |
++------+
+30 rows in set (0.00 sec)
+
+mysql> select distinct  sal from emp order by sal desc;
++------+
+| sal  |
++------+
+| 5000 |
+| 4150 |
+| 3350 |
+| 3000 |
+| 2975 |
+| 2850 |
+| 2575 |
+| 2450 |
+| 2000 |
+| 1750 |
+| 1600 |
+| 1500 |
+| 1350 |
+| 1300 |
+| 1250 |
+| 1100 |
+| 1000 |
+|  950 |
+|  800 |
++------+
+19 rows in set (0.00 sec)
+
+mysql> select distinct  sal from emp order by sal desc limit 1;
++------+
+| sal  |
++------+
+| 5000 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select distinct  sal from emp order by sal desc limit 1, 1;
++------+
+| sal  |
++------+
+| 4150 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select distinct  sal from emp order by sal desc limit 2, 1;
++------+
+| sal  |
++------+
+| 3350 |
++------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> select distinct  sal from emp order by sal desc limit 3, 1;
++------+
+| sal  |
++------+
+| 3000 |
++------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> select distinct  sal into @a from emp order by sal desc limit 3, 1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @x;
++------+
+| @x   |
++------+
+|    3 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select @a;
++------+
+| @a   |
++------+
+| 3000 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select ename,sal from emo where sal = @a;
+ERROR 1146 (42S02): Table 'db1.emo' doesn't exist
+mysql>
+mysql> select ename,sal from emp where sal = @a;
++-------+------+
+| ename | sal  |
++-------+------+
+| SCOTT | 3000 |
+| FORD  | 3000 |
++-------+------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> select distinct  sal into @a from emp order by sal desc limit 1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select distinct  sal  from emp order by sal desc limit 1;
++------+
+| sal  |
++------+
+| 5000 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select  sal  from emp order by sal desc limit 1;
++------+
+| sal  |
++------+
+| 5000 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select  sal  from emp order by sal desc;
++------+
+| sal  |
++------+
+| 5000 |
+| 5000 |
+| 4150 |
+| 3350 |
+| 3000 |
+| 3000 |
+| 2975 |
+| 2850 |
+| 2575 |
+| 2450 |
+| 2000 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1600 |
+| 1500 |
+| 1350 |
+| 1300 |
+| 1250 |
+| 1250 |
+| 1250 |
+| 1100 |
+| 1000 |
+|  950 |
+|  800 |
++------+
+30 rows in set (0.00 sec)
+
+mysql> select  sal  from emp order by sal desc limit 2;
++------+
+| sal  |
++------+
+| 5000 |
+| 5000 |
++------+
+2 rows in set (0.00 sec)
+
+mysql> select  sal into @a  from emp order by sal desc limit 2;
+ERROR 1172 (42000): Result consisted of more than one row
+mysql>
+mysql>
+mysql> select  distinct sal into @a  from emp order by sal desc limit 2;
+ERROR 1172 (42000): Result consisted of more than one row
+mysql>
+mysql>
+mysql> select  distinct sal into @a  from emp order by sal desc limit 1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> select  sal  from emp order by sal desc limit 2;
++------+
+| sal  |
++------+
+| 5000 |
+| 5000 |
++------+
+2 rows in set (0.00 sec)
+
+mysql> select  sal  from emp order by sal desc;
++------+
+| sal  |
++------+
+| 5000 |
+| 5000 |
+| 4150 |
+| 3350 |
+| 3000 |
+| 3000 |
+| 2975 |
+| 2850 |
+| 2575 |
+| 2450 |
+| 2000 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+| 1600 |
+| 1500 |
+| 1350 |
+| 1300 |
+| 1250 |
+| 1250 |
+| 1250 |
+| 1100 |
+| 1000 |
+|  950 |
+|  800 |
++------+
+30 rows in set (0.00 sec)
+
+mysql> select  sal  from emp order by sal desc limit 2;
++------+
+| sal  |
++------+
+| 5000 |
+| 5000 |
++------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> select  distinct sal  from emp order by sal;
++------+
+| sal  |
++------+
+|  800 |
+|  950 |
+| 1000 |
+| 1100 |
+| 1250 |
+| 1300 |
+| 1350 |
+| 1500 |
+| 1600 |
+| 1750 |
+| 2000 |
+| 2450 |
+| 2575 |
+| 2850 |
+| 2975 |
+| 3000 |
+| 3350 |
+| 4150 |
+| 5000 |
++------+
+19 rows in set (0.00 sec)
+
+mysql> select  distinct sal  from emp order by sal asc;
++------+
+| sal  |
++------+
+|  800 |
+|  950 |
+| 1000 |
+| 1100 |
+| 1250 |
+| 1300 |
+| 1350 |
+| 1500 |
+| 1600 |
+| 1750 |
+| 2000 |
+| 2450 |
+| 2575 |
+| 2850 |
+| 2975 |
+| 3000 |
+| 3350 |
+| 4150 |
+| 5000 |
++------+
+19 rows in set (0.00 sec)
+
+mysql> select  distinct sal  from emp order by sal desc;
++------+
+| sal  |
++------+
+| 5000 |
+| 4150 |
+| 3350 |
+| 3000 |
+| 2975 |
+| 2850 |
+| 2575 |
+| 2450 |
+| 2000 |
+| 1750 |
+| 1600 |
+| 1500 |
+| 1350 |
+| 1300 |
+| 1250 |
+| 1100 |
+| 1000 |
+|  950 |
+|  800 |
++------+
+19 rows in set (0.00 sec)
+
+mysql> select  distinct sal  from emp order by sal desc limit 1;
++------+
+| sal  |
++------+
+| 5000 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select  distinct sal into @q  from emp order by sal desc limit 1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @q;
++------+
+| @q   |
++------+
+| 5000 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select enaem, job,sal from emp where sal = @q;
+ERROR 1054 (42S22): Unknown column 'enaem' in 'field list'
+mysql>
+mysql>
+mysql> select enam3, job,sal from emp where sal = @q;
+ERROR 1054 (42S22): Unknown column 'enam3' in 'field list'
+mysql>
+mysql>
+mysql>
+mysql> select enam, job,sal from emp where sal = @q;
+ERROR 1054 (42S22): Unknown column 'enam' in 'field list'
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select ename, job,sal from emp where sal = @q;
++-------+----------------+------+
+| ename | job            | sal  |
++-------+----------------+------+
+| KING  | PRESIDENT      | 5000 |
+| FRED  | vice PRESIDENT | 5000 |
++-------+----------------+------+
+2 rows in set (0.00 sec)
+
+mysql> select  distinct sal into @q  from emp order by sal desc limit 1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select  distinct sal, 1000 into @q  from emp order by sal desc limit 1;
+ERROR 1222 (21000): The used SELECT statements have a different number of columns
+mysql>
+mysql>
+mysql>
+mysql> select  distinct sal, 1000 into @a, @b  from emp order by sal desc limit 1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from dept into outfile "c:/a/xyz.txt";
+Query OK, 6 rows affected (0.01 sec)
+
+mysql>
+mysql> select * from emp into outfile "c:/a/xyz.txt";
+ERROR 1086 (HY000): File 'c:/a/xyz.txt' already exists
+mysql>
+mysql>
+mysql> select * from emp into outfile "c:/a/xyz.txt";
+Query OK, 30 rows affected (0.00 sec)
+
+mysql> select sal from emp;
++------+
+| sal  |
++------+
+| 1750 |
+| 1750 |
+| 1750 |
+| 1750 |
+|  800 |
+| 3350 |
+| 1750 |
+| 1600 |
+| 1250 |
+| 2975 |
+| 1250 |
+| 2850 |
+| 2450 |
+| 3000 |
+| 5000 |
+| 5000 |
+| 1500 |
+| 1100 |
+| 2000 |
+| 1000 |
+|  950 |
+| 3000 |
+| 4150 |
+| 2575 |
+| 1300 |
+| 1350 |
+| 1250 |
+| 1750 |
+| 1750 |
+| 1750 |
++------+
+30 rows in set (0.00 sec)
+
+mysql> select sum(sal) from emp;
++----------+
+| sum(sal) |
++----------+
+|    63700 |
++----------+
+1 row in set (0.01 sec)
+
+mysql>
+mysql>
+mysql> select sum(ename) from emp;
++------------+
+| sum(ename) |
++------------+
+|          0 |
++------------+
+1 row in set, 30 warnings (0.00 sec)
+
+mysql> select sum(sal), min(sal) from emp;
++----------+----------+
+| sum(sal) | min(sal) |
++----------+----------+
+|    63700 |      800 |
++----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(sal), min(sal), max(Sal) from emp;
++----------+----------+----------+
+| sum(sal) | min(sal) | max(Sal) |
++----------+----------+----------+
+|    63700 |      800 |     5000 |
++----------+----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(sal), min(sal), max(Sal), avg(SAl) from emp;
++----------+----------+----------+-----------+
+| sum(sal) | min(sal) | max(Sal) | avg(SAl)  |
++----------+----------+----------+-----------+
+|    63700 |      800 |     5000 | 2123.3333 |
++----------+----------+----------+-----------+
+1 row in set (0.01 sec)
+
+mysql> select sum(sal), min(sal), max(Sal), avg(SAl), count(*) from emp;
++----------+----------+----------+-----------+----------+
+| sum(sal) | min(sal) | max(Sal) | avg(SAl)  | count(*) |
++----------+----------+----------+-----------+----------+
+|    63700 |      800 |     5000 | 2123.3333 |       30 |
++----------+----------+----------+-----------+----------+
+1 row in set (0.01 sec)
+
+mysql> select sum(sal), min(sal), max(Sal), avg(SAl), count(*), count(ename), count(comm) from emp;
++----------+----------+----------+-----------+----------+--------------+-------------+
+| sum(sal) | min(sal) | max(Sal) | avg(SAl)  | count(*) | count(ename) | count(comm) |
++----------+----------+----------+-----------+----------+--------------+-------------+
+|    63700 |      800 |     5000 | 2123.3333 |       30 |           30 |           8 |
++----------+----------+----------+-----------+----------+--------------+-------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> select sum(sal), sum(distinctn  sal) from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sal) from emp' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select sum(sal), sum(distinct  sal) from emp;
++----------+--------------------+
+| sum(sal) | sum(distinct  sal) |
++----------+--------------------+
+|    63700 |              40950 |
++----------+--------------------+
+1 row in set (0.01 sec)
+
+mysql>
+mysql> select sum(sal) from emp;
++----------+
+| sum(sal) |
++----------+
+|    63700 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(sal) from emp grouo by job;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by job' at line 1
+mysql>
+mysql>
+mysql> select sum(sal) from emp group by job;
++----------+
+| sum(sal) |
++----------+
+|     5250 |
+|     3500 |
+|    11000 |
+|     9525 |
+|    13675 |
+|     7750 |
+|     5000 |
+|     6000 |
+|     2000 |
++----------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql> select job, sum(sal) from emp;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'db1.emp.JOB'; this is incompatible with sql_mode=only_full_group_by
+mysql> select job, sum(sal) from emp group by job;
++---------------------+----------+
+| job                 | sum(sal) |
++---------------------+----------+
+| Compliance officers |     5250 |
+| Public Relation     |     3500 |
+| CLERK               |    11000 |
+| SALESMAN            |     9525 |
+| MANAGER             |    13675 |
+| ANALYST             |     7750 |
+| PRESIDENT           |     5000 |
+| vice PRESIDENT      |     6000 |
+| Network             |     2000 |
++---------------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select job, sum(sal), count(*) from emp group by job;
++---------------------+----------+----------+
+| job                 | sum(sal) | count(*) |
++---------------------+----------+----------+
+| Compliance officers |     5250 |        3 |
+| Public Relation     |     3500 |        2 |
+| CLERK               |    11000 |        7 |
+| SALESMAN            |     9525 |        6 |
+| MANAGER             |    13675 |        5 |
+| ANALYST             |     7750 |        3 |
+| PRESIDENT           |     5000 |        1 |
+| vice PRESIDENT      |     6000 |        2 |
+| Network             |     2000 |        1 |
++---------------------+----------+----------+
+9 rows in set (0.00 sec)
+
+mysql> set @a := 112344
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @a;
++--------+
+| @a     |
++--------+
+| 112344 |
++--------+
+1 row in set (0.00 sec)
+
+mysql>  select @a;
++--------+
+| @a     |
++--------+
+| 112344 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select job, ename fromm emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'emp' at line 1
+mysql>
+mysql> select job, ename from emp;
++---------------------+----------+
+| job                 | ename    |
++---------------------+----------+
+| Compliance officers | GITA     |
+| Compliance officers | VRUSHALI |
+| Public Relation     | SHARMIN  |
+| Public Relation     | BANDISH  |
+| CLERK               | SMITH    |
+| CLERK               | AARAV    |
+| CLERK               | THOMAS   |
+| SALESMAN            | ALLEN    |
+| SALESMAN            | WARD     |
+| MANAGER             | JONES    |
+| SALESMAN            | MARTIN   |
+| MANAGER             | BLAKE    |
+| MANAGER             | CLARK    |
+| ANALYST             | SCOTT    |
+| PRESIDENT           | KING     |
+| vice PRESIDENT      | FRED     |
+| SALESMAN            | TURNER   |
+| CLERK               | ADAMS    |
+| Network             | Ruhan    |
+| vice PRESIDENT      | Neel     |
+| CLERK               | JAMES    |
+| ANALYST             | FORD     |
+| MANAGER             | HOFFMAN  |
+| SALESMAN            | GRASS    |
+| CLERK               | MILLER   |
+| SALESMAN            | AARUSH   |
+| MANAGER             | ALEX     |
+| CLERK               | NATASHA  |
+| Compliance officers | SANGITA  |
+| ANALYST             | SUPRIYA  |
++---------------------+----------+
+30 rows in set (0.00 sec)
+
+mysql> select job, ename from emp group by job, ename;
++---------------------+----------+
+| job                 | ename    |
++---------------------+----------+
+| Compliance officers | GITA     |
+| Compliance officers | VRUSHALI |
+| Public Relation     | SHARMIN  |
+| Public Relation     | BANDISH  |
+| CLERK               | SMITH    |
+| CLERK               | AARAV    |
+| CLERK               | THOMAS   |
+| SALESMAN            | ALLEN    |
+| SALESMAN            | WARD     |
+| MANAGER             | JONES    |
+| SALESMAN            | MARTIN   |
+| MANAGER             | BLAKE    |
+| MANAGER             | CLARK    |
+| ANALYST             | SCOTT    |
+| PRESIDENT           | KING     |
+| vice PRESIDENT      | FRED     |
+| SALESMAN            | TURNER   |
+| CLERK               | ADAMS    |
+| Network             | Ruhan    |
+| vice PRESIDENT      | Neel     |
+| CLERK               | JAMES    |
+| ANALYST             | FORD     |
+| MANAGER             | HOFFMAN  |
+| SALESMAN            | GRASS    |
+| CLERK               | MILLER   |
+| SALESMAN            | AARUSH   |
+| MANAGER             | ALEX     |
+| CLERK               | NATASHA  |
+| Compliance officers | SANGITA  |
+| ANALYST             | SUPRIYA  |
++---------------------+----------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql> select job, ename from emp group by job, ename;
++---------------------+----------+
+| job                 | ename    |
++---------------------+----------+
+| Compliance officers | GITA     |
+| Compliance officers | VRUSHALI |
+| Public Relation     | SHARMIN  |
+| Public Relation     | BANDISH  |
+| CLERK               | SMITH    |
+| CLERK               | AARAV    |
+| CLERK               | THOMAS   |
+| SALESMAN            | ALLEN    |
+| SALESMAN            | WARD     |
+| MANAGER             | JONES    |
+| SALESMAN            | MARTIN   |
+| MANAGER             | BLAKE    |
+| MANAGER             | CLARK    |
+| ANALYST             | SCOTT    |
+| PRESIDENT           | KING     |
+| vice PRESIDENT      | FRED     |
+| SALESMAN            | TURNER   |
+| CLERK               | ADAMS    |
+| Network             | Ruhan    |
+| vice PRESIDENT      | Neel     |
+| CLERK               | JAMES    |
+| ANALYST             | FORD     |
+| MANAGER             | HOFFMAN  |
+| SALESMAN            | GRASS    |
+| CLERK               | MILLER   |
+| SALESMAN            | AARUSH   |
+| MANAGER             | ALEX     |
+| CLERK               | NATASHA  |
+| Compliance officers | SANGITA  |
+| ANALYST             | SUPRIYA  |
++---------------------+----------+
+30 rows in set (0.00 sec)
+
+mysql> select job, ename, count(*) from emp group by job, ename;
++---------------------+----------+----------+
+| job                 | ename    | count(*) |
++---------------------+----------+----------+
+| Compliance officers | GITA     |        1 |
+| Compliance officers | VRUSHALI |        1 |
+| Public Relation     | SHARMIN  |        1 |
+| Public Relation     | BANDISH  |        1 |
+| CLERK               | SMITH    |        1 |
+| CLERK               | AARAV    |        1 |
+| CLERK               | THOMAS   |        1 |
+| SALESMAN            | ALLEN    |        1 |
+| SALESMAN            | WARD     |        1 |
+| MANAGER             | JONES    |        1 |
+| SALESMAN            | MARTIN   |        1 |
+| MANAGER             | BLAKE    |        1 |
+| MANAGER             | CLARK    |        1 |
+| ANALYST             | SCOTT    |        1 |
+| PRESIDENT           | KING     |        1 |
+| vice PRESIDENT      | FRED     |        1 |
+| SALESMAN            | TURNER   |        1 |
+| CLERK               | ADAMS    |        1 |
+| Network             | Ruhan    |        1 |
+| vice PRESIDENT      | Neel     |        1 |
+| CLERK               | JAMES    |        1 |
+| ANALYST             | FORD     |        1 |
+| MANAGER             | HOFFMAN  |        1 |
+| SALESMAN            | GRASS    |        1 |
+| CLERK               | MILLER   |        1 |
+| SALESMAN            | AARUSH   |        1 |
+| MANAGER             | ALEX     |        1 |
+| CLERK               | NATASHA  |        1 |
+| Compliance officers | SANGITA  |        1 |
+| ANALYST             | SUPRIYA  |        1 |
++---------------------+----------+----------+
+30 rows in set (0.00 sec)
+
+mysql> select job, ename, count(*) from emp group by job, ename order by job;
++---------------------+----------+----------+
+| job                 | ename    | count(*) |
++---------------------+----------+----------+
+| ANALYST             | FORD     |        1 |
+| ANALYST             | SCOTT    |        1 |
+| ANALYST             | SUPRIYA  |        1 |
+| CLERK               | AARAV    |        1 |
+| CLERK               | ADAMS    |        1 |
+| CLERK               | JAMES    |        1 |
+| CLERK               | MILLER   |        1 |
+| CLERK               | NATASHA  |        1 |
+| CLERK               | SMITH    |        1 |
+| CLERK               | THOMAS   |        1 |
+| Compliance officers | GITA     |        1 |
+| Compliance officers | SANGITA  |        1 |
+| Compliance officers | VRUSHALI |        1 |
+| MANAGER             | ALEX     |        1 |
+| MANAGER             | BLAKE    |        1 |
+| MANAGER             | CLARK    |        1 |
+| MANAGER             | HOFFMAN  |        1 |
+| MANAGER             | JONES    |        1 |
+| Network             | Ruhan    |        1 |
+| PRESIDENT           | KING     |        1 |
+| Public Relation     | BANDISH  |        1 |
+| Public Relation     | SHARMIN  |        1 |
+| SALESMAN            | AARUSH   |        1 |
+| SALESMAN            | ALLEN    |        1 |
+| SALESMAN            | GRASS    |        1 |
+| SALESMAN            | MARTIN   |        1 |
+| SALESMAN            | TURNER   |        1 |
+| SALESMAN            | WARD     |        1 |
+| vice PRESIDENT      | FRED     |        1 |
+| vice PRESIDENT      | Neel     |        1 |
++---------------------+----------+----------+
+30 rows in set (0.00 sec)
+
+mysql> select job, group_concat(ename) from emp group by job;
++---------------------+-----------------------------------------------+
+| job                 | group_concat(ename)                           |
++---------------------+-----------------------------------------------+
+| ANALYST             | SCOTT,FORD,SUPRIYA                            |
+| CLERK               | SMITH,AARAV,THOMAS,ADAMS,JAMES,MILLER,NATASHA |
+| Compliance officers | GITA,VRUSHALI,SANGITA                         |
+| MANAGER             | JONES,BLAKE,CLARK,HOFFMAN,ALEX                |
+| Network             | Ruhan                                         |
+| PRESIDENT           | KING                                          |
+| Public Relation     | SHARMIN,BANDISH                               |
+| SALESMAN            | ALLEN,WARD,MARTIN,TURNER,GRASS,AARUSH         |
+| vice PRESIDENT      | FRED,Neel                                     |
++---------------------+-----------------------------------------------+
+9 rows in set (0.01 sec)
+
+mysql> select job, group_concat(ename) from emp group by job;
++---------------------+-----------------------------------------------+
+| job                 | group_concat(ename)                           |
++---------------------+-----------------------------------------------+
+| ANALYST             | SCOTT,FORD,SUPRIYA                            |
+| CLERK               | SMITH,AARAV,THOMAS,ADAMS,JAMES,MILLER,NATASHA |
+| Compliance officers | GITA,VRUSHALI,SANGITA                         |
+| MANAGER             | JONES,BLAKE,CLARK,HOFFMAN,ALEX                |
+| Network             | Ruhan                                         |
+| PRESIDENT           | KING                                          |
+| Public Relation     | SHARMIN,BANDISH                               |
+| SALESMAN            | ALLEN,WARD,MARTIN,TURNER,GRASS,AARUSH         |
+| vice PRESIDENT      | FRED,Neel                                     |
++---------------------+-----------------------------------------------+
+9 rows in set (0.00 sec)
+
+mysql> select job, group_concat(ename) R1 from emp group by job;
++---------------------+-----------------------------------------------+
+| job                 | R1                                            |
++---------------------+-----------------------------------------------+
+| ANALYST             | SCOTT,FORD,SUPRIYA                            |
+| CLERK               | SMITH,AARAV,THOMAS,ADAMS,JAMES,MILLER,NATASHA |
+| Compliance officers | GITA,VRUSHALI,SANGITA                         |
+| MANAGER             | JONES,BLAKE,CLARK,HOFFMAN,ALEX                |
+| Network             | Ruhan                                         |
+| PRESIDENT           | KING                                          |
+| Public Relation     | SHARMIN,BANDISH                               |
+| SALESMAN            | ALLEN,WARD,MARTIN,TURNER,GRASS,AARUSH         |
+| vice PRESIDENT      | FRED,Neel                                     |
++---------------------+-----------------------------------------------+
+9 rows in set (0.00 sec)
+
+mysql> select ename from emp where sal = max(sal);
+ERROR 1111 (HY000): Invalid use of group function
+mysql>
+mysql>
+mysql> select job, count(*) from emp group by job;
++---------------------+----------+
+| job                 | count(*) |
++---------------------+----------+
+| Compliance officers |        3 |
+| Public Relation     |        2 |
+| CLERK               |        7 |
+| SALESMAN            |        6 |
+| MANAGER             |        5 |
+| ANALYST             |        3 |
+| PRESIDENT           |        1 |
+| vice PRESIDENT      |        2 |
+| Network             |        1 |
++---------------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select job, count(*) from emp group by job having count(*)> 3;
++----------+----------+
+| job      | count(*) |
++----------+----------+
+| CLERK    |        7 |
+| SALESMAN |        6 |
+| MANAGER  |        5 |
++----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select job, count(*) from emp group by job;
++---------------------+----------+
+| job                 | count(*) |
++---------------------+----------+
+| Compliance officers |        3 |
+| Public Relation     |        2 |
+| CLERK               |        7 |
+| SALESMAN            |        6 |
+| MANAGER             |        5 |
+| ANALYST             |        3 |
+| PRESIDENT           |        1 |
+| vice PRESIDENT      |        2 |
+| Network             |        1 |
++---------------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select min(count(*)) from emp group by job;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select job, count(*) from emp group by job;
++---------------------+----------+
+| job                 | count(*) |
++---------------------+----------+
+| Compliance officers |        3 |
+| Public Relation     |        2 |
+| CLERK               |        7 |
+| SALESMAN            |        6 |
+| MANAGER             |        5 |
+| ANALYST             |        3 |
+| PRESIDENT           |        1 |
+| vice PRESIDENT      |        2 |
+| Network             |        1 |
++---------------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select job from emp wjere count(*) = 1
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'count(*) = 1' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select job from emp where count(*) = 1;
+ERROR 1111 (HY000): Invalid use of group function
+mysql>
+mysql>
+mysql> select job from emp having count(*) = 1;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'db1.emp.JOB'; this is incompatible with sql_mode=only_full_group_by
+mysql>
+mysql> select job from emp group by job having count(*) = 1;
++-----------+
+| job       |
++-----------+
+| PRESIDENT |
+| Network   |
++-----------+
+2 rows in set (0.00 sec)
+
+mysql> select database();
++------------+
+| database() |
++------------+
+| db1        |
++------------+
+1 row in set (0.02 sec)
+
+mysql> use x
+Database changed
+mysql> show tables;
+Empty set (0.11 sec)
+
+mysql> select database();
++------------+
+| database() |
++------------+
+| x          |
++------------+
+1 row in set (0.00 sec)
+
+mysql> create table xyz as select * from dept;
+ERROR 1146 (42S02): Table 'x.dept' doesn't exist
+mysql>
+mysql>
+mysql> create table xyz as select * from db1.dept;
+Query OK, 6 rows affected (0.11 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++-------------+
+| Tables_in_x |
++-------------+
+| xyz         |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> table xyz;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from db1.dept;
++--------+------------+----------+------------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        | STARTEDON  |
++--------+------------+----------+------------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     | 24/03/1989 |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  | 12/04/1989 |
+|     30 | SALES      | CHICAGO  | sales@2017 | 13/04/1989 |
+|     40 | OPERATIONS | BOSTON   | opr@123    | 12/07/1989 |
+|     50 | HR         | PUNE     | PUN@8877   | 22/12/1989 |
+|     60 | IT         | BARODA   | BRD@1122   | 02/10/1989 |
++--------+------------+----------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from db1.dept where 0;
+Empty set (0.00 sec)
+
+mysql> create table xyz1 as select * from db1.dept where 0;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc xyz1;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| DEPTNO    | int         | NO   |     | NULL    |       |
+| DNAME     | varchar(12) | YES  |     | NULL    |       |
+| LOC       | varchar(10) | YES  |     | NULL    |       |
+| PWD       | varchar(20) | YES  |     | NULL    |       |
+| STARTEDON | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.05 sec)
+
+mysql> table xyz1;
+Empty set (0.00 sec)
+
+mysql> select 10000;
++-------+
+| 10000 |
++-------+
+| 10000 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select (select 10000);
++----------------+
+| (select 10000) |
++----------------+
+|          10000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select sal from emp where ename='jones';
+ERROR 1146 (42S02): Table 'x.emp' doesn't exist
+mysql> use db1
+Database changed
+mysql> select sal from emp where ename='jones';
++------+
+| sal  |
++------+
+| 2975 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select sal from emp where ename='smith';
++------+
+| sal  |
++------+
+|  800 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select 2975 -  800;;
++-------------+
+| 2975 -  800 |
++-------------+
+|        2175 |
++-------------+
+1 row in set (0.01 sec)
+
+ERROR:
+No query specified
+
+mysql> select 2975 -  800;
++-------------+
+| 2975 -  800 |
++-------------+
+|        2175 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select (select sal from emp where ename='jones') ,  (select sal from emp where ename='smith');
++-------------------------------------------+-------------------------------------------+
+| (select sal from emp where ename='jones') | (select sal from emp where ename='smith') |
++-------------------------------------------+-------------------------------------------+
+|                                      2975 |                                       800 |
++-------------------------------------------+-------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select (select sal from emp where ename='jones') R1 ,  (select sal from emp where ename='smith') R2;
++------+------+
+| R1   | R2   |
++------+------+
+| 2975 |  800 |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> select (select sal from emp where ename='jones') -  (select sal from emp where ename='smith') R2;
++------+
+| R2   |
++------+
+| 2175 |
++------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+

@@ -1,0 +1,1104 @@
+create table orders (
+	oID int,
+	orderDate date default (curdate()),
+	orderTime time default (curtime()),
+	primary key (oID)
+);
+
+create table orderDetails (
+    orderID int,
+	productName varchar(20),
+	qty int default 1,
+	rate int,
+	amount int generated always as (qty * rate),
+	foreign key(orderID) references orders(oID) on update cascade 
+);
+
+
+1. on delete cascade
+2. on delete set null
+3. on update cascade
+4. on update set null
+
+
+insert into orderDetails(orderID, productName, qty, rate) values (1, 't-shirt', 4, 1200), (1, 'jeans', 2, 2000);
+
+
+create table a (c1 int primary key, c2 int primary key ); //wrong \
+
+create table a (c1 int , c2 int, primary key (c1, c2) ); //right
+
+
+drop table if exists  b, a;
+
+1. create table a(c1 int primary key, c2 int);
+
+1:01 
+
+2. create table b(x1 int unique key, x2 int, foreign key(x1) refernces a(c1));
+
+
+
+
+drop table b, a;
+
+1. create table a(c1 int primary key, c2 int);
+
+1:1
+
+2. create table b(x1 int unique key  not null , x2 int, foreign key(x1) refernces a(c1));
+
+OR
+
+2. create table b(x1 int primary key , x2 int, foreign key(x1) references a(c1));
+
+
+-------------------------------------
+
+
+1. create table a(c1 int primary key, c2 int);
+
+1:1
+
+2. create table b(x1 int primary key , x2 int, foreign key(x1) references a(c1));
+
+
+
+-=----------------------
+
+create table a(x1 int unique key  not null , x2 int);
+
+
+create table a(x1 int primary key , x2 int unique key  not null);
+
+
+
+----------------------------------
+
+
+
+mysql> create table orderDetails (
+    ->     orderID int,
+    ->  productName varchar(20),
+    ->  qty int default 1,
+    ->  rate int,
+    ->  amount int generated always as (qty * rate),
+    ->  foreign key(orderID) references orders(oID)
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'orders'
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> create table orders (
+    ->  oID int,
+    ->  orderDate date default (curdate()),
+    ->  orderTime time default (curtime()),
+    ->  primary key (oID)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql>
+mysql> create table orderDetails (
+    ->     orderID int,
+    ->  productName varchar(20),
+    ->  qty int default 1,
+    ->  rate int,
+    ->  amount int generated always as (qty * rate),
+    ->  foreign key(orderID) references orders(oID)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc orders;
++-----------+------+------+-----+-----------+-------------------+
+| Field     | Type | Null | Key | Default   | Extra             |
++-----------+------+------+-----+-----------+-------------------+
+| oID       | int  | NO   | PRI | NULL      |                   |
+| orderDate | date | YES  |     | curdate() | DEFAULT_GENERATED |
+| orderTime | time | YES  |     | curtime() | DEFAULT_GENERATED |
++-----------+------+------+-----+-----------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> desc orderDetails;
++-------------+-------------+------+-----+---------+-------------------+
+| Field       | Type        | Null | Key | Default | Extra             |
++-------------+-------------+------+-----+---------+-------------------+
+| orderID     | int         | YES  | MUL | NULL    |                   |
+| productName | varchar(20) | YES  |     | NULL    |                   |
+| qty         | int         | YES  |     | 1       |                   |
+| rate        | int         | YES  |     | NULL    |                   |
+| amount      | int         | YES  |     | NULL    | VIRTUAL GENERATED |
++-------------+-------------+------+-----+---------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into orders values(1, default, default);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into orders(oID) values(2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table ordres;
+ERROR 1146 (42S02): Table 'x.ordres' doesn't exist
+mysql> table orders;
++-----+------------+-----------+
+| oID | orderDate  | orderTime |
++-----+------------+-----------+
+|   1 | 2026-10-26 | 10:02:41  |
+|   2 | 2026-10-26 | 10:03:11  |
++-----+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> insert into orderDetails values (1,'brerad', 2, 45, default);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> table orderdetails;
++---------+-------------+------+------+--------+
+| orderID | productName | qty  | rate | amount |
++---------+-------------+------+------+--------+
+|       1 | brerad      |    2 |   45 |     90 |
++---------+-------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> insert into orderDetails(orderID, productName, qty, rate) values (1, 'butter', 4, 125), (1, 'jam', 10, 75);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> table orderdetails;
++---------+-------------+------+------+--------+
+| orderID | productName | qty  | rate | amount |
++---------+-------------+------+------+--------+
+|       1 | brerad      |    2 |   45 |     90 |
+|       1 | butter      |    4 |  125 |    500 |
+|       1 | jam         |   10 |   75 |    750 |
++---------+-------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> table orderds;
+ERROR 1146 (42S02): Table 'x.orderds' doesn't exist
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> table orders;
++-----+------------+-----------+
+| oID | orderDate  | orderTime |
++-----+------------+-----------+
+|   1 | 2026-10-26 | 10:02:41  |
+|   2 | 2026-10-26 | 10:03:11  |
++-----+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> table orderdetails;
++---------+-------------+------+------+--------+
+| orderID | productName | qty  | rate | amount |
++---------+-------------+------+------+--------+
+|       1 | brerad      |    2 |   45 |     90 |
+|       1 | butter      |    4 |  125 |    500 |
+|       1 | jam         |   10 |   75 |    750 |
++---------+-------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into orderDetails values (11,'brerad', 2, 45, default);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`x`.`orderdetails`, CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `orders` (`oID`))
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> table orders;
++-----+------------+-----------+
+| oID | orderDate  | orderTime |
++-----+------------+-----------+
+|   1 | 2026-10-26 | 10:02:41  |
+|   2 | 2026-10-26 | 10:03:11  |
++-----+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> table orderdetails;
++---------+-------------+------+------+--------+
+| orderID | productName | qty  | rate | amount |
++---------+-------------+------+------+--------+
+|       1 | brerad      |    2 |   45 |     90 |
+|       1 | butter      |    4 |  125 |    500 |
+|       1 | jam         |   10 |   75 |    750 |
++---------+-------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from orders where oID = 1;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`x`.`orderdetails`, CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `orders` (`oID`))
+mysql>
+mysql>
+mysql> delete from orders where oID = 2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table orders;
++-----+------------+-----------+
+| oID | orderDate  | orderTime |
++-----+------------+-----------+
+|   1 | 2026-10-26 | 10:02:41  |
++-----+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> table orderdetails;
++---------+-------------+------+------+--------+
+| orderID | productName | qty  | rate | amount |
++---------+-------------+------+------+--------+
+|       1 | brerad      |    2 |   45 |     90 |
+|       1 | butter      |    4 |  125 |    500 |
+|       1 | jam         |   10 |   75 |    750 |
++---------+-------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from orderdetails where orderID = 1;
+Query OK, 3 rows affected (0.00 sec)
+
+mysql> table orders;
++-----+------------+-----------+
+| oID | orderDate  | orderTime |
++-----+------------+-----------+
+|   1 | 2026-10-26 | 10:02:41  |
++-----+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> table orderdetails;
+Empty set (0.00 sec)
+
+mysql> delete from orders where oID = 2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> drop table ordres;
+ERROR 1051 (42S02): Unknown table 'x.ordres'
+mysql> drop table orders;
+ERROR 3730 (HY000): Cannot drop table 'orders' referenced by a foreign key constraint 'orderdetails_ibfk_1' on table 'orderdetails'.
+mysql> drop table orderdetails;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> drop table orders;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table orders (
+    ->  oID int,
+    ->  orderDate date default (curdate()),
+    ->  orderTime time default (curtime()),
+    ->  primary key (oID)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> create table orderDetails (
+    ->     orderID int,
+    ->  productName varchar(20),
+    ->  qty int default 1,
+    ->  rate int,
+    ->  amount int generated always as (qty * rate),
+    ->  foreign key(orderID) references orders(oID) on delete cascade
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc orders;
++-----------+------+------+-----+-----------+-------------------+
+| Field     | Type | Null | Key | Default   | Extra             |
++-----------+------+------+-----+-----------+-------------------+
+| oID       | int  | NO   | PRI | NULL      |                   |
+| orderDate | date | YES  |     | curdate() | DEFAULT_GENERATED |
+| orderTime | time | YES  |     | curtime() | DEFAULT_GENERATED |
++-----------+------+------+-----+-----------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> desc orderdetails;
++-------------+-------------+------+-----+---------+-------------------+
+| Field       | Type        | Null | Key | Default | Extra             |
++-------------+-------------+------+-----+---------+-------------------+
+| orderID     | int         | YES  | MUL | NULL    |                   |
+| productName | varchar(20) | YES  |     | NULL    |                   |
+| qty         | int         | YES  |     | 1       |                   |
+| rate        | int         | YES  |     | NULL    |                   |
+| amount      | int         | YES  |     | NULL    | VIRTUAL GENERATED |
++-------------+-------------+------+-----+---------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into orders(oid) values(1), (2);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into orderDetails(orderID, productName, qty, rate) values (1, 't-shirt', 4, 1200), (1, 'jeans', 2, 2000);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> table orders;
++-----+------------+-----------+
+| oID | orderDate  | orderTime |
++-----+------------+-----------+
+|   1 | 2026-10-26 | 10:20:57  |
+|   2 | 2026-10-26 | 10:20:57  |
++-----+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> table orderdetails;
++---------+-------------+------+------+--------+
+| orderID | productName | qty  | rate | amount |
++---------+-------------+------+------+--------+
+|       1 | t-shirt     |    4 | 1200 |   4800 |
+|       1 | jeans       |    2 | 2000 |   4000 |
++---------+-------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> delete from orders where oid = 1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table orders;
++-----+------------+-----------+
+| oID | orderDate  | orderTime |
++-----+------------+-----------+
+|   2 | 2026-10-26 | 10:20:57  |
++-----+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> table orderdetails;
+Empty set (0.00 sec)
+
+mysql> create table a (c1 int primary key, c2 int primary key );
+ERROR 1068 (42000): Multiple primary key defined
+mysql>
+mysql>
+mysql> create table a (c1 int , c2 int, primary key (c1, c2) );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc a;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| c1    | int  | NO   | PRI | NULL    |       |
+| c2    | int  | NO   | PRI | NULL    |       |
++-------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> drop table if exists  b, a;
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> drop table   b, a;
+ERROR 1051 (42S02): Unknown table 'x.b,x.a'
+mysql> drop table if exists  b, a;
+Query OK, 0 rows affected, 2 warnings (0.01 sec)
+
+mysql> show warnings;
++-------+------+---------------------+
+| Level | Code | Message             |
++-------+------+---------------------+
+| Note  | 1051 | Unknown table 'x.b' |
+| Note  | 1051 | Unknown table 'x.a' |
++-------+------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> create table a(c1 int primary key, c2 int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table b(x1 int unique key, x2 int, foreign key(x1) references a(c1));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc a;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| c1    | int  | NO   | PRI | NULL    |       |
+| c2    | int  | YES  |     | NULL    |       |
++-------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc b;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| x1    | int  | YES  | UNI | NULL    |       |
+| x2    | int  | YES  |     | NULL    |       |
++-------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> drop table b, a;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table a(x1 int unique key  not null , x2 int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc a;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| x1    | int  | NO   | PRI | NULL    |       |
+| x2    | int  | YES  |     | NULL    |       |
++-------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> drop table a;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table a(x1 int primary key , x2 int unique key  not null);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> drop table a;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table a(x1 int primary key , x2 int unique key  not null);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc a;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| x1    | int  | NO   | PRI | NULL    |       |
+| x2    | int  | NO   | UNI | NULL    |       |
++-------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> drop table b, a;
+ERROR 1051 (42S02): Unknown table 'x.b'
+mysql> desc a;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| x1    | int  | NO   | PRI | NULL    |       |
+| x2    | int  | NO   | UNI | NULL    |       |
++-------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> drop table a;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table a(c1 int primary key, c2 int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table b(x1 int primary key , x2 int, foreign key(x1) refernces a(c1));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refernces a(c1))' at line 1
+mysql> create table b(x1 int primary key , x2 int, foreign key(x1) references a(c1));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+
+
+--------------------------------------
+
+case when <condi> then return true value else false value end 
+
+---------
+
+select ename, deptno,
+case 
+    when deptno  = 10 then 'A' 
+	when deptno  = 20 then 'B' 
+	when deptno  = 30 then 'C'  
+	else 
+		'N/A'
+end R1 from emp;
+
+
+
+SELECT  YEAR(now() + interval 2 year), case when (YEAR(now() + interval 2 year) % 4 = 0  AND YEAR(now() + interval 2 year) % 100 != 0) OR  YEAR(now() + interval 2 year) % 400 = 0 then 'Leay Year' else 'Not Leay Year' end ; 
+
+
+
+
+
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2026-10-26 12:02:48 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select now(), now() + interval 1 day;
++---------------------+------------------------+
+| now()               | now() + interval 1 day |
++---------------------+------------------------+
+| 2026-10-26 12:03:29 | 2026-10-27 12:03:29    |
++---------------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql> select now(), now() + interval 5 day;
++---------------------+------------------------+
+| now()               | now() + interval 5 day |
++---------------------+------------------------+
+| 2026-10-26 12:03:57 | 2026-10-31 12:03:57    |
++---------------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql> select now(), now() - interval 1 day;
++---------------------+------------------------+
+| now()               | now() - interval 1 day |
++---------------------+------------------------+
+| 2026-10-26 12:04:20 | 2026-10-25 12:04:20    |
++---------------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql> select now(), now() + interval 7 day;
++---------------------+------------------------+
+| now()               | now() + interval 7 day |
++---------------------+------------------------+
+| 2026-10-26 12:08:51 | 2026-11-02 12:08:51    |
++---------------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql> create table x(id int, d1 date, d2 date generated always as (d1 + interval 7 day));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc x;
++-------+------+------+-----+---------+-------------------+
+| Field | Type | Null | Key | Default | Extra             |
++-------+------+------+-----+---------+-------------------+
+| id    | int  | YES  |     | NULL    |                   |
+| d1    | date | YES  |     | NULL    |                   |
+| d2    | date | YES  |     | NULL    | VIRTUAL GENERATED |
++-------+------+------+-----+---------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into x(id, d1) values(1, '2026-01-01');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table x;
++------+------------+------------+
+| id   | d1         | d2         |
++------+------------+------------+
+|    1 | 2026-01-01 | 2026-01-08 |
++------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2026-10-26 12:28:13 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select now(), extract(dsy from  now());
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dsy from  now())' at line 1
+mysql>
+mysql>
+mysql> select now(), extract(day from  now());
++---------------------+--------------------------+
+| now()               | extract(day from  now()) |
++---------------------+--------------------------+
+| 2026-10-26 12:29:03 |                       26 |
++---------------------+--------------------------+
+1 row in set (0.01 sec)
+
+mysql> select * from x;
++------+------------+------------+
+| id   | d1         | d2         |
++------+------------+------------+
+|    1 | 2026-01-01 | 2026-01-08 |
++------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select d1, d2 from x;
++------------+------------+
+| d1         | d2         |
++------------+------------+
+| 2026-01-01 | 2026-01-08 |
++------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select d1, d2, extract(month from d2) from x;
++------------+------------+------------------------+
+| d1         | d2         | extract(month from d2) |
++------------+------------+------------------------+
+| 2026-01-01 | 2026-01-08 |                      1 |
++------------+------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql> select d1, d2, extract(day from d2) from x;
++------------+------------+----------------------+
+| d1         | d2         | extract(day from d2) |
++------------+------------+----------------------+
+| 2026-01-01 | 2026-01-08 |                    8 |
++------------+------------+----------------------+
+1 row in set (0.00 sec)
+
+mysql> select d1, d2, extract (day from d2) from x;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from d2) from x' at line 1
+mysql>
+mysql>
+mysql> select d1, d2, extract (day from d2) from x;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from d2) from x' at line 1
+mysql> select d1, d2, extract(day from d2) from x;
++------------+------------+----------------------+
+| d1         | d2         | extract(day from d2) |
++------------+------------+----------------------+
+| 2026-01-01 | 2026-01-08 |                    8 |
++------------+------------+----------------------+
+1 row in set (0.00 sec)
+
+mysql> select d1, d2, monthname(d2) from x;
++------------+------------+---------------+
+| d1         | d2         | monthname(d2) |
++------------+------------+---------------+
+| 2026-01-01 | 2026-01-08 | January       |
++------------+------------+---------------+
+1 row in set (0.01 sec)
+
+mysql> use db1
+Database changed
+mysql> desc emp;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int         | NO   | UNI | NULL    | auto_increment |
+| EMPNO     | int         | NO   | PRI | NULL    |                |
+| ENAME     | varchar(12) | YES  |     | NULL    |                |
+| GENDER    | char(1)     | YES  |     | NULL    |                |
+| JOB       | varchar(20) | YES  |     | NULL    |                |
+| MGR       | int         | YES  | MUL | NULL    |                |
+| HIREDATE  | date        | YES  |     | NULL    |                |
+| SAL       | int         | YES  |     | NULL    |                |
+| COMM      | int         | YES  |     | NULL    |                |
+| DEPTNO    | int         | NO   | MUL | NULL    |                |
+| BONUSID   | int         | YES  |     | NULL    |                |
+| USER NAME | varchar(20) | YES  |     | NULL    |                |
+| PWD       | varchar(20) | YES  |     | NULL    |                |
+| PHONE     | varchar(45) | YES  |     | NULL    |                |
+| isActive  | tinyint(1)  | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> select ename, hiredate from emp;
++----------+------------+
+| ename    | hiredate   |
++----------+------------+
+| GITA     | 1981-07-19 |
+| VRUSHALI | 1981-07-19 |
+| SHARMIN  | 1981-07-19 |
+| BANDISH  | 1981-07-19 |
+| SMITH    | 1980-12-17 |
+| AARAV    | 1981-12-31 |
+| THOMAS   | 1981-07-19 |
+| ALLEN    | 1981-02-20 |
+| WARD     | 1981-02-22 |
+| JONES    | 1981-04-02 |
+| MARTIN   | 1981-09-28 |
+| BLAKE    | 1981-05-01 |
+| CLARK    | 1981-06-09 |
+| SCOTT    | 1982-12-09 |
+| KING     | 1981-11-17 |
+| FRED     | 1983-08-09 |
+| TURNER   | 1981-09-08 |
+| ADAMS    | 1983-01-12 |
+| Ruhan    | 1983-08-09 |
+| Neel     | 1983-08-09 |
+| JAMES    | 1981-12-03 |
+| FORD     | 1981-12-03 |
+| HOFFMAN  | 1982-03-24 |
+| GRASS    | 1980-02-14 |
+| MILLER   | 1982-01-23 |
+| AARUSH   | 1980-02-14 |
+| ALEX     | 1982-01-24 |
+| NATASHA  | 1981-07-19 |
+| SANGITA  | 1981-07-19 |
+| SUPRIYA  | 1981-07-19 |
++----------+------------+
+30 rows in set (0.04 sec)
+
+mysql>
+mysql> select ename, hiredate, monthanme(hiredate) from emp;
+ERROR 1305 (42000): FUNCTION db1.monthanme does not exist
+mysql>
+mysql>
+mysql> select ename, hiredate, monthname(hiredate) from emp;
++----------+------------+---------------------+
+| ename    | hiredate   | monthname(hiredate) |
++----------+------------+---------------------+
+| GITA     | 1981-07-19 | July                |
+| VRUSHALI | 1981-07-19 | July                |
+| SHARMIN  | 1981-07-19 | July                |
+| BANDISH  | 1981-07-19 | July                |
+| SMITH    | 1980-12-17 | December            |
+| AARAV    | 1981-12-31 | December            |
+| THOMAS   | 1981-07-19 | July                |
+| ALLEN    | 1981-02-20 | February            |
+| WARD     | 1981-02-22 | February            |
+| JONES    | 1981-04-02 | April               |
+| MARTIN   | 1981-09-28 | September           |
+| BLAKE    | 1981-05-01 | May                 |
+| CLARK    | 1981-06-09 | June                |
+| SCOTT    | 1982-12-09 | December            |
+| KING     | 1981-11-17 | November            |
+| FRED     | 1983-08-09 | August              |
+| TURNER   | 1981-09-08 | September           |
+| ADAMS    | 1983-01-12 | January             |
+| Ruhan    | 1983-08-09 | August              |
+| Neel     | 1983-08-09 | August              |
+| JAMES    | 1981-12-03 | December            |
+| FORD     | 1981-12-03 | December            |
+| HOFFMAN  | 1982-03-24 | March               |
+| GRASS    | 1980-02-14 | February            |
+| MILLER   | 1982-01-23 | January             |
+| AARUSH   | 1980-02-14 | February            |
+| ALEX     | 1982-01-24 | January             |
+| NATASHA  | 1981-07-19 | July                |
+| SANGITA  | 1981-07-19 | July                |
+| SUPRIYA  | 1981-07-19 | July                |
++----------+------------+---------------------+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> select ename, hiredate, DAYOFYEAR(hiredate) from emp;
++----------+------------+---------------------+
+| ename    | hiredate   | DAYOFYEAR(hiredate) |
++----------+------------+---------------------+
+| GITA     | 1981-07-19 |                 200 |
+| VRUSHALI | 1981-07-19 |                 200 |
+| SHARMIN  | 1981-07-19 |                 200 |
+| BANDISH  | 1981-07-19 |                 200 |
+| SMITH    | 1980-12-17 |                 352 |
+| AARAV    | 1981-12-31 |                 365 |
+| THOMAS   | 1981-07-19 |                 200 |
+| ALLEN    | 1981-02-20 |                  51 |
+| WARD     | 1981-02-22 |                  53 |
+| JONES    | 1981-04-02 |                  92 |
+| MARTIN   | 1981-09-28 |                 271 |
+| BLAKE    | 1981-05-01 |                 121 |
+| CLARK    | 1981-06-09 |                 160 |
+| SCOTT    | 1982-12-09 |                 343 |
+| KING     | 1981-11-17 |                 321 |
+| FRED     | 1983-08-09 |                 221 |
+| TURNER   | 1981-09-08 |                 251 |
+| ADAMS    | 1983-01-12 |                  12 |
+| Ruhan    | 1983-08-09 |                 221 |
+| Neel     | 1983-08-09 |                 221 |
+| JAMES    | 1981-12-03 |                 337 |
+| FORD     | 1981-12-03 |                 337 |
+| HOFFMAN  | 1982-03-24 |                  83 |
+| GRASS    | 1980-02-14 |                  45 |
+| MILLER   | 1982-01-23 |                  23 |
+| AARUSH   | 1980-02-14 |                  45 |
+| ALEX     | 1982-01-24 |                  24 |
+| NATASHA  | 1981-07-19 |                 200 |
+| SANGITA  | 1981-07-19 |                 200 |
+| SUPRIYA  | 1981-07-19 |                 200 |
++----------+------------+---------------------+
+30 rows in set (0.01 sec)
+
+mysql> select now(), monthname(now());
++---------------------+------------------+
+| now()               | monthname(now()) |
++---------------------+------------------+
+| 2026-10-26 12:41:34 | October          |
++---------------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select now(), dayofyear\(now());
+ERROR:
+Unknown command '\('.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\(now())' at line 1
+mysql>
+mysql>
+mysql> select now(), dayofyear(now());
++---------------------+------------------+
+| now()               | dayofyear(now()) |
++---------------------+------------------+
+| 2026-10-26 12:41:49 |              299 |
++---------------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select now(), dayofweek(now());
++---------------------+------------------+
+| now()               | dayofweek(now()) |
++---------------------+------------------+
+| 2026-10-26 12:42:23 |                2 |
++---------------------+------------------+
+1 row in set (0.01 sec)
+
+mysql> select now(), last_day(now());
++---------------------+-----------------+
+| now()               | last_day(now()) |
++---------------------+-----------------+
+| 2026-10-26 12:42:51 | 2026-10-31      |
++---------------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT  YEAR(now()), ( YEAR(now()) % 4 = 0 AND YEAR(now()) % 100 != 0 ) OR  YEAR(now()) % 400 = 0;
++-------------+------------------------------------------------------------------------------+
+| YEAR(now()) | ( YEAR(now()) % 4 = 0 AND YEAR(now()) % 100 != 0 ) OR  YEAR(now()) % 400 = 0 |
++-------------+------------------------------------------------------------------------------+
+|        2026 |                                                                            0 |
++-------------+------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT  YEAR(now() + interval 2 year), ( YEAR(now() + interval 2 year ) % 4 = 0 AND YEAR(now() + interval 2 year) % 100 != 0 ) OR  YEAR(now()SELECT  YEAR(now() + interval 2 year), ( YEAR(now() + interval 2 year ) % 4 = 0 AND YEAR(now() + interval 2 year) % 100 != 0 ) OR  YEAR(now()) % 400 = 0;) % 400 = 0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT  YEAR(now() + interval 2 year), ( YEAR(now() + interval 2 year ) % 4 = 0 ' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') % 400 = 0' at line 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> SELECT  YEAR(now() + interval 2 year), ( YEAR(now() + interval 2 year) % 4 = 0 AND YEAR(now() + interval 2 year) % 100 != 0 ) OR  YEAR(now() + interval 2 year) % 400 = 0;
++-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+| YEAR(now() + interval 2 year) | ( YEAR(now() + interval 2 year) % 4 = 0 AND YEAR(now() + interval 2 year) % 100 != 0 ) OR  YEAR(now() + interval 2 year) % 400 = 0 |
++-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+|                          2028 |                                                                                                                                  1 |
++-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT  YEAR(now() + interval 2 year), ( YEAR(now() + interval 2 year) % 4 = 0 AND YEAR(now() + interval 2 year) % 100 != 0)  OR  YEAR(now() + interval 2 year) % 400 = 0 R1;
++-------------------------------+------+
+| YEAR(now() + interval 2 year) | R1   |
++-------------------------------+------+
+|                          2028 |    1 |
++-------------------------------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT  YEAR(now() + interval 2 year),  (YEAR(now() + interval 2 year) % 4 = 0 AND YEAR(now() + interval 2 year) % 100 != 0)  OR  YEAR(now() + interval 2 year) % 400 = 0 ;
++-------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| YEAR(now() + interval 2 year) | (YEAR(now() + interval 2 year) % 4 = 0 AND YEAR(now() + interval 2 year) % 100 != 0)  OR  YEAR(now() + interval 2 year) % 400 = 0 |
++-------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+|                          2028 |                                                                                                                                 1 |
++-------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT  YEAR(now() + interval 2 year), case when ((YEAR(now() + interval 2 year) % 4 = 0  AND YEAR(now() + interval 2 year) % 100 != 0)  OR  YEAR(now() + interval 2 year) % 400 = 0)) = 0 then 'Leap year' else 'Not Leap year' end  R1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') = 0 then 'Leap year' else 'Not Leap year' end  R1' at line 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> SELECT  YEAR(now() + interval 2 year), case when ((YEAR(now() + interval 2 year) % 4 = 0  AND YEAR(now() + interval 2 year) % 100 != 0)  OR  YEAR(now() + interval 2 year) % 400 = 0) = 0 then 'Leap year' else 'Not Leap year' end  R1;
++-------------------------------+---------------+
+| YEAR(now() + interval 2 year) | R1            |
++-------------------------------+---------------+
+|                          2028 | Not Leap year |
++-------------------------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT  YEAR(now() + interval 2 year), case when (YEAR(now() + interval 2 year) % 4 = 0  AND YEAR(now() + interval 2 year) % 100 != 0) OR  YEAR(now() + interval 2 year) % 400 = 0 then 'aa' else 'dd' end ;
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| YEAR(now() + interval 2 year) | case when (YEAR(now() + interval 2 year) % 4 = 0  AND YEAR(now() + interval 2 year) % 100 != 0) OR  YEAR(now() + interval 2 year) % 400 = 0 then 'aa' else 'dd' end |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                          2028 | aa                                                                                                                                                                  |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT  YEAR(now() + interval 4 year), case when (YEAR(now() + interval 4 year) % 4 = 0  AND YEAR(now() + interval 4 year) % 100 != 0) OR  YEAR(now() + interval 42 year) % 400 = 0 then 'aa' else 'dd' end ;
++-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| YEAR(now() + interval 4 year) | case when (YEAR(now() + interval 4 year) % 4 = 0  AND YEAR(now() + interval 4 year) % 100 != 0) OR  YEAR(now() + interval 42 year) % 400 = 0 then 'aa' else 'dd' end |
++-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                          2030 | dd                                                                                                                                                                   |
++-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT  YEAR(now() + interval 2 year), case when (YEAR(now() + interval 2 year) % 4 = 0  AND YEAR(now() + interval 2 year) % 100 != 0) OR  YEAR(now() + interval 2 year) % 400 = 0 then 'Leay Year' else 'Not Leay Year' end ;
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| YEAR(now() + interval 2 year) | case when (YEAR(now() + interval 2 year) % 4 = 0  AND YEAR(now() + interval 2 year) % 100 != 0) OR  YEAR(now() + interval 2 year) % 400 = 0 then 'Leay Year' else 'Not Leay Year' end |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                          2028 | Leay Year                                                                                                                                                                             |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT  YEAR(now() + interval 2 year), case when (YEAR(now() + interval 3 year) % 4 = 0  AND YEAR(now() + interval 3 year) % 100 != 0) OR  YEAR(now() + interval 3 year) % 400 = 0 then 'Leay Year' else 'Not Leay Year' end ;
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| YEAR(now() + interval 2 year) | case when (YEAR(now() + interval 3 year) % 4 = 0  AND YEAR(now() + interval 3 year) % 100 != 0) OR  YEAR(now() + interval 3 year) % 400 = 0 then 'Leay Year' else 'Not Leay Year' end |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                          2028 | Not Leay Year                                                                                                                                                                         |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> use db1
+Database changed
+mysql> select ename, deptno from emp;
++----------+--------+
+| ename    | deptno |
++----------+--------+
+| GITA     |     30 |
+| VRUSHALI |     50 |
+| SHARMIN  |     20 |
+| BANDISH  |     20 |
+| SMITH    |     20 |
+| AARAV    |     10 |
+| THOMAS   |     10 |
+| ALLEN    |     30 |
+| WARD     |     30 |
+| JONES    |     20 |
+| MARTIN   |     30 |
+| BLAKE    |     30 |
+| CLARK    |     10 |
+| SCOTT    |     20 |
+| KING     |     10 |
+| FRED     |     20 |
+| TURNER   |     30 |
+| ADAMS    |     20 |
+| Ruhan    |     60 |
+| Neel     |     60 |
+| JAMES    |     30 |
+| FORD     |     20 |
+| HOFFMAN  |     30 |
+| GRASS    |     30 |
+| MILLER   |     10 |
+| AARUSH   |     30 |
+| ALEX     |     30 |
+| NATASHA  |     30 |
+| SANGITA  |     50 |
+| SUPRIYA  |     50 |
++----------+--------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, deptno,
+    -> case
+    ->     when deptno  = 10 then 'A'
+    ->  when deptno  = 20 then 'B'
+    ->  when deptno  = 30 then 'C'
+    ->  else
+    ->          ''M/A'
+    '> end from emp;
+    '> ^C
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select ename, deptno,
+    -> case
+    ->     when deptno  = 10 then 'A'
+    ->  when deptno  = 20 then 'B'
+    ->  when deptno  = 30 then 'C'
+    ->  else
+    ->          'M/A'
+    -> end from emp;
++----------+--------+---------------------------------------------------------------------------------------------------------------------+
+| ename    | deptno | case
+    when deptno  = 10 then 'A'
+        when deptno  = 20 then 'B'
+        when deptno  = 30 then 'C'
+        else
+                'M/A'
+end |
++----------+--------+---------------------------------------------------------------------------------------------------------------------+
+| GITA     |     30 | C                                                                                                                   |
+| VRUSHALI |     50 | M/A                                                                                                                 |
+| SHARMIN  |     20 | B                                                                                                                   |
+| BANDISH  |     20 | B                                                                                                                   |
+| SMITH    |     20 | B                                                                                                                   |
+| AARAV    |     10 | A                                                                                                                   |
+| THOMAS   |     10 | A                                                                                                                   |
+| ALLEN    |     30 | C                                                                                                                   |
+| WARD     |     30 | C                                                                                                                   |
+| JONES    |     20 | B                                                                                                                   |
+| MARTIN   |     30 | C                                                                                                                   |
+| BLAKE    |     30 | C                                                                                                                   |
+| CLARK    |     10 | A                                                                                                                   |
+| SCOTT    |     20 | B                                                                                                                   |
+| KING     |     10 | A                                                                                                                   |
+| FRED     |     20 | B                                                                                                                   |
+| TURNER   |     30 | C                                                                                                                   |
+| ADAMS    |     20 | B                                                                                                                   |
+| Ruhan    |     60 | M/A                                                                                                                 |
+| Neel     |     60 | M/A                                                                                                                 |
+| JAMES    |     30 | C                                                                                                                   |
+| FORD     |     20 | B                                                                                                                   |
+| HOFFMAN  |     30 | C                                                                                                                   |
+| GRASS    |     30 | C                                                                                                                   |
+| MILLER   |     10 | A                                                                                                                   |
+| AARUSH   |     30 | C                                                                                                                   |
+| ALEX     |     30 | C                                                                                                                   |
+| NATASHA  |     30 | C                                                                                                                   |
+| SANGITA  |     50 | M/A                                                                                                                 |
+| SUPRIYA  |     50 | M/A                                                                                                                 |
++----------+--------+---------------------------------------------------------------------------------------------------------------------+
+30 rows in set (0.00 sec)
+
+mysql> select ename, deptno,
+    -> case
+    ->     when deptno  = 10 then 'A'
+    ->  when deptno  = 20 then 'B'
+    ->  when deptno  = 30 then 'C'
+    ->  else
+    ->          'N/A'
+    -> end R1 from emp;
++----------+--------+-----+
+| ename    | deptno | R1  |
++----------+--------+-----+
+| GITA     |     30 | C   |
+| VRUSHALI |     50 | N/A |
+| SHARMIN  |     20 | B   |
+| BANDISH  |     20 | B   |
+| SMITH    |     20 | B   |
+| AARAV    |     10 | A   |
+| THOMAS   |     10 | A   |
+| ALLEN    |     30 | C   |
+| WARD     |     30 | C   |
+| JONES    |     20 | B   |
+| MARTIN   |     30 | C   |
+| BLAKE    |     30 | C   |
+| CLARK    |     10 | A   |
+| SCOTT    |     20 | B   |
+| KING     |     10 | A   |
+| FRED     |     20 | B   |
+| TURNER   |     30 | C   |
+| ADAMS    |     20 | B   |
+| Ruhan    |     60 | N/A |
+| Neel     |     60 | N/A |
+| JAMES    |     30 | C   |
+| FORD     |     20 | B   |
+| HOFFMAN  |     30 | C   |
+| GRASS    |     30 | C   |
+| MILLER   |     10 | A   |
+| AARUSH   |     30 | C   |
+| ALEX     |     30 | C   |
+| NATASHA  |     30 | C   |
+| SANGITA  |     50 | N/A |
+| SUPRIYA  |     50 | N/A |
++----------+--------+-----+
+30 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
