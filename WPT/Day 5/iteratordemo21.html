@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let numbers = [10, 20, 30, 40, 50];
+        for (let n of numbers) {
+            console.log(n);
+        }
+//get the iterator object from the array
+let iterator = numbers[Symbol.iterator]();
+//get the values from the iterator object
+//next returns an object with two properties, value and done
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+while(iterator.next().done===false){
+    console.log(iterator.next().value);
+}
+    </script>
+</body>
+</html>

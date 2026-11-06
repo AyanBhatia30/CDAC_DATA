@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //pure function demo, every time we call the function with same arguments, it will return the same result
+        function add(a,b){
+            return a+b;
+        }
+        console.log(add(10,20));
+        console.log(add(10,20));
+        console.log(add(10,20));
+        console.log(add(10,20));
+        let total = 100;
+//impure function demo, every time we call the function with same arguments, it will return different result
+function addAmount(amount) {
+    total = total + amount;
+    return total;
+}
+
+console.log(addAmount(50));
+console.log(addAmount(50));
+let employee = {
+    id: 101,
+    name: "Rahul",
+    salary: 30000
+};
+
+// Create a new object
+let updatedEmployee = {
+    ...employee,
+    salary: 40000
+};
+
+console.log(employee);
+console.log(updatedEmployee);
+    </script>
+</body>
+</html>

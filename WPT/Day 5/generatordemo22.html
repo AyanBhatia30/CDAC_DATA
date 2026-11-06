@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function* generateNumbers() {
+            yield 10;
+            yield 20;
+            yield 30;
+        }
+
+let gen = generateNumbers(); //create a generator object
+//generator object has next() method to get the values one by one
+
+console.log(gen.next());
+console.log(gen.next());
+console.log(gen.next());
+console.log(gen.next());
+
+function* displayCourses() {
+    yield "Java";
+    yield "Python";
+    yield "JavaScript";
+    yield "Django";
+}
+
+for (let course of displayCourses()) {
+    console.log(course);
+}
+    </script>
+</body>
+</html>

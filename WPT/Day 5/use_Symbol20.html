@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>New Feature Demo</h1>
+    <script>
+        //for same label, we can create multiple symbols, 
+        // but they will be unique
+        let s1 = Symbol("id");
+        let s2 = Symbol("id");
+
+console.log(s1);
+console.log(s2);
+
+console.log(s1 === s2);  // false
+//symbol as object property
+let id = Symbol("empid");
+
+let employee = {
+    name: "Rahul",
+    age: 25,
+    [id]: 101
+};
+
+console.log(employee.name);
+console.log(employee[id]);
+
+console.log(Object.keys(employee));
+    </script>
+</body>
+</html>

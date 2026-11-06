@@ -1,0 +1,20 @@
+[
+    {
+        "sid": 101,
+        "sname": "Amit",
+        "course": "Java",
+        "fees": 15000
+    },
+    {
+        "sid": 102,
+        "sname": "Priya",
+        "course": "Python",
+        "fees": 12000
+    },
+    {
+        "sid": 103,
+        "sname": "Rahul",
+        "course": "JavaScript",
+        "fees": 10000
+    }
+]

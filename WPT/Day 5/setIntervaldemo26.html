@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function displayDateTime(){
+            var dt=new Date();
+            document.getElementById("mydiv").innerHTML=dt.toLocaleString();
+        }
+        var s;
+        function calldisplayDateTime(){
+            s=setInterval(displayDateTime,5000)
+        }
+        /*setTimeOut(()=>{
+            clearInterval(s)
+        },50000)*/
+        function stopdisplayDateTime(){
+            clearInterval(s)
+        }
+    </script>
+</head>
+<body onload="calldisplayDateTime()()">
+    <button type="button" name="btn" id="btn" value="btn" onclick="stopdisplayDateTime()">Stop</button>
+    <div id="mydiv">
+
+    </div>
+</body>
+</html>

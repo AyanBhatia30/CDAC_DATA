@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        
+        var arr=[{id:11,name:'Shahi',sal:30000},
+        {id:12,name:'Raju',sal:43000},
+        {id:13,name:'Seema',sal:34000}]
+        //check if local storage has data or not,if found then retrieve the data from local storage and store it into array
+        if(localStorage.empdata!==undefined){
+            arr=JSON.parse(localStorage.empdata)
+        }
+        //display array in table form
+        function displaydata(){
+            //store the array into local storage
+          localStorage.empdata=JSON.stringify(arr);
+           var str="<table border='2'><tr><th>Id</th><th>Name</th><th>Salary</th></tr>"
+            for(var ob of arr){
+                str+=`<tr><td>${ob.id}</td><td>${ob.name}</td><td>${ob.sal}</td></tr>`
+            }
+            str+="</table>";
+            document.getElementById("mydiv").innerHTML=str;
+        }
+        //clear form
+        function clearform(){
+            document.getElementById("eid").value="";
+            document.getElementById("name").value="";
+            document.getElementById("sal").value="";
+            document.getElementById("eid").focus(); //move the cursor into id textbox
+         }
+        //add a new employee at the end of array
+        function addemp(){
+            //retrieve values fromm textboxes
+           var id=parseInt(document.getElementById("eid").value)
+           var name=document.getElementById("name").value;
+           var sal=parseFloat(document.getElementById("sal").value)
+           //create an object with the above values
+           //var ob={id:id,name:name,sal:sal}
+           var ob={id,name,sal}
+           //add the object into the array
+           arr.push(ob)
+           //clear the form and display the data
+           clearform()
+           displaydata()
+        }
+        //delete employee by id
+        var deleteemp=()=>{
+            //retrieve id from the textbox id
+            var id=parseInt(document.getElementById("eid").value)
+            //find the position of the object with the given id
+            var pos=arr.findIndex(ob=>ob.id===id)
+            //if found delete the object from the array
+            if(pos!=-1){
+                //delete object from the position
+                arr.splice(pos,1);
+                clearform()
+                displaydata()
+                alert("Data deleted successfully")
+            }else{
+                alert("Data Not found")
+            }
+        }
+        //modify name and sal by id
+        function modifyemp(){
+            //retrieve values from textboxes
+           var id=parseInt(document.getElementById("eid").value)
+           var name=document.getElementById("name").value;
+           var sal=parseFloat(document.getElementById("sal").value)
+           //find the position of the object with the given id
+          var pos=arr.findIndex(ob=>ob.id===id)
+          //if found update the name and sal of the object
+          if(pos!=-1){
+            arr[pos].sal=sal;
+            arr[pos].name=name;
+            displaydata();
+            clearform()
+            alert("data updated successfully")
+          }else{
+            alert("data not found")
+          }
+
+        }
+        //view employee by id
+        function viewemp(){
+            //retrieve id from the textbox id
+            var id=parseInt(document.getElementById("eid").value)
+            //find the position of the object with the given id
+            var pos=arr.findIndex(ob=>ob.id===id)
+            //if found display the name and sal of the object in mydiv1
+            if(pos!=-1){
+                var str=`<h3>Employee Details</h3>
+                <p>Id : ${arr[pos].id}</p>
+                <p>Name : ${arr[pos].name}</p>
+                <p>Salary : ${arr[pos].sal}</p>`
+                document.getElementById("mydiv1").innerHTML=str;
+            }else{
+                alert("Data not found")
+            }
+        }
+    </script>
+</head>
+<body onload="displaydata()">
+    <form>
+        <label for="eid">Employee ID :</label>
+        <input type="text" id="eid" name="eid" required/><br/>
+         <label for="name">Employee Name:</label>
+        <input type="text" id="name" name="name" /><br/>
+         <label for="sal">Employee Salary :</label>
+        <input type="text" id="sal" name="sal" /><br/>
+        <button type="button" name="btn" id="add" value="add" onclick="addemp()">Add employee</button>
+        <button type="button" name="btn" id="delete" value="delete" onclick="deleteemp()">Delete employee</button>
+        <button type="button" name="btn" id="modify" value="modify" onclick="modifyemp()">Modify employee</button>
+        <button type="button" name="btn" id="View" value="View" onclick="viewemp()">View employee</button>
+    </form>
+    <div id="mydiv">
+       
+    </div>
+    <div id="mydiv1">
+       <!--view employee by id-->
+    </div>
+</body>
+</html>

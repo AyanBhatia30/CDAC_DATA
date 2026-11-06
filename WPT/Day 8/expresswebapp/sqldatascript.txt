@@ -1,0 +1,27 @@
+Create database expressed;
+Use expressed;
+
+Create table userlogin(
+Username varchar(20) primary key,
+Password varchar(20),
+Role varchar(20)
+);
+
+Insert into userlogin values("user1","pass1","user");
+Insert into userlogin values("user2","pass2","user");
+Insert into userlogin values("admin1","admin1","admin");
+
+Create table product(
+Pid int primary key,
+Pname varchar(20),
+Qty int,
+Price double,
+Mfgdate date,
+Cid int);
+
+Insert into product values(10,'chair',23,4000,'2025-03-03',1);
+Insert into product values(11,'shelf',20,6000,'2024-05-04',1);
+Insert into product values(12,'table',11,12000,'2025-02-03',1);
+
+
+
