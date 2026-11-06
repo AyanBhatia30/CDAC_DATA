@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var ob={id:12,name:"Rajan",
+        dept:{deptno:10,dname:"Gaming"},
+        hobbies:["reading","biking"],
+        experience:[{name:'TechM',years:5},{name:'oracle',years:7}],
+        married:false,
+        }
+        console.log(ob)
+        document.write(ob.name+","+ob.dept.dname+","+ob.experience[1].name+"<br/>");
+        document.write("Name: "+ob["name"])
+
+        //constructor function
+        const Employee=function(id,name,mob){
+            this.id=id
+            this.name=name
+            this.mob=mob
+            this.display=function(){
+                document.write(this.id+","+this.name+","+this.mob+"<br>")
+            }
+        }
+        var e1=new Employee(12,"Sangeeta",34567)
+        var e2=new Employee(13,"Deepa",4567898)
+        e1.email="sss@gmail.com"
+        e1.display()
+        e2.display()
+        //object loop
+        for(var p in ob){
+          document.write("type : "+typeof(ob[p]))
+          /*if(typeof(ob[p])=="object"){
+            for(p1 in ob[p]){
+
+            }
+          }*/
+          document.write(`${p}---->${ob[p]}<br/>`)
+
+        }
+
+        for(var p in 1){
+          if(typeof(e1[p])!="function")
+            document.write(`${p}---->${e1[p]}<br/>`)
+        }
+
+        var id=e1.id;
+        var name=e1.name;
+        var {id,name}=e1  //object expanssion
+        e3={...e1}   //object spread, create a copy of e1 and e3 will pint to that copy
+        e4={sal:123456,desg:'manager'}
+        //e1 is parent and e4 is child
+        e4.__proto__=e1
+        for(var p in e4){
+            if(e4.hasOwnProperty(p)){
+                document.write("Own property "+e4[p])
+            }else{
+                document.write("Parent property "+e4[p])
+            }
+        }
+    </script>
+</body>
+</html>

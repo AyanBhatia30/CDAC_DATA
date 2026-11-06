@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .errmsg{
+            color:red
+        }
+    </style>
+    <script>
+        function validateRadiobutton(nm,errnm){
+            var arr=document.getElementsByName(nm);
+            for(var ob of arr){
+                //check whether radio button is selected
+                 if(ob.checked){
+                    console.log(ob.value+" selected" );
+                    //clear error message
+                    document.getElementById(errnm).innerHTML=""
+                    //if found 
+                    return true
+                 }
+            }
+            //if not found
+            document.getElementById(errnm).innerHTML="select one option"
+            return false
+
+        }
+        function validateCheckbox(nm,errnm){
+            var arr=document.getElementsByName(nm)
+            var cnt=0;
+            for(var ob of arr){
+                if(ob.checked){
+                    cnt++;
+                    if(cnt>=2){
+                        document.getElementById(errnm).innerHTML=""
+                        return true;
+                    }
+                }
+            }
+            document.getElementById(errnm).innerHTML="pls select minimum 2 options"
+            return false;
+        }
+        function validateDropdownbox(id,errid){
+            var ct=document.getElementById(id).value
+            alert(document.getElementById(id).selectedIndex)
+            if(ct!=="test"){
+                document.getElementById(errid).innerHTML=""
+               return true;
+            }
+            document.getElementById(errid).innerHTML="Pls select city"
+            return false;
+
+        }
+        function validateform(){
+            flag=validateRadiobutton("gender","errgender")
+            flag1=validateRadiobutton("degree","errdegree")
+            flag2=validateCheckbox("hobbies","errhobbies")
+            flag3=validateDropdownbox("city","errcity")
+            //flag4=validateFileSelected("file","errfile")
+            //flag5=validateFileSize("file","errfile")
+            
+            return flag && flag1 && flag2 && flag3//&& flag4 &&flag 5;
+        }
+
+    </script>
+</head>
+
+<body>
+    <table>
+        <form onsubmit="return validateform()">
+            <tr>
+                <td><label for="nm">name:</label></td>
+                <td><input type="text" id="nm" name="name" placeholder="Enter your name" required minlength="3"
+                        maxlength="8" size="50" pattern="[A-Za-z0-9]+" /></td>
+            </tr>
+            <tr>
+                <td><label for="em">email Address:</label></td>
+                <td><input type="email" id="em" name="email" placeholder="Enter your email" required /></td>
+            </tr>
+            <tr>
+                <td><label for="age">Age:</label></td>
+                <td><input type="number" id="age" name="age" placeholder="Enter your age" required min="16" max="60" />
+                </td>
+            </tr>
+            <tr>
+                <td><label for="dt">Joining date:</label></td>
+                <td><input type="date" id="dt" name="jdate" min="2026-10-01" max="2026-11-30" /></td>
+            </tr>
+            <tr>
+                <td><label for="addr">Address:</label></td>
+                <td><textarea id="addr" name="addr" rows="4" cols="50" placeholder="Enter your address"
+                        required></textarea></td>
+            </tr>
+            <tr>
+                <td><label for="gender">Gender:</label></td>
+                <td><input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                </td>
+                <td id="errgender" class="errmsg"></td>
+            </tr>
+            <tr>
+                <td><label for="degree">Degree:</label></td>
+                <td><input type="radio" id="BE" name="degree" value="BE">
+                    <label for="BE">BE</label>
+                    <input type="radio" id="BTECH" name="degree" value="BTECH">
+                    <label for="BTECH">BTECH</label>
+                    <input type="radio" id="MTECH" name="degree" value="MTECH">
+                    <label for="MTECH">MTECH</label>
+                </td>
+                <td id="errdegree" class="errmsg"></td>
+            </tr>
+            <tr>
+                <td><label for="city">City:</label></td>
+                <td><select id="city" name="city">
+                        <option value="test">----Select city-----</option>
+                        <option value="pune">Pune</option>
+                        <option value="mumbai">Mumbai</option>
+                        <option value="banglore">Banglore</option>
+                        <option value="delhi" >Delhi</option>
+                    </select></td>
+                     <td id="errcity" class="errmsg"></td>
+            </tr>
+            <tr>
+                <td><label>Hobbies</label></td>
+                <td>
+                    <input type="checkbox" id="reading" name="hobbies" value="reading"/>
+                    <label for="reading">Reading</label>
+                    <input type="checkbox" id="biking" name="hobbies" value="biking"/>
+                    <label for="biking">biking</label>
+                    <input type="checkbox" id="Singing" name="hobbies" value="Singing"/>
+                    <label for="Singing">Singing</label><br/>
+                    <input type="checkbox" id="swimming" name="hobbies" value="swimming"/>
+                    <label for="swimming">swimming</label>
+                    <input type="checkbox" id="Dancing" name="hobbies" value="Dancing"/>
+                    <label for="Dancing">Dancing</label>
+                    <input type="checkbox" id="cycling" name="hobbies" value="cycling"/>
+                    <label for="cycling">cycling</label>
+                </td>
+                <td id="errhobbies" class="errmsg"></td>
+            </tr>
+            <tr>
+                <td><label for="file">Resume : </label></td>
+                <td><input type="file" name="file"</td>
+            </tr>
+            <tr>
+                <td>
+                    Hidden data: 
+                </td>
+                <td>
+                    <input type="hidden" id="mks" name="marks"  value="77">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit" id="submitbtn" name="submitbtn" value="submit">Submit</button></td>
+            </tr>
+
+
+        </form>
+    </table>
+</body>
+
+</html>

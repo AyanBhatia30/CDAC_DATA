@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="password">Password:</label>
+    <input type="password" id="password" aria-describedby="password-requirements">
+    <p id="password-requirements">Must be at least 8 characters long and include a number.</p>
+    <br/>
+    <form>
+	<label for="username">Username</label>
+	<input id="username" type="text" aria-describedby="length format" />
+	<p id="length">
+		Username must be 6 to 15 characters.
+	</p>
+	<p id="format">
+		Username may contain alphanumeric characters.
+	</p>
+</form>
+</body>
+</html>

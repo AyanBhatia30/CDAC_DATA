@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function getposition(){
+            if(navigator.geolocation!==undefined){
+                navigator.geolocation.getCurrentPosition(showposition,showerror);
+
+            }
+
+        }
+        function showposition(position){
+             document.getElementById("mydiv").innerHTML="lattitude: "+position.coords.latitude+" Logitude : "+position.coords.longitude
+ 
+        }
+        function showerror(err){
+            console.log(err);
+            document.getElementById("mydiv").innerHTML=" position not found"
+        }
+
+    </script>
+</head>
+<body>
+    <button type="button" name="btn" id="btn" onclick="getposition()">get position</button>
+    <div id="mydiv"></div>
+</body>
+</html>

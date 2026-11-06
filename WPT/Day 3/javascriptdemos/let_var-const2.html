@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var x=10
+        let y=23
+        console.log(x);
+        document.write("Value of x is "+x+"<br>");
+        var x="test"
+        //let y=100. //error: reclaration of let variable y is not allowed
+        document.write(`Value of x is ${x}<br>`); //template literal
+            for(let i=0;i<5;i++){
+                document.write(`Value of i is ${i}<br>`);
+            }
+         //console.log(i); //error: i is not defined
+         for(var j=0;j<5;j++){
+                document.write(`Value of j is ${j}<br>`);
+            }
+         console.log(j); 
+         function test(){
+            var a=100;
+            let b=200;
+             document.write(`Value of a is ${a}<br>`);
+             document.write(`Value of b is ${b}<br>`);
+             if(a>50){
+                var p=500;
+                let q=600;
+                document.write(`Value of p is ${p}<br>`);
+                document.write(`Value of q is ${q}<br>`);
+             }
+              document.write(`Value of p is ${p}<br>`);
+              //document.write(`Value of q is ${q}<br>`); //error: q is not defined
+           
+         }
+         test();
+         //  document.write(`Value of a is ${a}<br>`);//error: a is not defined
+          //document.write(`Value of b is ${b}<br>`);//error: b is not defined
+          document.write(`value of s ${s}`)
+        var s=23;
+        //document.write(`value of t ${t}`)
+        //let t=23;
+        const c=34;
+        
+    </script>
+</body>
+</html>

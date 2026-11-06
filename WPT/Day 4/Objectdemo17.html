@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let student = {
+            sid: 101,
+            sname: "Amit",
+            address: {
+                city: "Pune",
+                pincode: 411001
+            }
+        }
+        console.log(student.sid)
+        console.log(student.address.city)
+
+        let student1 = {
+            sid: 101,
+            sname: "Amit"
+        };
+         //adress is optional property, if undefined, then return udefined
+         // , do not show error
+        console.log(student1.address?.city);
+        let students = [
+    { sid: 1, sname: "Amit" },
+    { sid: 2, sname: "Priya" }
+];
+//? is called as optional chaining
+console.log(students[0]?.sname);
+console.log(students[5]?.sname);
+
+//Nullish Coalescing Operator (??)
+let username = null;
+
+let result = username ?? "Guest";
+
+console.log(result); //o/p will be "guest"
+username = "user1";
+ result = username ?? "Guest";
+
+console.log(result); //o/p will be "user1"
+
+let student2 = {
+    sname: "Amit",
+    age: 0,
+    city: null
+};
+
+let age = student2.age ?? 18;
+let city = student2.city ?? "Mumbai";
+
+console.log("Age:", age);  //0
+console.log("City:", city); //mumbai
+
+//logical assignment operator
+let username1 = "";
+
+username1 ||= "Guest";
+//username1=username1||"guest"
+
+console.log(username1);  //Guest
+
+let username2 = "Amit";
+
+username2 &&= "Welcome Amit";
+     
+
+console.log(username2); //welcome Amit
+
+let age1 = 0;
+
+age1 ??= 18;
+
+console.log(age1);
+age1||=18
+console.log(age1);
+    </script>
+</body>
+</html>

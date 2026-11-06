@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr=new Array(12,13,14);
+        document.write(arr);
+        var arr1=[12,13,14,1,23,6,"test"]
+        var arr2=[1,2,3,arr]    //4
+        document.write("length of arr2 "+arr2.length+"<br>")
+        var arr3=[1,2,3,...arr]   //length 6
+         document.write("length of arr3 "+arr3.length+"<br>")
+         console.log(arr2)
+         console.log(arr3)
+         var arr4=[10,20,30,1,2]
+         //add and delete at the end of the array
+          arr4.push(400);
+        console.log(arr4)
+        arr4.pop();
+        console.log(arr4)
+
+         //to add at the begining
+        arr4.unshift(400);
+        console.log(arr4)
+        arr4.shift();
+        console.log(arr4)
+
+        //delete from given position
+       // arr4.splice(2,2)
+       // console.log(arr4)
+        //add at the given position
+         arr4.splice(2,0,10,20,30)
+        console.log(arr4)
+        //replace  at the given position
+         arr4.splice(2,2,100,200,300,400,500,600)
+        console.log(arr4)
+        console.log("indexof: "+arr4.indexOf(500))
+        console.log("indexof: "+arr4.indexOf(444))
+    </script>
+</body>
+</html>

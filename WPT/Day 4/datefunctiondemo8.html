@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var dt=new Date()
+        document.write(dt+"<br/>")
+        document.write("Day :"+dt.getDate()+"<br/>")
+        document.write("Month :"+dt.getMonth()+"<br/>")
+        document.write("Year : "+dt.getFullYear()+"<br/>")
+        var dt1=new Date(2025,9,31)
+        document.write(dt1+"<br/>")
+        var t1=dt.getTime()
+        var t2=dt1.getTime()
+        var diff=t1-t2
+        var days=Math.round(diff/(1000*60*60*24))
+        document.write("Difference: "+days+"<br/>")
+    </script>
+</body>
+</html>

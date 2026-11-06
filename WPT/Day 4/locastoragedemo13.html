@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var ob={id:12,name:"Rajasi"}
+        function savedata(){
+          if(localStorage.count===undefined){
+            localStorage.count=1
+            localStorage.data=JSON.stringify(ob)
+            //localStorage.setItem("count",1)
+          }else{
+            localStorage.count=parseInt(localStorage.count)+1
+           
+            //localStorage.setItem("count",parseInt(localStorage.getItem(count))+1)
+          }
+          document.getElementById("myp").innerHTML="you clicked "+localStorage.count+" times";
+
+        }
+        function deletedata(){
+            if(localStorage.count!==undefined){
+                localStorage.removeItem("count")
+            }
+        }
+        function cleardata(){
+            //delete all properties
+            localStorage.clear();
+        }
+    </script>
+</head>
+<body>
+    <input type="text" name="name" id="name"><br/>
+    <input type="text" name="val" id="val">
+    <button type="button" name="btn" onclick="savedata()">Click me</button>
+    <button type="button" name="btn1" onclick="deletedata()">Delete</button>
+    <button type="button" name="btn2" onclick="cleardata()">Clear</button>
+    <p id="myp"></p>
+    
+</body>
+</html>

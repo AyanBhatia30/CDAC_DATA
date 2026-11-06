@@ -1,0 +1,69 @@
+<html>
+    <head></head>
+    <body>
+        <!-- The aria-live attribute's value (polite or assertive) determines how the announcement is handled:
+•	polite: The update is announced after the user has finished their current task. 
+•	assertive: The update is announced immediately, potentially interrupting the user's current activity. 
+ -->
+
+<!-- 
+
+ Step 1: Press Windows key + Ctrl + Enter (This shortcut is used to start/stop windows narrator)
+
+ OR
+
+ Press start -> type "narrator" -> Open the "Narrator" application
+
+ Step 2: Insert the relevant aria tags in the div
+
+ ---
+
+ WCAG Contrast Checker:
+ Link: https://webaim.org/resources/contrastchecker/
+
+ 1. Web Content Accessibility Guidelines (WCAG) Contrast Checker- https://webaim.org/resources/contrastchecker/
+
+ 2. A Contrast checker is used to check if text is readable or not.
+
+ 3. WCAG has three levels of conformance: A, AA, and AAA,
+    with AA being the most widely adopted and considered a good standard for accessibility.
+
+ 4. Contrast Ratio is a ratio of the brightest shade to the darkest shade. 
+    It depends on font size, font weight, background color and foreground color.
+
+ 4. Contrast Ratio ideally should be more than:
+    a) 4.5:1 for small-sized texts
+    b) 3:1 for large-sized texts
+
+  -->
+
+        <div aria-live="assertive" aria-relevant="additions removals">
+            <!--<div>-->
+        <ul id="user-list">
+            <li>User 1</li>
+            <li>User 2</li>
+        </ul>
+        </div>
+
+        <button onclick="addUser()">Add User</button>
+        <button onclick="removeUser()">Remove User</button>
+
+        <script>
+        let userCount = 2;
+        function addUser() {
+            userCount++;
+            const userList = document.getElementById('user-list');
+            const newUser = document.createElement('li');
+            newUser.textContent = `User ${userCount}`;
+            userList.appendChild(newUser);
+        }
+
+        function removeUser() {
+            const userList = document.getElementById('user-list');
+            if (userList.lastElementChild) {
+            userList.removeChild(userList.lastElementChild);
+            }
+        }
+        </script>
+            </body>
+        </html>

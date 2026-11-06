@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function showResult(){
+            var str=document.getElementById('str').value 
+            var op=document.getElementById('op').value 
+            var result=""
+            switch(op){
+                case "upper":
+                    result=str.toUpperCase();
+                    break
+                case "lower":
+                    result=str.toLowerCase();
+                    break
+                case "trim":
+                    result=str.trim();
+                    break;
+                case "concat":
+                    nstr=prompt("enter string to concat")
+                    result=str.concat(nstr);
+                    break;
+                case "length":
+                    result=str.length;
+                    break;
+                case "slice":
+                    var start=parseInt(prompt("enter start position"));
+                    var end=parseInt(prompt("enter end position"));
+                    result=str.slice(start,end);
+                    break;
+                case "split":
+                    var delimiter=":" //prompt("enter delimiter"));
+                    result=str.split(delimiter);
+                    console.log(result);
+                    break;
+                case "indexof":
+                    var str1="some" //prompt("enter substring to search"));
+                    var result=str.indexOf(str1);
+                    break;   
+                case "includes":
+                    var str1="some" //prompt("enter substring to search"));
+                    var result=str.includes(str1);
+                    break;
+                case "match":
+                    var pattern=/a.*?n/gi
+                    var result=str.match(pattern);
+                    break;
+                    break    
+                case "replace":
+                     var pattern=/a.*?n/;
+                    var str2="xxxxxxxx"
+                    var result=str.replace(pattern,str2);
+                    break
+                case "test":
+                    pattern=/s.*e/gi
+                    result=str.search(pattern)
+                    break
+                    break
+                case "search":
+                    pattern=/s.*e/gi
+                    //test is a function of regular expression
+                    result=pattern.test(str)
+                    break
+            }
+            document.getElementById("result").value=result;
+
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <lablel for="str">Input string</lablel>
+        <input type="text" name="str" id="str" size="70"><br>
+        <lablel for="rstr">Result</lablel>
+        <input type="text" name="result" id="result" size="70"><br>
+        <lablel for="fn">Operation</lablel>
+        <select name="op" id="op">
+             <option value="upper">uppercase</option>
+            <option value="lower">lowercase</option>
+            <option value="trim">trim</option>
+            <option value="concat">concat</option>
+            <option value="length">length</option>
+            <option value="slice">slice</option>
+            <option value="split">split</option>
+            <option value="indexof">indexof</option>
+            <option value="includes">includes</option>
+            <option value="match">match</option>
+            <option value="replace">replace</option>
+            <option value="test">test</option>
+            <option value="search">search</option>
+        </select>
+        <button type="button" name="btn" id="btn" onclick="showResult()">Show result</button>
+    </form>
+</body>
+</html>

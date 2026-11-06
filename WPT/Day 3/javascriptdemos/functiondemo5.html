@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        function combination(n,r){
+            //closure function
+            function factorial(n){
+                var f=1;
+                    for(var i=1;i<=n;i++){
+                        
+                        f=f*i;
+                    }
+                    return f;
+            }
+            //calculate n factorial
+            var ans=factorial(n);
+            var ans1=factorial(n-r) 
+    
+            return ans/ans1;
+        }
+    
+        //self calling function are called only once
+      (function(x,y){
+        console.log(`${x} , ${y}`)
+      })(11,122)
+
+
+    </script>
+</body>
+</html>

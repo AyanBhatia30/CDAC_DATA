@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr=[12,10,15,2,3,4,5,34,6,7]
+        var pos=arr.findIndex((val,index,arr)=>val%5==0)
+         var pos=arr.findIndex((val,index,arr)=>{
+            console.log(val+"--->"+index);
+            return val%5==0
+        })
+         console.log("val % 5 position : "+pos);
+        var data=arr.find((val,index,arr)=>val%5==0)
+        console.log("val % 5 data : "+data);
+        var arr1=arr.filter(val=>val%5==0)
+         console.log("val % 5 all : "+arr1);
+    </script>
+</body>
+</html>

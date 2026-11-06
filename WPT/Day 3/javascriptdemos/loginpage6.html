@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--external javascript -->
+    <script src="loginvalidation.js"></script>
+</head>
+<body>
+    <div style="border:2px solid red;border-radius: 20px;">
+        <h1>Login page</h1>
+        <form method="post" action="tabledemo2.html" onsubmit="return validateform()">
+            <label for="username">Username:</label>
+            <<input type="text" id="username" name="uname"><span id="unamespan" style="color:red">*</span><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="pass"><span id="passspan" style="color:red">*</span><br><br>
+            <!-- <input type="submit" value="Login"> -->
+            <button type="submit" id="loginBtn" name="loginBtn" value="Login">Login data</button> 
+            <button type="reset" id="resetbtn" name="resetbtn" value="cancel">Cancel</button>
+        </form>
+        <a href="#">Forgot password</a> / <a href="#">Register me</a>
+</div>
+
+</body>
+</html>
